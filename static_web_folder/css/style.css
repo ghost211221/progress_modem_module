@@ -1,0 +1,49 @@
+* {
+    margin: 0;
+    padding: 0;
+  }
+  html,
+  body,
+  .wrapper {
+    height: 100%;
+    background-color: #AAAAAA;
+  }
+
+  body{
+    padding:0px;
+    overflow-y: hidden;
+    overflow-x: hidden;
+}
+
+  .content {
+    box-sizing: border-box;
+    min-height: 80%;
+    background-color: #BBBBBB;
+    margin: 10px;
+    padding: 10px;
+  }
+  .header {
+    min-height: 15%;
+    padding: 10px;
+  }
+  .footer {
+    min-height: 5%;
+    padding: 10px;
+  }
+
+  .nav {
+    padding: 5px;
+    display: flex;
+    justify-content: space-between;
+  }
+
+  .icon {
+    width: 15px;
+    height: 15px;
+    margin-left: 5px;
+  }
+
+  .signal {
+    width: 30px;
+    height: 30px;
+  }

@@ -1,0 +1,168 @@
+<!doctype html>
+<html lang="ru">
+    <head>
+        <!-- Обязательные метатеги -->
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+
+        <script type="text/javascript" src="js/jquery-3.6.1.min.js"></script>
+        <script src="js/bootstrap.bundle.min.js"></script>
+
+        <!-- Bootstrap CSS -->
+        <link href="css/bootstrap.min.css" rel="stylesheet">
+        <link href="css/style.css" rel="stylesheet">
+
+        <title>М-Центр</title>
+    </head>
+    <body>
+        <script>
+            //window.onresize = function (){
+                //if (window.outerWidth < 1200 || window.outerHeight < 800){
+                    window.resizeTo(840, 1000);
+                //}
+            //}
+        </script>
+        <div class="wrapper">
+            <div class="header">
+                <nav class="navbar navbar-expand-lg navbar-light">
+                    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                      <ul class="navbar-nav mr-auto col-sm-3 col-md-10">
+                        <li class="nav-item active">
+                          <a class="nav-link" href="#"><img src="img/icons8-home.svg" alt="" class="icon network" data-toggle="popover"></a>
+                        </li>
+                        <li class="nav-item active">
+                          <a class="nav-link" href="#"><img src="img/cell-tower-svgrepo-com.svg" alt="" class="icon network" data-toggle="popover"></a>
+                        </li>
+                        <li class="nav-item active">
+                          <a class="nav-link" href="#"><img src="img/terminal-svgrepo-com.svg" alt="" class="icon terminal" data-toggle="popover"></a>
+                        </li>
+                        <li class="nav-item active">
+                          <a class="nav-link" href="#"><img src="img/phonebook-svgrepo-com.svg" alt="" class="icon network" data-toggle="popover"></a>
+                        </li>
+                        <li class="nav-item active">
+                          <a class="nav-link" href="#"><img src="img/letter-svgrepo-com.svg" alt="" class="icon network" data-toggle="popover"></a>
+                        </li>
+                        <li class="nav-item active">
+                          <a class="nav-link" href="#"><img src="img/radar-positioning-svgrepo-com.svg" alt="" class="icon network" data-toggle="popover"></a>
+                        </li>
+                        <li class="nav-item active">
+                          <a class="nav-link" href="#"><img src="img/download-from-the-cloud-svgrepo-com.svg" alt="" class="icon network" data-toggle="popover"></a>
+                        </li>
+                        <li class="nav-item active">
+                          <a class="nav-link" href="#"><img src="img/download-svgrepo-com.svg" alt="" class="icon network" data-toggle="popover"></a>
+                        </li>
+                      </ul>
+                      <span class="navbar-text">
+                        <span style="font-size: 20px;margin-right: 5px">Оператор</span>
+                        <img src="img/signals/no_signal.svg" alt="" class="icon signal">
+                      </span>
+                    </div>
+                </nav>
+                <h1>Соединение</h1>
+            </div>
+            <div class="content">
+                <!-- <div class="panel panel-default" id="home-panel">
+                    <div class="panel-heading"></div>
+                    <div class="panel-body">
+                            <h4>COM Порт</h4>
+                            <div class="row-sm">
+                                <div class="column-sm">Порт:</div>
+                                <div class="column-sm"></div>
+                            </div>
+                            <div class="row-sm">
+                                <div class="column-sm">Baud rate:</div>
+                                <div class="column-sm"></div>
+                            </div>
+                            <div class="row-sm">
+                                <div class="column-sm">Flow control:</div>
+                                <div class="column-sm"></div>
+                            </div>
+                            <div class="row-sm">
+                                <div class="column-sm">Биты данных:</div>
+                                <div class="column-sm"></div>
+                            </div>
+                            <div class="row-sm">
+                                <div class="column-sm">Стоп биты:</div>
+                                <div class="column-sm"></div>
+                            </div>
+                            <div class="row-sm">
+                                <div class="column-sm">Четность:</div>
+                                <div class="column-sm"></div>
+                            </div>
+                            <div class="row-sm">
+                                <div class="column-sm">Статус:</div>
+                                <div class="column-sm"></div>
+                            </div>
+                            <div class="row-sm">
+                                <div class="btn-group btn-group-sm" role="group" aria-label="Basic example">
+                                    <button class="btn btn-light">Установить порт</button>
+                                    <button class="btn btn-primary">Подключиться</button>
+                                </div>
+                            </div>
+                    </div>
+                </div> -->
+
+                <div class="panel panel-default" id="home-network">
+                    <div class="panel-heading"><h3>Сетевая информация</h3></div>
+                    <div class="panel-body">
+                        <div class="container">
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <div class="row-sm">
+                                        <div class="column-sm">
+                                            <button class="btn btn-light btn-sm">Обновить информацию</button>
+                                        </div>
+                                    </div>
+                                    <div class="row-sm">
+                                        <div class="column-sm">Оператор:</div>
+                                        <div class="column-sm">---</div>
+                                    </div>
+                                    <div class="row-sm">
+                                        <div class="column-sm">Статус регистрации:</div>
+                                        <div class="column-sm">---</div>
+                                    </div>
+                                    <div class="row-sm">
+                                        <div class="column-sm">Режим выбора оператора:</div>
+                                        <div class="column-sm">---</div>
+                                    </div>
+                                    <div class="row-sm">
+                                        <div class="column-sm">RSSI:</div>
+                                        <div class="column-sm">---</div>
+                                    </div>
+                                    <div class="row-sm">
+                                        <div class="column-sm">RAT:</div>
+                                        <div class="column-sm">---</div>
+                                    </div>
+                                    <div class="row-sm">
+                                        <div class="column-sm">LAC:</div>
+                                        <div class="column-sm">---</div>
+                                    </div>
+                                    <div class="row-sm">
+                                        <div class="column-sm">CI:</div>
+                                        <div class="column-sm">---</div>
+                                    </div>
+
+                                    <div class="row">
+                                        <div class="column-sm"><h3>Список операторов</h3></div>
+                                        <div class="column-sm">
+                                            <button class="btn btn-light btn-sm">Обновить список</button>
+                                        </div>
+                                    </div>
+
+                                </div>
+                                <div class="col-md-5">
+                                    2
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="footer">
+
+            </div>
+        </div>
+
+
+    </body>
+</html>
