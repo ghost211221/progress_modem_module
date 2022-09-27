@@ -16,11 +16,8 @@
     </head>
     <body>
         <script>
-            //window.onresize = function (){
-                //if (window.outerWidth < 1200 || window.outerHeight < 800){
-                    window.resizeTo(840, 1000);
-                //}
-            //}
+            // should resize by python
+            window.resizeTo(1040, 1000);
         </script>
         <div class="wrapper">
             <div class="header">
@@ -61,7 +58,7 @@
                 <h1>Соединение</h1>
             </div>
             <div class="content">
-                <!-- <div class="panel panel-default" id="home-panel">
+                <div class="panel panel-default" id="home-panel" style="display: none">
                     <div class="panel-heading"></div>
                     <div class="panel-body">
                             <h4>COM Порт</h4>
@@ -100,58 +97,158 @@
                                 </div>
                             </div>
                     </div>
-                </div> -->
+                </div>
+
+                <div class="panel panel-default" id="home-network" style="display: none">
+                    <div class="panel-heading">
+                        <h3>Сетевая информация</h3>
+                        <button class="btn btn-sm btn-light">Обновить информацию</button>
+                    </div>
+                    <div class="panel-body">
+                        <div class="container-xl">
+                            <div class="row row-cols-4">
+                                <div class="col col">Оператор:</div>
+                                <div class="col col">---</div>
+                                <div class="col col-8"> </div>
+                                <div class="col col-8"> </div>
+                            </div>
+                            <div class="row row-cols-4">
+                                <div class="col col-sm">Статус регистрации:</div>
+                                <div class="col col-sm">---</div>
+                                <div class="col col-lg"></div>
+                                <div class="col col-lg"></div>
+                            </div>
+                            <div class="row row-cols-4">
+                                <div class="col col-sm">Режим выбора оператора:</div>
+                                <div class="col col-sm">---</div>
+                                <div class="col col-lg"></div>
+                                <div class="col col-lg"></div>
+                            </div>
+                            <div class="row row-cols-4">
+                                <div class="col col-sm">RSSI:</div>
+                                <div class="col col-sm">---</div>
+                                <div class="col col-lg"></div>
+                                <div class="col col-lg"></div>
+                            </div>
+                            <div class="row row-cols-4">
+                                <div class="col col-sm">RAT:</div>
+                                <div class="col col-sm">---</div>
+                                <div class="col col-lg"></div>
+                                <div class="col col-lg"></div>
+                            </div>
+                            <div class="row row-cols-4">
+                                <div class="col col-sm">LAC:</div>
+                                <div class="col col-sm">---</div>
+                                <div class="col col-lg"></div>
+                                <div class="col col-lg"></div>
+                            </div>
+                            <div class="row row-cols-4">
+                                <div class="col col-sm">CI:</div>
+                                <div class="col col-sm">---</div>
+                                <div class="col col-lg"></div>
+                                <div class="col col-lg"></div>
+                            </div>
+                            <div class="row row-cols-2">
+                                <div class="col col-5">
+                                    <div class="row">
+                                        <div class="column">
+                                            <span style="margin-right: 34px"><b>Список сетевых операторов</b></span>
+                                            <button class="btn btn-sm btn-light">Получить список</button>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col col-7">
+                                    <div class="row">
+                                        <div class="column">
+                                            <span style="margin-right: 356px"><b>Профили PSD</b></span>
+                                            <button class="btn btn-sm btn-light">Обновить</button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row row-cols-2">
+                                <div class="col col-5">
+                                    <table class="table table-bordered">
+                                        <thead>
+                                          <tr>
+                                            <th scope="col">#</th>
+                                            <th scope="col">Название</th>
+                                            <th scope="col">ID</th>
+                                            <th scope="col">Статус</th>
+                                            <th scope="col">AcT</th>
+                                          </tr>
+                                        </thead>
+                                        <tbody style="display: block; height: 300px;">
+                                        </tbody>
+                                    </table>
+                                </div>
+                                <div class="col col-7">
+                                    <table class="table table-bordered">
+                                        <thead>
+                                          <tr>
+                                            <th scope="col">#</th>
+                                            <th scope="col">Тип</th>
+                                            <th scope="col">ID</th>
+                                            <th scope="col">APN</th>
+                                            <th scope="col">Имя пользователя</th>
+                                            <th scope="col">IP адрес</th>
+                                          </tr>
+                                        </thead>
+                                        <tbody style="display: block; height: 300px;">
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                            <div class="row row-cols-2">
+                                <div class="col col-5">
+                                    <div class="row">
+                                        <div class="column">
+                                            <button class="btn btn-sm btn-light">Выбор оператора</button>
+                                            <button class="btn btn-sm btn-light">Авто режим</button>
+                                            <button class="btn btn-sm btn-light">Отключение</button>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col col-7">
+                                    <div class="row">
+                                        <div class="column">
+                                            <button class="btn btn-sm btn-light">Редактировать</button>
+                                            <button class="btn btn-sm btn-light">Активация/Деактивация</button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
 
                 <div class="panel panel-default" id="home-network">
-                    <div class="panel-heading"><h3>Сетевая информация</h3></div>
+                    <div class="panel-heading">
+                        <h3>AT терминал</h3>
+                    </div>
                     <div class="panel-body">
-                        <div class="container">
-                            <div class="row">
-                                <div class="col-md-6">
-                                    <div class="row-sm">
-                                        <div class="column-sm">
-                                            <button class="btn btn-light btn-sm">Обновить информацию</button>
-                                        </div>
+                        <div class="container-xl">
+                            <div class="row row-cols-2">
+                                <div class="col col-10">
+                                    <div class="row row-cols-6">
+                                        <div class="col col-4"><input type="checkbox"><span>Логирование терминала</span></div>
+                                        <div class="col"><a href=""><img src="img/file-svgrepo-com.svg" alt="" class="icon"></a></div>
+                                        <div class="col"><a href=""><img src="img/save-svgrepo-com.svg" alt="" class="icon"></a></div>
+                                        <div class="col col-4"><input type="checkbox"><span>Отметка времени</span></div>
+                                        <div class="col col-3"><input type="checkbox"><span>Hex режим</span></div>
+                                        <div class="col col-4"><button class="btn btn-sm btn-light"><span>Очистить терминал</span></button></div>
                                     </div>
-                                    <div class="row-sm">
-                                        <div class="column-sm">Оператор:</div>
-                                        <div class="column-sm">---</div>
-                                    </div>
-                                    <div class="row-sm">
-                                        <div class="column-sm">Статус регистрации:</div>
-                                        <div class="column-sm">---</div>
-                                    </div>
-                                    <div class="row-sm">
-                                        <div class="column-sm">Режим выбора оператора:</div>
-                                        <div class="column-sm">---</div>
-                                    </div>
-                                    <div class="row-sm">
-                                        <div class="column-sm">RSSI:</div>
-                                        <div class="column-sm">---</div>
-                                    </div>
-                                    <div class="row-sm">
-                                        <div class="column-sm">RAT:</div>
-                                        <div class="column-sm">---</div>
-                                    </div>
-                                    <div class="row-sm">
-                                        <div class="column-sm">LAC:</div>
-                                        <div class="column-sm">---</div>
-                                    </div>
-                                    <div class="row-sm">
-                                        <div class="column-sm">CI:</div>
-                                        <div class="column-sm">---</div>
-                                    </div>
-
-                                    <div class="row">
-                                        <div class="column-sm"><h3>Список операторов</h3></div>
-                                        <div class="column-sm">
-                                            <button class="btn btn-light btn-sm">Обновить список</button>
-                                        </div>
-                                    </div>
-
                                 </div>
-                                <div class="col-md-5">
-                                    2
+                                <div class="col col-2">
+                                    <select name="cmd_type_select" id="cmd_type_select" class="form-select form-select-sm mb-2" aria-label="Default select example">
+                                        <option value="Generic" selected>Generic</option>
+                                        <option value="Network">Network</option>
+                                    </select>
+                                    <ul class="list-group">
+                                        <li class="list-group-item active">AT</li>
+                                        <li class="list-group-item">ATE0</li>
+                                        <li class="list-group-item">ATE1</li>
+                                    </ul>
                                 </div>
                             </div>
                         </div>
