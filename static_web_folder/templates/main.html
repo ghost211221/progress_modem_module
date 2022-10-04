@@ -1,0 +1,504 @@
+<!doctype html>
+<html lang="ru">
+    <head>
+        <!-- Обязательные метатеги -->
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+
+        <script type="text/javascript" src="../js/jquery-3.6.1.min.js"></script>
+        <script src="../js/bootstrap.bundle.min.js"></script>
+
+        <!-- Bootstrap CSS -->
+        <link href="../css/bootstrap.min.css" rel="stylesheet">
+        <link href="../css/style.css" rel="stylesheet">
+
+        <title>М-Центр</title>
+    </head>
+    <body>
+        <script>
+            // should resize by python
+            window.resizeTo(1160, 975);
+        </script>
+        <div class="wrapper">
+            <div class="header">
+                <nav class="navbar navbar-expand-lg navbar-light bg-light" style="height: 30px">
+                    <div class="container-fluid">
+                      <div class="collapse navbar-collapse" id="navbarNavDropdown">
+                        <ul class="navbar-nav">
+                          <li class="nav-item dropdown">
+                            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                              File
+                            </a>
+                            <ul class="dropdown-menu panel-menu" aria-labelledby="navbarDropdownMenuLink">
+                              <li><a class="dropdown-item" href="#">Action</a></li>
+                              <li><a class="dropdown-item" href="#">Another action</a></li>
+                              <li><a class="dropdown-item" href="#">Something else here</a></li>
+                            </ul>
+                          </li>
+                          <li class="nav-item dropdown">
+                            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                              View
+                            </a>
+                            <ul class="dropdown-menu panel-menu" aria-labelledby="navbarDropdownMenuLink">
+                              <li><a class="dropdown-item" href="#">Action</a></li>
+                              <li><a class="dropdown-item" href="#">Another action</a></li>
+                              <li><a class="dropdown-item" href="#">Something else here</a></li>
+                            </ul>
+                          </li>
+                          <li class="nav-item dropdown">
+                            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                              Navigation
+                            </a>
+                            <ul class="dropdown-menu panel-menu" aria-labelledby="navbarDropdownMenuLink">
+                              <li><a class="dropdown-item" href="#">Action</a></li>
+                              <li><a class="dropdown-item" href="#">Another action</a></li>
+                              <li><a class="dropdown-item" href="#">Something else here</a></li>
+                            </ul>
+                          </li>
+                          <li class="nav-item dropdown">
+                            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                              Settings
+                            </a>
+                            <ul class="dropdown-menu panel-menu" aria-labelledby="navbarDropdownMenuLink">
+                              <li><a class="dropdown-item" href="#">Action</a></li>
+                              <li><a class="dropdown-item" href="#">Another action</a></li>
+                              <li><a class="dropdown-item" href="#">Something else here</a></li>
+                            </ul>
+                          </li>
+                          <li class="nav-item dropdown">
+                            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                              Help
+                            </a>
+                            <ul class="dropdown-menu panel-menu" aria-labelledby="navbarDropdownMenuLink">
+                              <li><a class="dropdown-item" href="#">Action</a></li>
+                              <li><a class="dropdown-item" href="#">Another action</a></li>
+                              <li><a class="dropdown-item" href="#">Something else here</a></li>
+                            </ul>
+                          </li>
+                        </ul>
+                      </div>
+                    </div>
+                  </nav>
+                <nav class="navbar navbar-expand-lg navbar-light" style="height: 40px">
+                    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                      <ul class="navbar-nav mr-auto col-sm-3 col-md-10">
+                        <li class="nav-item active">
+                          <a class="nav-link" href="#"><img src="../img/icons8-home.svg" alt="" class="icon network" data-toggle="popover"></a>
+                        </li>
+                        <li class="nav-item active">
+                          <a class="nav-link" href="#"><img src="../img/cell-tower-svgrepo-com.svg" alt="" class="icon network" data-toggle="popover"></a>
+                        </li>
+                        <li class="nav-item active">
+                          <a class="nav-link" href="#"><img src="../img/terminal-svgrepo-com.svg" alt="" class="icon terminal" data-toggle="popover"></a>
+                        </li>
+                        <li class="nav-item active">
+                          <a class="nav-link" href="#"><img src="../img/phonebook-svgrepo-com.svg" alt="" class="icon network" data-toggle="popover"></a>
+                        </li>
+                        <li class="nav-item active">
+                          <a class="nav-link" href="#"><img src="../img/letter-svgrepo-com.svg" alt="" class="icon network" data-toggle="popover"></a>
+                        </li>
+                        <li class="nav-item active">
+                          <a class="nav-link" href="#"><img src="../img/radar-positioning-svgrepo-com.svg" alt="" class="icon network" data-toggle="popover"></a>
+                        </li>
+                        <li class="nav-item active">
+                          <a class="nav-link" href="#"><img src="../img/download-from-the-cloud-svgrepo-com.svg" alt="" class="icon network" data-toggle="popover"></a>
+                        </li>
+                        <li class="nav-item active">
+                          <a class="nav-link" href="#"><img src="../img/download-svgrepo-com.svg" alt="" class="icon network" data-toggle="popover"></a>
+                        </li>
+                      </ul>
+                      <span class="navbar-text">
+                        <span style="font-size: 20px;margin-right: 5px">Оператор</span>
+                        <img src="../img/signals/no_signal.svg" alt="" class="icon signal">
+                      </span>
+                    </div>
+                </nav>
+                <h1 style="padding-left: 10px">Соединение</h1>
+            </div>
+            <div class="content">
+                <div class="panel panel-default" id="panel-home-panel">
+                    <div class="panel-heading"></div>
+                    <div class="panel-body">
+                            <h4>COM Порт</h4>
+                            <div class="row-sm">
+                                <div class="column-sm">Порт:</div>
+                                <div class="column-sm"></div>
+                            </div>
+                            <div class="row-sm">
+                                <div class="column-sm">Baud rate:</div>
+                                <div class="column-sm"></div>
+                            </div>
+                            <div class="row-sm">
+                                <div class="column-sm">Flow control:</div>
+                                <div class="column-sm"></div>
+                            </div>
+                            <div class="row-sm">
+                                <div class="column-sm">Биты данных:</div>
+                                <div class="column-sm"></div>
+                            </div>
+                            <div class="row-sm">
+                                <div class="column-sm">Стоп биты:</div>
+                                <div class="column-sm"></div>
+                            </div>
+                            <div class="row-sm">
+                                <div class="column-sm">Четность:</div>
+                                <div class="column-sm"></div>
+                            </div>
+                            <div class="row-sm">
+                                <div class="column-sm">Статус:</div>
+                                <div class="column-sm"></div>
+                            </div>
+                            <div class="row-sm">
+                                <div class="btn-group btn-group-sm" role="group" aria-label="Basic example">
+                                    <button class="btn btn-light" data-bs-toggle="modal" data-bs-target="#com_config_modal">Установить порт</button>
+                                    <button class="btn btn-primary">Подключиться</button>
+                                </div>
+                            </div>
+                    </div>
+                </div>
+
+                <div class="panel panel-default" id="panel-home-network" style="display: none">
+                    <div class="panel-heading">
+                        <h3>Сетевая информация</h3>
+                        <button class="btn btn-sm btn-light">Обновить информацию</button>
+                    </div>
+                    <div class="panel-body">
+                        <div class="container-xl">
+                            <div class="row row-cols-4">
+                                <div class="col col">Оператор:</div>
+                                <div class="col col">---</div>
+                                <div class="col col-8"> </div>
+                                <div class="col col-8"> </div>
+                            </div>
+                            <div class="row row-cols-4">
+                                <div class="col col-sm">Статус регистрации:</div>
+                                <div class="col col-sm">---</div>
+                                <div class="col col-lg"></div>
+                                <div class="col col-lg"></div>
+                            </div>
+                            <div class="row row-cols-4">
+                                <div class="col col-sm">Режим выбора оператора:</div>
+                                <div class="col col-sm">---</div>
+                                <div class="col col-lg"></div>
+                                <div class="col col-lg"></div>
+                            </div>
+                            <div class="row row-cols-4">
+                                <div class="col col-sm">RSSI:</div>
+                                <div class="col col-sm">---</div>
+                                <div class="col col-lg"></div>
+                                <div class="col col-lg"></div>
+                            </div>
+                            <div class="row row-cols-4">
+                                <div class="col col-sm">RAT:</div>
+                                <div class="col col-sm">---</div>
+                                <div class="col col-lg"></div>
+                                <div class="col col-lg"></div>
+                            </div>
+                            <div class="row row-cols-4">
+                                <div class="col col-sm">LAC:</div>
+                                <div class="col col-sm">---</div>
+                                <div class="col col-lg"></div>
+                                <div class="col col-lg"></div>
+                            </div>
+                            <div class="row row-cols-4">
+                                <div class="col col-sm">CI:</div>
+                                <div class="col col-sm">---</div>
+                                <div class="col col-lg"></div>
+                                <div class="col col-lg"></div>
+                            </div>
+                            <div class="row row-cols-2">
+                                <div class="col col-5">
+                                    <div class="row">
+                                        <div class="column">
+                                            <span style="margin-right: 34px"><b>Список сетевых операторов</b></span>
+                                            <button class="btn btn-sm btn-light">Получить список</button>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col col-7">
+                                    <div class="row">
+                                        <div class="column">
+                                            <span style="margin-right: 356px"><b>Профили PSD</b></span>
+                                            <button class="btn btn-sm btn-light">Обновить</button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row row-cols-2">
+                                <div class="col col-5">
+                                    <table class="table table-bordered">
+                                        <thead>
+                                          <tr>
+                                            <th scope="col">#</th>
+                                            <th scope="col">Название</th>
+                                            <th scope="col">ID</th>
+                                            <th scope="col">Статус</th>
+                                            <th scope="col">AcT</th>
+                                          </tr>
+                                        </thead>
+                                        <tbody style="display: block; height: 300px;">
+                                        </tbody>
+                                    </table>
+                                </div>
+                                <div class="col col-7">
+                                    <table class="table table-bordered">
+                                        <thead>
+                                          <tr>
+                                            <th scope="col">#</th>
+                                            <th scope="col">Тип</th>
+                                            <th scope="col">ID</th>
+                                            <th scope="col">APN</th>
+                                            <th scope="col">Имя пользователя</th>
+                                            <th scope="col">IP адрес</th>
+                                          </tr>
+                                        </thead>
+                                        <tbody style="display: block; height: 300px;">
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                            <div class="row row-cols-2">
+                                <div class="col col-5">
+                                    <div class="row">
+                                        <div class="column">
+                                            <button class="btn btn-sm btn-light">Выбор оператора</button>
+                                            <button class="btn btn-sm btn-light">Авто режим</button>
+                                            <button class="btn btn-sm btn-light">Отключение</button>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col col-7">
+                                    <div class="row">
+                                        <div class="column">
+                                            <button class="btn btn-sm btn-light">Редактировать</button>
+                                            <button class="btn btn-sm btn-light">Активация/Деактивация</button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="panel panel-default" id="panel-at-terminal" style="display: none">
+                    <div class="panel-heading">
+                        <h3>AT терминал</h3>
+                    </div>
+                    <div class="panel-body">
+                        <div class="container-xl">
+                            <div class="row row-cols-2">
+                                <div class="col col-8">
+                                    <div class="row row-cols-6">
+                                        <div class="col col-4" style="width: 220px; padding: 0px;"><input type="checkbox"><span>Логирование терминала</span></div>
+                                        <div class="col" style="width: 25px; padding: 0px;"><a href=""><img src="../img/file-svgrepo-com.svg" alt="" class="icon"></a></div>
+                                        <div class="col" style="width: 25px; padding: 0px;"><a href=""><img src="../img/save-svgrepo-com.svg" alt="" class="icon"></a></div>
+                                        <div class="col col-4" style="width: 170px; padding: 0px;"><input type="checkbox"><span>Отметка времени</span></div>
+                                        <div class="col col-3" style="width: 120px; padding: 0px;"><input type="checkbox"><span>Hex режим</span></div>
+                                        <div class="col col-sm p-0 d-md-flex justify-content-md-end"><button class="btn btn-sm btn-light"><span>Очистить терминал</span></button></div>
+                                    </div>
+                                    <div class="row">
+                                        <textarea name="at_log" id="" cols="30" rows="20"></textarea>
+                                    </div>
+
+                                    <div class="row row-cols-2">
+                                        <div class="ps-0 col col-lg-9">
+                                            <div class="input-group mb-4">
+                                                <input type="text"  list="input_cmd" class="form-control">
+                                                <!-- <button class="btn btn-outline-secondary dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false"></button> -->
+                                                <datalist id="input_cmd">
+                                                    <option value="AT">AT</option>
+                                                </datalist>
+                                            </div>
+                                        </div>
+                                        <div class="col col-md d-grid gap-2 p-0">
+                                            <button class="btn btn-sm btn-light">Отправить</button>
+                                            <button class="btn btn-sm btn-light">Отправить hex</button>
+                                            <button class="btn btn-sm btn-light">Отправить + Ctrl</button>
+                                        </div>
+                                    </div>
+
+
+                                </div>
+                                <div class="col col-md-4">
+                                    <select name="cmd_type_select" id="cmd_type_select" class="form-select form-select-sm mb-2" aria-label="Default select example">
+                                        <option value="Generic" selected>Generic</option>
+                                        <option value="Network">Network</option>
+                                    </select>
+                                    <ul class="list-group list-group-flush" id="at_cmd_list">
+                                        <li class="at-cmd list-group-item p-1 active">AT</li>
+                                        <li class="at-cmd list-group-item p-1">ATE0</li>
+                                        <li class="at-cmd list-group-item p-1">ATE1</li>
+                                    </ul>
+                                    <div class="row row-cols-2">
+                                        <div class="col d-grid gap-2 d-md-sm pe-0">
+                                            <button class="btn btn-sm btn-light">Редактировать команду</button>
+                                            <button class="btn btn-sm btn-light">Добавить команду</button>
+                                            <button class="btn btn-sm btn-light">Сохранить команду</button>
+                                        </div>
+                                        <div class="col d-grid gap-2 d-md-sm pe-0">
+                                            <button class="btn btn-sm btn-light">Редактировать группы</button>
+                                            <button class="btn btn-sm btn-light">Импорт команд</button>
+                                            <button class="btn btn-sm btn-light">Загрузить команды</button>
+                                        </div>
+                                    </div>
+                                </div>
+
+                            </div>
+                            <div class="row">
+                                <div class="panel panel-default">
+                                    <div class="panel-heading">AT скрипты</div>
+                                    <div class="panel-body">
+                                        <div class="row row-cols-8">
+                                            <div class="col col-lg p-0 m-0">
+                                                <select style="width: 320px" class="form-select form-select-sm sm-8" name="at_script_select" id="at_script_select"></select>
+                                            </div>
+                                            <div class="col col-xs p-0 m-0" style="max-width: 25px">
+                                                <img class="icon" src="../img/refresh-svgrepo-com.svg" alt="">
+                                            </div>
+                                            <div class="col col-xs p-0 m-0" style="max-width: 25px">
+                                                <img class="icon" src="../img/folder-svgrepo-com.svg" alt="">
+                                            </div>
+                                            <div class="col col-xs p-0 m-0" style="max-width: 25px">
+                                                <img class="icon" src="../img/github-svgrepo-com.svg" alt="">
+                                            </div>
+                                            <div class="col col-sm p-0 m-0">
+                                                <button class="btn btn-sm btn-light">Запустить</button>
+                                            </div>
+                                            <div class="col col-sm-4 p-0 m-0">
+                                                <div class="mb-4 row">
+                                                    <label for="script_loop_cnt" class="col-md-6 col-form-label pe-0">Количество повторов</label>
+                                                    <div class="col-sm-4 ps-0 ">
+                                                        <input type="number" class="form-control ps-0" id="script_loop_cnt" value="1">
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="col col-md p-0 m-0">
+                                                <div class="mb-3 row">
+                                                    <label for="script_timeout" class="col-md-4 col-form-label">Таймаут</label>
+                                                    <div class="col-sm">
+                                                        <input type="number" class="form-control" id="script_timeout" value="1">
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="col col-md p-0 m-0">
+                                                <div class="mb-3 row">
+                                                    <label for="script_iteration" class="col-md-4 col-form-label">Итерация</label>
+                                                    <div class="col-sm">
+                                                        <input type="number" readonly class="form-control" id="script_iteration" value="1">
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                  </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="footer">
+                <div class="row row-cols-2">
+                    <div class="col col-md">
+                        <p>AT: COM1 19200 8 none Flow ctrl: harware - нет соединения</p>
+                    </div>
+                    <div class="col col-md">
+                        <div class="row row-cols-6">
+                            <div class="col col-xs p-0 ps-2 pe-2">
+                                <div class="indicator indicator-init text-center">DCD</div>
+                            </div>
+                            <div class="col col-xs p-0 ps-2 pe-2">
+                                <div class="indicator indicator-init text-center">RI</div>
+                            </div>
+                            <div class="col col-xs p-0 ps-2 pe-2">
+                                <div class="indicator indicator-init text-center">DSR</div>
+                            </div>
+                            <div class="col col-xs p-0 ps-2 pe-2">
+                                <div class="indicator indicator-init text-center">CTS</div>
+                            </div>
+                            <div class="col col-xs p-0 ps-2 pe-2">
+                                <div class="form-check">
+                                    <input class="form-check-input" type="checkbox" value="" id="dtr">
+                                    <label class="form-check-label" for="dtr">
+                                        DTR
+                                    </label>
+                                  </div>
+                            </div>
+                            <div class="col col-xs p-0 ps-2 pe-2">
+                                <div class="form-check">
+                                    <input class="form-check-input" type="checkbox" value="" id="rts">
+                                    <label class="form-check-label" for="rts">
+                                        RTS
+                                    </label>
+                                  </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Modals -->
+        <!-- COMPORT config modal -->
+    <div class="modal fade" id="com_config_modal" tabindex="-1" aria-labelledby="com_config_modal" aria-hidden="true">
+        <div class="modal-dialog modal-xl">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Настройка порта</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <div class="row row-cols-2">
+                        <div class="col-5">
+                            <h6>AT порт</h6>
+                            <div class="row row-sm row-cols-2">
+                                <div class="col col-xs">Порт:</div>
+                                <div class="col col-xs"><input class="form-control p-0" type="text" name="port_name" id="port_name"></div>
+                            </div>
+                            <div class="row row-sm row-cols-2">
+                                <div class="col col-xs">Устройство:</div>
+                                <div class="col col-xs"><input class="form-control p-0" type="text" name="device_name" id="device_name"></div>
+                            </div>
+                            <div class="row row-sm row-cols-2">
+                                <div class="col col-xs">Скорость:</div>
+                                <div class="col col-xs"><select class="form-select form-select-sm mb-3 p-0" name="" id=""></select></div>
+                            </div>
+                            <div class="row row-sm row-cols-2">
+                                <div class="col col-xs">Контроль потока:</div>
+                                <div class="col col-xs"><select class="form-select form-select-sm mb-3 p-0" name="" id=""></select></div>
+                            </div>
+                            <div class="row row-sm row-cols-2">
+                                <div class="col col-xs">Биты данных:</div>
+                                <div class="col col-xs"><select class="form-select form-select-sm mb-3 p-0" name="" id=""></select></div>
+                            </div>
+                            <div class="row row-sm row-cols-2">
+                                <div class="col col-xs">Стоп биты:</div>
+                                <div class="col col-xs"><select class="form-select form-select-sm mb-3 p-0" name="" id=""></select></div>
+                            </div>
+                            <div class="row row-sm row-cols-2">
+                                <div class="col col-xs">Четность:</div>
+                                <div class="col col-xs"><select class="form-select form-select-sm mb-3 p-0" name="" id=""></select></div>
+                            </div>
+                        </div>
+                        <div class="col-7">
+                            <h6>Список портов</h6>
+                            <table class="table table-bordered">
+                                <thead class="table-light">
+                                    <th>Порт</th>
+                                    <th>Устройство</th>
+                                    <th>Имя устройства</th>
+                                </thead>
+                                <tbody style="height: 190px !important; overflow-y: auto; overflow-x: auto">
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Отмена</button>
+                    <button type="button" class="btn btn-primary">OK</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    </body>
+</html>

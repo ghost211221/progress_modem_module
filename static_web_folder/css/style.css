@@ -23,12 +23,13 @@
     padding: 10px;
   }
   .header {
-    min-height: 15%;
-    padding: 5px;
+    min-height: 10%;
+    padding: 0px;
   }
   .footer {
     min-height: 5%;
     padding: 10px;
+    margin-top: -10px;
   }
 
   .nav {
@@ -47,3 +48,43 @@
     width: 30px;
     height: 30px;
   }
+
+  textarea {
+    width: 745px !important;
+  }
+
+  #at_cmd_list {
+    font-size: 12px;
+    overflow-y: auto;
+    height: 474px;
+  }
+
+  .at-cmd {
+    background-color: #BBBBBB;
+  }
+
+  .panel-menu {
+    margin-top: -5px !important;
+    border-radius: 0px !important;
+  }
+
+  .indicator  {
+    width: 50px !important;
+  }
+
+  .indicator-init {
+    background-color: #edecec;
+  }
+
+  .indicator-success {
+    background-color: #99FF99;
+  }
+
+  .indicator-error {
+    background-color: #f56951;
+  }
+
+  .panel {
+    height: 750px !important;
+  }
+
