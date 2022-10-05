@@ -1,0 +1,115 @@
+<div class="panel panel-default" id="panel-at-terminal" style="display: none">
+    <div class="panel-heading">
+        <h3>AT терминал</h3>
+    </div>
+    <div class="panel-body">
+        <div class="container-xl">
+            <div class="row row-cols-2">
+                <div class="col col-8">
+                    <div class="row row-cols-6">
+                        <div class="col col-4" style="width: 220px; padding: 0px;"><input type="checkbox"><span>Логирование терминала</span></div>
+                        <div class="col" style="width: 25px; padding: 0px;"><a href=""><img src="../img/file-svgrepo-com.svg" alt="" class="icon"></a></div>
+                        <div class="col" style="width: 25px; padding: 0px;"><a href=""><img src="../img/save-svgrepo-com.svg" alt="" class="icon"></a></div>
+                        <div class="col col-4" style="width: 170px; padding: 0px;"><input type="checkbox"><span>Отметка времени</span></div>
+                        <div class="col col-3" style="width: 120px; padding: 0px;"><input type="checkbox"><span>Hex режим</span></div>
+                        <div class="col col-sm p-0 d-md-flex justify-content-md-end"><button class="btn btn-sm btn-light"><span>Очистить терминал</span></button></div>
+                    </div>
+                    <div class="row">
+                        <textarea name="at_log" id="" cols="30" rows="20"></textarea>
+                    </div>
+
+                    <div class="row row-cols-2">
+                        <div class="ps-0 col col-lg-9">
+                            <div class="input-group mb-4">
+                                <input type="text"  list="input_cmd" class="form-control">
+                                <!-- <button class="btn btn-outline-secondary dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false"></button> -->
+                                <datalist id="input_cmd">
+                                    <option value="AT">AT</option>
+                                </datalist>
+                            </div>
+                        </div>
+                        <div class="col col-md d-grid gap-2 p-0">
+                            <button class="btn btn-sm btn-light">Отправить</button>
+                            <button class="btn btn-sm btn-light">Отправить hex</button>
+                            <button class="btn btn-sm btn-light">Отправить + Ctrl</button>
+                        </div>
+                    </div>
+
+
+                </div>
+                <div class="col col-md-4">
+                    <select name="cmd_type_select" id="cmd_type_select" class="form-select form-select-sm mb-2" aria-label="Default select example">
+                        <option value="Generic" selected>Generic</option>
+                        <option value="Network">Network</option>
+                    </select>
+                    <ul class="list-group list-group-flush" id="at_cmd_list">
+                        <li class="at-cmd list-group-item p-1 active">AT</li>
+                        <li class="at-cmd list-group-item p-1">ATE0</li>
+                        <li class="at-cmd list-group-item p-1">ATE1</li>
+                    </ul>
+                    <div class="row row-cols-2">
+                        <div class="col d-grid gap-2 d-md-sm pe-0">
+                            <button class="btn btn-sm btn-light">Редактировать команду</button>
+                            <button class="btn btn-sm btn-light">Добавить команду</button>
+                            <button class="btn btn-sm btn-light">Сохранить команду</button>
+                        </div>
+                        <div class="col d-grid gap-2 d-md-sm pe-0">
+                            <button class="btn btn-sm btn-light">Редактировать группы</button>
+                            <button class="btn btn-sm btn-light">Импорт команд</button>
+                            <button class="btn btn-sm btn-light">Загрузить команды</button>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+            <div class="row">
+                <div class="panel panel-default">
+                    <div class="panel-heading">AT скрипты</div>
+                    <div class="panel-body">
+                        <div class="row row-cols-8">
+                            <div class="col col-lg p-0 m-0">
+                                <select style="width: 320px" class="form-select form-select-sm sm-8" name="at_script_select" id="at_script_select"></select>
+                            </div>
+                            <div class="col col-xs p-0 m-0" style="max-width: 25px">
+                                <img class="icon" src="../img/refresh-svgrepo-com.svg" alt="">
+                            </div>
+                            <div class="col col-xs p-0 m-0" style="max-width: 25px">
+                                <img class="icon" src="../img/folder-svgrepo-com.svg" alt="">
+                            </div>
+                            <div class="col col-xs p-0 m-0" style="max-width: 25px">
+                                <img class="icon" src="../img/github-svgrepo-com.svg" alt="">
+                            </div>
+                            <div class="col col-sm p-0 m-0">
+                                <button class="btn btn-sm btn-light">Запустить</button>
+                            </div>
+                            <div class="col col-sm-4 p-0 m-0">
+                                <div class="mb-4 row">
+                                    <label for="script_loop_cnt" class="col-md-6 col-form-label pe-0">Количество повторов</label>
+                                    <div class="col-sm-4 ps-0 ">
+                                        <input type="number" class="form-control ps-0" id="script_loop_cnt" value="1">
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col col-md p-0 m-0">
+                                <div class="mb-3 row">
+                                    <label for="script_timeout" class="col-md-4 col-form-label">Таймаут</label>
+                                    <div class="col-sm">
+                                        <input type="number" class="form-control" id="script_timeout" value="1">
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col col-md p-0 m-0">
+                                <div class="mb-3 row">
+                                    <label for="script_iteration" class="col-md-4 col-form-label">Итерация</label>
+                                    <div class="col-sm">
+                                        <input type="number" readonly class="form-control" id="script_iteration" value="1">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                  </div>
+            </div>
+        </div>
+    </div>
+</div>

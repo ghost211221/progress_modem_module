@@ -1,0 +1,62 @@
+<!-- COMPORT config modal -->
+<div class="modal fade" id="com_config_modal" tabindex="-1" aria-labelledby="com_config_modal" aria-hidden="true">
+    <div class="modal-dialog modal-xl">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Настройка порта</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <div class="row row-cols-2">
+                    <div class="col-5">
+                        <h6>AT порт</h6>
+                        <div class="row row-sm row-cols-2">
+                            <div class="col col-xs">Порт:</div>
+                            <div class="col col-xs"><input class="form-control p-0" type="text" name="port_name" id="port_name"></div>
+                        </div>
+                        <div class="row row-sm row-cols-2">
+                            <div class="col col-xs">Устройство:</div>
+                            <div class="col col-xs"><input class="form-control p-0" type="text" name="device_name" id="device_name"></div>
+                        </div>
+                        <div class="row row-sm row-cols-2">
+                            <div class="col col-xs">Скорость:</div>
+                            <div class="col col-xs"><select class="form-select form-select-sm mb-3 p-0" name="" id=""></select></div>
+                        </div>
+                        <div class="row row-sm row-cols-2">
+                            <div class="col col-xs">Контроль потока:</div>
+                            <div class="col col-xs"><select class="form-select form-select-sm mb-3 p-0" name="" id=""></select></div>
+                        </div>
+                        <div class="row row-sm row-cols-2">
+                            <div class="col col-xs">Биты данных:</div>
+                            <div class="col col-xs"><select class="form-select form-select-sm mb-3 p-0" name="" id=""></select></div>
+                        </div>
+                        <div class="row row-sm row-cols-2">
+                            <div class="col col-xs">Стоп биты:</div>
+                            <div class="col col-xs"><select class="form-select form-select-sm mb-3 p-0" name="" id=""></select></div>
+                        </div>
+                        <div class="row row-sm row-cols-2">
+                            <div class="col col-xs">Четность:</div>
+                            <div class="col col-xs"><select class="form-select form-select-sm mb-3 p-0" name="" id=""></select></div>
+                        </div>
+                    </div>
+                    <div class="col-7">
+                        <h6>Список портов</h6>
+                        <table class="table table-bordered">
+                            <thead class="table-light">
+                                <th>Порт</th>
+                                <th>Устройство</th>
+                                <th>Имя устройства</th>
+                            </thead>
+                            <tbody style="height: 190px !important; overflow-y: auto; overflow-x: auto">
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Отмена</button>
+                <button type="button" class="btn btn-primary">OK</button>
+            </div>
+        </div>
+    </div>
+</div>
