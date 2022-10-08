@@ -1,0 +1,108 @@
+<div class="panel panel-default" id="panel-positioning" style="display: none">
+    <div class="panel-body">
+        <table class="table table-borderless ">
+            <tbody>
+                <tr>
+                    <td>
+                        Сенсоры:
+                    </td>
+                    <td>
+                        <div class="form-check">
+                            <input class="form-check-input" type="checkbox" value="" id="gnss">
+                            <label class="form-check-label" for="rts">
+                                GNSS
+                            </label>
+                        </div>
+                    </td>
+                    <td>[не тестировано] <button class="btn btn-sm btn-light">Тест</button></td>
+                    <td></td>
+                    <td>MGA сервер:</td>
+                    <td><button class="btn btn-sm btn-light">Конфигурировать</button></td>
+                </tr>
+                    <td>
+                    </td>
+                    <td>
+                        <div class="form-check">
+                            <input class="form-check-input" type="checkbox" value="" id="cell_locate">
+                            <label class="form-check-label" for="rts">
+                                Обнаружение ячейки
+                            </label>
+                        </div>
+                    </td>
+                    <td>[не тестировано] <button class="btn btn-sm btn-light">Тест</td>
+                    <td></td>
+                    <td>MGA сервер:</td>
+                    <td><button class="btn btn-sm btn-light">Конфигурировать</button></td>
+                </tr>
+            </tbody>
+        </table>
+
+        <hr/>
+
+        <div class="row row-cols-2">
+            <div class="col col-2">
+                <p>Таймаут (сек):</p>
+                <p>Точность (м):</p>
+                <p>Тип поиска:</p>
+                <button class="btn-sm btn-light">Найти</button>
+            </div>
+            <div class="col col-2">
+                <input type="number" name="" id="" class="form-control" value="100">
+                <input type="number" name="" id="" class="form-control" value="5000">
+                <select name="" id="" class="form-select form-select-sm mb-2">
+                    <option value="normal" selected>Нормальный</option>
+                    <option value="deep">Глубокий</option>
+                </select>
+            </div>
+        </div>
+
+        <hr/>
+
+        <div class="row row-cols-4">
+            <div class="col col-2">
+                <p>Сенсор:</p>
+                <p>Дата:</p>
+                <p>Lat:</p>
+                <p>Alt:</p>
+                <p>Направление:</p>
+            </div>
+            <div class="col col-2">
+                <p>---</p>
+                <p>---</p>
+                <p>---</p>
+                <p>---</p>
+                <p>---</p>
+            </div>
+            <div class="col col-2">
+                <p style="height: 24px"></p>
+                <p>Время:</p>
+                <p>Lng:</p>
+                <p>Скорость:</p>
+                <p>Неопределенность:</p>
+            </div>
+            <div class="col col-2">
+                <p style="height: 24px"></p>
+                <p>---</p>
+                <p>---</p>
+                <p>---</p>
+                <p>---</p>
+            </div>
+        </div>
+
+        <hr/>
+
+        <button class="btn btn-sm btn-light">...на карте</button>
+        <div class="row row-cols-2">
+            <div class="col col-3">
+                Использован сервис вэб карт:
+            </div>
+            <div class="col col-2">
+                <select name="" id="" class="form-select form-select-sm mb-2">
+                    <option value="GoogleMaps">GoogleMaps</option>
+                    <option value="OpenStreetMap" selected>OpenStreetMap</option>
+                </select>
+            </div>
+        </div>
+
+    </div>
+</div>

@@ -88,3 +88,12 @@
     height: 750px !important;
   }
 
+  #sms_text {
+    width: 447px !important;
+    height: 390px !important;
+  }
+
+  #sms2_text {
+    width: 634px !important;
+    height: 187px !important;
+  }
