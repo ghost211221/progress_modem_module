@@ -97,3 +97,7 @@
     width: 634px !important;
     height: 187px !important;
   }
+
+  .icons-link:hover {
+    background-color: #999999;
+  }
