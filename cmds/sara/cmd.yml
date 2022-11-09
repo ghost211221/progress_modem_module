@@ -1,0 +1,106 @@
+- name: Generic
+  items:
+    - name: AT
+      text: Check OK response, verify modem presence
+    - name: ATEO
+      text: Echo off
+    - name: ATE1
+      text: Echo on
+    - name: AT+CGMI
+      text: Manufacturer information
+    - name: AT+CGMM
+      text: Get model information
+    - name: AT+CGMR
+      text: Software information
+    - name: AT+CGSN
+      text: Modem IMEI
+    - name: AT+CPIN?
+      text: Get SIM status
+    - name: AT+CLCK="SC",2
+      text: Get SIM security status
+    - name: AT+CPWROFF
+      text: Switch modem off
+    - name: AT+CFUN=16
+      text: Silent reset of modem with reset of the SIM card
+    - name: AT+CLAC
+      text: List available AT commands
+    - name: AT+UPSV?
+      text: Ask the power saving status
+    - name: AT+UPSV=0
+      text: Disable power saving
+    - name: AT+UPSV=1,##
+      text: Enable power saving, substitute \## with timeout inframes (1 frame = 4,615 ms)
+    - name: AT&V
+      text: Summary of the current configuration and of the storeduser profiles
+    - name: AT&W
+      text: Stores the current AT configuration
+    - name: ATD(number);
+      text: Perform a voice call (replace (number) with digits)
+    - name: ATA
+      text: Answer to incoming call
+    - name: ATH
+      text: Hangs up, end call in progress
+    - name: AT+UEXTDCONF=0,1
+      text: Enable extemal Maxim codec forLisa U2
+- name: Network
+  items:
+    - name: AT+CSQ
+      text: Signal quality
+    - name: AT+CREG?
+      text: Get registration status
+    - name: AT+COPS?
+      text: Get operator information
+    - name: AT+COPS=?
+      text: Get list of operators
+    - name: AT+COPS=0
+      text: Set automatic network selection
+    - name: AT+COPS=2
+      text: Deregister from network
+    - name: AT+COPS=5
+      text: Get parameters from all networks received by modem
+    - name: AT+CGREG?
+      text: Get GPRS network registration status
+    - name: AT+CPOL?
+      text: Get the preferred list of networks
+    - name: AT+URAT?
+      text: Get the selected radio technology setting
+    - name: AT+URAT=0
+      text: Set the radio access technology to GPRS (de-register modem before)
+    - name: AT+URAT=2
+      text: Set the radio access technology to UMTS (de-register modem before)
+    - name: AT+URAT=1,2
+      text: "Set the radio access technology to dual mode, (preferred: UMTS, de-register modem before)"
+    - name: AT+URAT=1,0
+      text: "Set the radio access technology to dual mode, (preferred: GSM, de-register modem before)"
+    - name: AT+UBANDSEL?
+      text: Get currently Supported bands
+- name: SMS/Phonebook
+  items:
+    - name: AT+CSCA?
+      text: et short message Service center number
+    - name: AT+CMGF=0
+      text: Set SMS PDU mode
+    - name: AT+CMGF=1
+      text: Set SMS text mode
+    - name: AT+CMGL
+      text: Read all SMS
+    - name: AT+CMGS="number"
+      text: Send SMS to number
+    - name: AT+CMGR=#
+      text: Get SMS at position \# (substitute with number)
+    - name: AT+CMGD=#
+      text: Delete SMS at position \# (substitute with number)
+    - name: AT+CNMI=1,0
+      text: Disable SMS notification
+    - name: AT+CNMI=1,1
+      text: Enable SMS notification
+    - name: AT+CPBS="SM"
+      text: Select SIM phonebook
+    - name: AT+CPBR=?
+      text: Get supported index range of selected phonebook
+    - name: AT+CPBR=1,500
+      text: Read phonebook entries
+    - name: AT+CPBS="LD"
+      text: Set last dialed calls phonebook
+    - name: AT+CPBR=1,10
+      text: Read phonebook entries

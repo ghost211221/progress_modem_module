@@ -1,0 +1,56 @@
+<!doctype html>
+<html lang="ru">
+<head>
+    <!-- Обязательные метатеги -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <script type="text/javascript" src="../js/jquery-3.6.1.min.js"></script>
+    <script src="../js/bootstrap.bundle.min.js"></script>
+    <script type="text/javascript" src="/eel.js"></script>
+    <script type="text/javascript" src="../js/dropdown.js"></script>
+    <script type="text/javascript" src="../js/switch_panels.js"></script>
+    <script type="text/javascript" src="../js/connection.js"></script>
+    <script type="text/javascript" src="../js/at_terminal.js"></script>
+
+    <!-- Bootstrap CSS -->
+    <link href="../css/bootstrap.min.css" rel="stylesheet">
+    <link href="../css/style.css" rel="stylesheet">
+
+    <title>М-Центр</title>
+</head>
+<body>
+    <script>
+        // should resize by python
+        window.resizeTo(1160, 975);
+    </script>
+
+    <script>
+        var popoverTriggerList = [].slice.call(document.querySelectorAll('[data-bs-toggle="popover"]'))
+        var popoverList = popoverTriggerList.map(function (popoverTriggerEl) {
+            return new bootstrap.Popover(popoverTriggerEl)
+        })
+    </script>
+
+    <div class="wrapper">
+        <div class="header">
+            {% include 'header.html' %}
+        </div>
+        <div class="content">
+            {% include 'panels/home.html' %}
+            {% include 'panels/network.html' %}
+            {% include 'panels/at_terminal.html' %}
+            {% include 'panels/phonebook.html' %}
+            {% include 'panels/sms.html' %}
+            {% include 'panels/positioning.html' %}
+            {% include 'panels/fota.html' %}
+        </div>
+        <div class="footer">
+            {% include 'footer.html' %}
+        </div>
+    </div>
+
+    <!-- Modals -->
+    {% include 'modals.html'%}
+</body>
+</html>

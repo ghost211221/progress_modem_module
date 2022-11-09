@@ -1,0 +1,38 @@
+- baudrate:
+  - value: 1200
+  - value: 2400
+  - value: 4800
+  - value: 9600
+  - value: 14400
+  - value: 19200
+  - value: 38400
+  - value: 57600
+  - value: 115200
+    selected: 1
+  - value: 230400
+  - value: 460800
+  - value: 921600
+  - value: 3000000
+  - value: 3250000
+  - value: 6000000
+  - value: 6500000
+- flow_control:
+  - value: none
+  - value: hardware
+    selected: 1
+  - value: xon-xoff
+- data_bits:
+  - value: 5
+  - value: 6
+  - value: 7
+  - value: 8
+    selected: 1
+- stop_bits:
+  - value: 1
+    selected: 1
+  - value: 2
+- parity:
+  - value: none
+    selected: 1
+  - value: even
+  - value: odd
