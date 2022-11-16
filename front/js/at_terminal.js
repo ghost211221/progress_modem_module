@@ -10,8 +10,8 @@ let at_terminal_handler = {
         if (val !== '') {
             eel.e_communicate(val)().then(response => {
                 if (response.status === 'success') {
-                    $('#at_log').append(`${val});
-                    $('#at_log').append(response.msg);
+                    $('#at_log').append(`${val}\n`);
+                    $('#at_log').append(`${response.ans}\n`);
                 }
             })
         }

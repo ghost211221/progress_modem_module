@@ -76,11 +76,11 @@
     background-color: #edecec;
   }
 
-  .indicator-success {
+  .indicator-enabled {
     background-color: #99FF99;
   }
 
-  .indicator-error {
+  .indicator-disabled {
     background-color: #f56951;
   }
 
@@ -125,3 +125,5 @@
   }
 }
 /* ============ small devices .end// ============ */
+
+.status-

@@ -11,32 +11,37 @@ log = logging.getLogger(__name__)
 context = Context()
 
 class AbstractDevice(metaclass=ABCMeta):
-    comport = None
-    baudrate = None
-    flow_control = None
-    data_bits = None
-    stop_bits = None
-    parity = None
-    timeout = 1
+    comport = ''
+    baudrate = 115200
+    flow_control = 'hardware'
+    data_bits = 8
+    stop_bits = 1
+    parity = 'none'
+    timeout = 0.1
+    description = ''
+    connected = False
+
+    rts = False
+    dtr = False
+    cts = False
+    dsr = False
+    ri = False
+    cd = False
 
     cmd_groups = []
 
     def __init__(self):
-        self.port = None
+        self.port = Serial()
 
-    def setup_device(self, comport, baudrate, flow_control, data_bits, stop_bits, parity):
-        if not comport or not baudrate or not flow_control or not data_bits or not stop_bits or not parity:
-            raise ComSetupError('One of parameters not provided')
-
+    def setup_device(self, comport, description, baudrate, flow_control, data_bits, stop_bits, parity):
         self.comport = comport
         self.baudrate = baudrate
         self.flow_control = flow_control
         self.data_bits = data_bits
         self.stop_bits = stop_bits
         self.parity = parity
+        self.description = description
 
-    def connect(self):
-        self.port = Serial()
         self.port.port = self.comport
         self.port.baudrate = self.baudrate
         self.port.bytesize  = DATABITS_MAP[self.data_bits]
@@ -52,6 +57,7 @@ class AbstractDevice(metaclass=ABCMeta):
             # self.port.cts = True
             self.port.xonxoff = True
 
+    def connect(self):
         try:
             self.port.open()
             self.connected = True
@@ -80,6 +86,7 @@ class AbstractDevice(metaclass=ABCMeta):
 
     def read(self):
         try:
-            return self.port.readline().decode('utf-8').replace('\r', '')
+            lines = context.device.port.readlines()
+            return '\n'.join([elem.decode('utf-8').replace('\r', '').replace('\n', '') for elem in lines])
         except SerialException as e:
             raise ComCommunicationError(f'Ошибка чтения порта {self.comport}: {e}')

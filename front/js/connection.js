@@ -1,32 +1,107 @@
-$(document).ready(function() {
-    connection_handler.nest_comport_pars();
-    connection_handler.refresh_com_port_table();
+$(document).ready(async function() {
+    await connection_handler.init();
+
+    if (connection_handler.previous_com !== '') {
+        $('#connect_port').prop('disabled', false);
+    } else {
+        $('#connect_port').prop('disabled', true);
+    }
 
     $('#connect_port').click(function() {
         connection_handler.connect();
     })
 
     $('#comport_ok').click(function() {
-        connection_handler.previous_com = connection_handler.current_com;
-        $('#connect_port').prop('disabled', false);
-
-        connection_handler.render_status_string();
+        connection_handler.setup_port();
+        if (connection_handler.previous_com !== '') {
+            $('#connect_port').prop('disabled', false);
+        }
+        connection_handler.render_com_data();
     })
 
     $('#comport_cancel').click(function() {
-        $('#port_name').val(connection_handler.previous_com);
+        connection_handler.select_values_from_comport();
         if (connection_handler.previous_com === '') {
             $('#connect_port').prop('disabled', true);
-            connection_handler.render_status_string();
         }
+        connection_handler.render_com_data();
     })
 })
 
-let connection_handler = {
-    previous_com: '',
-    current_com: '',
+let com_port = {
+    port: '',
+    baudrate: '',
+    flow_control: '',
+    data_bits: '',
+    stop_bits: '',
+    parity: '',
+    DCD: false,
+    RI: false,
+    DSR: false,
+    CTS: false,
+    DTR: false,
+    RTS: false,
     connected: false,
-    refresh_com_port_table: function() {
+    description: ''
+}
+
+let connection_handler = {
+    init: async function() {
+        this.nest_comport_pars();
+        this.fill_com_port_table();
+        await this.get_port_data();
+        this.select_values_from_comport();
+        this.render_com_data();
+        this.setup_connect_btn();
+    },
+
+    render_com_data: function() {
+        this.render_status_string();
+        this.render_status_lights();
+        this.render_comdata_on_panel();
+    },
+
+    get_port_data: async function() {
+        const response = await eel.e_get_comport_data()();
+        com_port.port = response.comport;
+        com_port.baudrate = response.baudrate;
+        com_port.flow_control = response.flow_control;
+        com_port.data_bits = response.data_bits;
+        com_port.stop_bits = response.stop_bits;
+        com_port.parity = response.parity;
+        com_port.DCD = response.cd;
+        com_port.RI = response.ri;
+        com_port.DSR = response.dsr;
+        com_port.CTS = response.cts;
+        com_port.DTR = response.dtr;
+        com_port.RTS = response.rts;
+        com_port.connected = response.connected;
+        com_port.description = response.description;
+        return true
+    },
+
+    select_values_from_comport: function() {
+        $('#port_name').val(com_port.port);
+        $('#baudrate').val(com_port.baudrate);
+        $('#flow_control').val(com_port.flow_control);
+        $('#data_bits').val(com_port.data_bits);
+        $('#stop_bits').val(com_port.stop_bits);
+        $('#parity').val(com_port.parity);
+        $('#description').val(com_port.description);
+    },
+
+    setup_connect_btn: function() {
+        if (com_port.connected) {
+            this.render_com_data();
+            $('#connect_port').attr('mode', 'disconnect')
+            $('#connect_port').html('Отключиться')
+        } else {
+            $('#connect_port').attr('mode', 'connect')
+            $('#connect_port').html('Подключитья')
+        }
+    },
+
+    fill_com_port_table: function() {
         $("#com_ports_table_body tr").remove();
         let table = document.getElementById("com_ports_table_body");
         eel.e_get_comports_list()().then((response) => {
@@ -56,7 +131,7 @@ let connection_handler = {
                     let selector = '#' + key;
                     for(let i of value) {
                         if (i.hasOwnProperty('selected')) {
-                            $(selector).append(`<option id="${i.value}" selected>${i.value}</option>`);
+                            $(selector).append(`<option id="${i.value}">${i.value}</option>`);
                         } else {
                             $(selector).append(`<option id="${i.value}">${i.value}</option>`);
                         }
@@ -67,56 +142,109 @@ let connection_handler = {
     },
 
     handle_com_select: function() {
-        let that = this;
         $('#com_ports_table_body tr').each(function(i) {
             $(this).click(function() {
                 let firstCell = $(this).find('td').first();
+                let lastCell = $(this).find('td').last();
 
-                that.current_com = $(firstCell).text()
-                $('#port_name').val(that.current_com);
+                com_port.description = $(lastCell).text()
+                com_port.port = $(firstCell).text()
+                $('#port_name').val(com_port.port);
+                $('#description').val(com_port.description);
                 $('#connect_port').prop('disabled', false);
             });
         })
     },
 
     render_status_string: function() {
-        let connection_status = 'подключено' ? this.connected : 'не подключено';
+        let connection_status = com_port.connected ? 'подключено' : 'не подключено';
         let string = `AT: ${$('#port_name').val()} ${$('#baudrate').val()} ${$('#data_bits').val()} ${$('#parity').val()} Flow ctrl: ${$('#flow_control').val()} - ${connection_status}`;
         $('#status_string').text(string);
     },
 
-    connect: function() {
-        let port_name = $('#port_name').val();
-        if ($('#connect_port').attr('mode') === 'connect') {
-            if (port_name !== '') {
-                eel.e_setup_device(
-                    port_name,
-                    $('#baudrate').val(),
-                    $('#flow_control').val(),
-                    $('#data_bits').val(),
-                    $('#stop_bits').val(),
-                    $('#parity').val()
-                )().then(response => {
-                    if (response.status === 'success') {
-                        // enable lights and assemble parameters string
-                        this.connected = true;
-                        this.render_status_string();
-                        $('#connect_port').attr('mode', 'disconnect')
-                        $('#connect_port').html('Отключиться')
-                    } else if (response.status === 'fail') {
-                        alert(response.msg);
-                    }
-                })
+    render_status_lights: function() {
+        if (com_port.connected) {
+            $( "#dtr" ).prop( "checked", com_port.DTR );
+            $( "#rts" ).prop( "checked", com_port.RTS );
+            $('#dcd').removeClass('indicator-init');
+            $('#dcd').addClass(com_port.DCD ? 'indicator-enabled' : 'indicator-disabled');
+            $('#ri').removeClass('indicator-init');
+            $('#ri').addClass(com_port.RI ? 'indicator-enabled' : 'indicator-disabled');
+            $('#dsr').removeClass('indicatorinit');
+            $('#dsr').addClass(com_port.DSR ? 'indicator-enabled' : 'indicator-disabled');
+            $('#cts').removeClass('indicator-init');
+            $('#cts').addClass(com_port.CTS ? 'indicator-enabled' : 'indicator-disabled');
+        } else {
+            $( "#dtr" ).prop( "checked", false );
+            $( "#rts" ).prop( "checked", false );
+            $('#dcd').removeClass('indicator-enabled indicator-disabled');
+            $('#dcd').addClass('indicator-init');
+            $('#ri').removeClass('indicator-enabled indicator-disabled');
+            $('#ri').addClass('indicator-init');
+            $('#dsr').removeClass('indicator-enabled indicator-disabled');
+            $('#dsr').addClass('indicator-init');
+            $('#cts').removeClass('indicator-success indicator-disabled');
+            $('#cts').addClass('indicator-init');
+        }
+    },
+
+    render_comdata_on_panel: function() {
+        $('#home_panel-port').text(com_port.port)
+        $('#home_panel-baudrate').text(com_port.baudrate)
+        $('#home_panel-flow_control').text(com_port.flow_control)
+        $('#home_panel-data_bits').text(com_port.podata_bitsrt)
+        $('#home_panel-stop_bits').text(com_port.stop_bits)
+        $('#home_panel-parity').text(com_port.parity)
+        $('#home_panel-status').text(com_port.connected ? 'Подключено' : 'Не подключено')
+    },
+
+    setup_port: function() {
+        com_port.port = $('#port_name').val();
+        com_port.description = $('#description').val();
+        com_port.baudrate = $('#baudrate').val();
+        com_port.flow_control = $('#flow_control').val();
+        com_port.data_bits = $('#data_bits').val();
+        com_port.stop_bits = $('#stop_bits').val();
+        com_port.parity = $('#parity').val();
+
+        eel.e_setup_device(
+            com_port.port,
+            com_port.description,
+            com_port.baudrate,
+            com_port.flow_control,
+            com_port.data_bits,
+            com_port.stop_bits,
+            com_port.parity
+        )().then(response => {
+            if (response.status === 'success') {
+                // setup successfull
+            } else if (response.status === 'fail') {
+                alert(response.msg);
             }
+        })
+    },
+
+    connect: function() {
+        if ($('#connect_port').attr('mode') === 'connect') {
+            eel.e_connect_device()().then(response => {
+                if (response.status === 'success') {
+                    // enable lights and assemble parameters string
+                    com_port.connected = true;
+                    this.render_com_data();
+                    $('#connect_port').attr('mode', 'disconnect')
+                    $('#connect_port').html('Отключиться')
+                } else if (response.status === 'fail') {
+                    alert(response.msg);
+                }
+            })
         } else if (($('#connect_port').attr('mode') === 'disconnect')) {
             eel.e_close_connection()().then(response => {
                 if (response.status === 'success') {
                     // enable lights and assemble parameters string
-                    this.connected = false;
-                    this.render_status_string();
+                    com_port.connected = false;
+                    this.render_com_data();
                     $('#connect_port').attr('mode', 'connect')
                     $('#connect_port').html('Подключитья')
-
                 } else if (response.status === 'fail') {
                     alert(response.msg);
                 }
