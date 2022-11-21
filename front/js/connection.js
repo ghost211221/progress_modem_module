@@ -49,9 +49,11 @@ let connection_handler = {
     init: async function() {
         this.nest_comport_pars();
         this.fill_com_port_table();
-        await this.get_port_data();
+        let res = await this.get_port_data();
         this.select_values_from_comport();
-        this.render_com_data();
+        if (res) {
+            this.render_com_data();
+        }
         this.setup_connect_btn();
     },
 
@@ -97,7 +99,10 @@ let connection_handler = {
             $('#connect_port').html('Отключиться')
         } else {
             $('#connect_port').attr('mode', 'connect')
-            $('#connect_port').html('Подключитья')
+            $('#connect_port').html('Подключиться')
+            if (com_port.port === '') {
+                $('#connect_port').prop('disabled', true);
+            }
         }
     },
 
@@ -183,7 +188,7 @@ let connection_handler = {
             $('#ri').addClass('indicator-init');
             $('#dsr').removeClass('indicator-enabled indicator-disabled');
             $('#dsr').addClass('indicator-init');
-            $('#cts').removeClass('indicator-success indicator-disabled');
+            $('#cts').removeClass('indicator-enabled indicator-disabled');
             $('#cts').addClass('indicator-init');
         }
     },
@@ -224,12 +229,18 @@ let connection_handler = {
         })
     },
 
-    connect: function() {
+    connect: async function() {
         if ($('#connect_port').attr('mode') === 'connect') {
             eel.e_connect_device()().then(response => {
                 if (response.status === 'success') {
                     // enable lights and assemble parameters string
                     com_port.connected = true;
+                    com_port.DCD = response.cd;
+                    com_port.RI = response.ri;
+                    com_port.DSR = response.dsr;
+                    com_port.CTS = response.cts;
+                    com_port.DTR = response.dtr;
+                    com_port.RTS = response.rts;
                     this.render_com_data();
                     $('#connect_port').attr('mode', 'disconnect')
                     $('#connect_port').html('Отключиться')
@@ -244,7 +255,7 @@ let connection_handler = {
                     com_port.connected = false;
                     this.render_com_data();
                     $('#connect_port').attr('mode', 'connect')
-                    $('#connect_port').html('Подключитья')
+                    $('#connect_port').html('Подключиться')
                 } else if (response.status === 'fail') {
                     alert(response.msg);
                 }

@@ -49,13 +49,24 @@ class AbstractDevice(metaclass=ABCMeta):
         self.port.parity  = PARITY_MAP[self.parity]
         self.port.timeout = self.timeout
 
+        self.port.setRTS(True)
+        self.port.setDTR(True)
         if self.flow_control == 'hardware':
-            self.port.dtr = True
-            # self.port.cts = True
+            self.port.setRTS(False)
 
         if self.flow_control == 'xon-xoff':
-            # self.port.cts = True
-            self.port.xonxoff = True
+            self.port.setRTS(False)
+            self.port.setDTR(False)
+
+    def get_mode(self):
+        return {
+            'cd': self.port.cd if self.connected else False,
+            'ri': self.port.ri if self.connected else False,
+            'dsr': self.port.dsr if self.connected else False,
+            'cts': self.port.cts if self.connected else False,
+            'dtr': self.port.dtr if self.connected else False,
+            'rts': self.port.rts if self.connected else False,
+        }
 
     def connect(self):
         try:
@@ -68,9 +79,7 @@ class AbstractDevice(metaclass=ABCMeta):
     def disconnect(self):
         try:
             self.port.close()
-            self.port = None
             self.connected = False
-            print('disconnected!')
         except Exception as e:
             raise ComConnectError(f'Ошибка закрытия порта {self.comport}: {e}')
 

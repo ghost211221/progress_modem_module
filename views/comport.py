@@ -19,6 +19,7 @@ def e_get_comport_pars():
 def e_setup_device(comport, description, baudrate, flow_control, data_bits, stop_bits, parity):
     status = 'success'
     msg = ''
+    response = {'status': status, 'msg': msg}
 
     if status == 'success':
         try:
@@ -27,19 +28,21 @@ def e_setup_device(comport, description, baudrate, flow_control, data_bits, stop
             msg = f'Не удалось применить настройки COM порта: {e}'
             status = 'fail'
 
-    return {'status': status, 'msg': msg}
+    return response
 
 @eel.expose
 def e_connect_device():
     status = 'success'
     msg = ''
+    response = {'status': status, 'msg': msg}
     try:
         context.device.connect()
+        response.update(context.device.get_mode())
     except ComConnectError as e:
-        msg = f'Не удалось подключиться к COM порту: {e}'
-        status = 'fail'
+        response['msg'] = f'Не удалось подключиться к COM порту: {e}'
+        response['status'] = 'fail'
 
-    return {'status': status, 'msg': msg}
+    return response
 
 @eel.expose
 def e_close_connection():
@@ -64,7 +67,7 @@ def e_communicate(cmd):
 
 @eel.expose
 def e_get_comport_data():
-    return {
+    ret_dict =  {
         'comport': context.device.comport,
         'baudrate': context.device.baudrate,
         'flow_control': context.device.flow_control,
@@ -72,11 +75,9 @@ def e_get_comport_data():
         'stop_bits': context.device.stop_bits,
         'parity': context.device.parity,
         'description': context.device.description,
-        'rts': context.device.rts,
-        'dtr': context.device.dtr,
-        'cts': context.device.cts,
-        'dsr': context.device.dsr,
-        'ri': context.device.ri,
-        'cd': context.device.cd,
         'connected': context.device.connected
     }
+
+    ret_dict.update(context.device.get_mode())
+
+    return ret_dict

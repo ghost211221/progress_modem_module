@@ -15,7 +15,8 @@
                         <div class="col col-sm p-0 d-md-flex justify-content-md-end"><button class="btn btn-sm btn-light"><span>Очистить терминал</span></button></div>
                     </div>
                     <div class="row">
-                        <textarea name="at_log" id="at_log" cols="30" rows="20"></textarea>
+                        <div class="at-log" id="at_log"></div>
+                        <!-- <textarea name="at_log" id="at_log" cols="30" rows="20"></textarea> -->
                     </div>
 
                     <div class="row row-cols-2">
@@ -67,48 +68,48 @@
                     <div class="panel-heading">AT скрипты</div>
                     <div class="panel-body">
                         <div class="row row-cols-8">
-                            <div class="col col-lg p-0 m-0">
+                            <div class="col p-0 m-0">
                                 <select style="width: 320px" class="form-select form-select-sm sm-8" name="at_script_select" id="at_script_select"></select>
                             </div>
-                            <div class="col col-xs p-0 m-0" style="max-width: 25px">
+                            <div class="col col-0 p-0 m-0" style="max-width: 25px">
                                 <img class="icon" src="../img/refresh-svgrepo-com.svg" alt="">
                             </div>
-                            <div class="col col-xs p-0 m-0" style="max-width: 25px">
+                            <div class="col col-0 p-0 m-0" style="max-width: 25px">
                                 <img class="icon" src="../img/folder-svgrepo-com.svg" alt="">
                             </div>
-                            <div class="col col-xs p-0 m-0" style="max-width: 25px">
+                            <div class="col col-0 p-0 m-0" style="max-width: 25px">
                                 <img class="icon" src="../img/github-svgrepo-com.svg" alt="">
                             </div>
-                            <div class="col col-sm p-0 m-0">
+                            <div class="col col-1 p-0 m-0">
                                 <button class="btn btn-sm btn-light">Запустить</button>
                             </div>
-                            <div class="col col-sm-4 p-0 m-0">
-                                <div class="mb-4 row">
-                                    <label for="script_loop_cnt" class="col-md-6 col-form-label pe-0">Количество повторов</label>
-                                    <div class="col-sm-4 ps-0 ">
-                                        <input type="number" class="form-control ps-0" id="script_loop_cnt" value="1">
+                            <div class="col col-4 p-0 m-0" style="width: 230px !important;">
+                                <div class="row">
+                                    <label for="script_loop_cnt" class="col-6 col-form-label pe-0" style="width: 70% !important;">Количество повторов</label>
+                                    <div class="col-2 ps-0 ">
+                                        <input type="number" class="form-control ps-0" id="script_loop_cnt" value="1" style="width: 50px !important;">
                                     </div>
                                 </div>
                             </div>
-                            <div class="col col-md p-0 m-0">
+                            <div class="col col-2 p-0 m-0">
                                 <div class="mb-3 row">
                                     <label for="script_timeout" class="col-md-4 col-form-label">Таймаут</label>
-                                    <div class="col-sm">
+                                    <div class="col-3" style="width: 100px !important;">
                                         <input type="number" class="form-control" id="script_timeout" value="1">
                                     </div>
                                 </div>
                             </div>
-                            <div class="col col-md p-0 m-0">
-                                <div class="mb-3 row">
-                                    <label for="script_iteration" class="col-md-4 col-form-label">Итерация</label>
-                                    <div class="col-sm">
-                                        <input type="number" readonly class="form-control" id="script_iteration" value="1">
+                            <div class="col col-2 p-0 m-0">
+                                <div class="row">
+                                    <label for="script_iteration" class="col-5 col-form-label">Итерация</label>
+                                    <div class="col-5">
+                                        <input type="number" readonly="" class="form-control" id="script_iteration" value="1">
                                     </div>
                                 </div>
                             </div>
                         </div>
                     </div>
-                  </div>
+                </div>
             </div>
         </div>
     </div>
