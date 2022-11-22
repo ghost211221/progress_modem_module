@@ -55,6 +55,7 @@
     background-color: white;
     margin-top: 5px;
     margin-bottom: 5px;
+    overflow-y: auto;
   }
 
   #at_cmd_list {
@@ -104,6 +105,14 @@
 
   .icons-link:hover {
     background-color: #999999;
+  }
+
+  .log-blue {
+    color: blue;
+  }
+
+  .log-green {
+    color: green;
   }
 
   /* ============ desktop view ============ */

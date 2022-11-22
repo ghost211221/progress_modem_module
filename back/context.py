@@ -18,6 +18,8 @@ class Context():
         self.selected_stop_bits = None
         self.selected_parity = None
 
+        self.cmd_log = []  # list of tuples
+
     def get_device(self, device_name):
         for device in self.devices:
             if device['dev_name'] == device_name:

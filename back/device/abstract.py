@@ -95,7 +95,8 @@ class AbstractDevice(metaclass=ABCMeta):
 
     def read(self):
         try:
-            lines = context.device.port.readlines()
-            return '\n'.join([elem.decode('utf-8').replace('\r', '').replace('\n', '') for elem in lines])
+            echo = context.device.port.readline().decode('utf-8')
+            ans = ''.join([val.decode('utf-8') for val in context.device.port.readlines()])
+            return {'echo': echo, 'ans': ans}
         except SerialException as e:
             raise ComCommunicationError(f'Ошибка чтения порта {self.comport}: {e}')

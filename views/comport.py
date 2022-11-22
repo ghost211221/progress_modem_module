@@ -59,6 +59,8 @@ def e_communicate(cmd):
     try:
         context.device.send(cmd)
         ans = context.device.read()
+
+        context.cmd_log.append((cmd, ans['echo'], ans['ans']))
     except ComCommunicationError as e:
         status = 'fail'
         msg = f'Ошибка связи: {e}'
@@ -81,3 +83,7 @@ def e_get_comport_data():
     ret_dict.update(context.device.get_mode())
 
     return ret_dict
+
+@eel.expose
+def e_get_log():
+    return context.cmd_log

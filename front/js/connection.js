@@ -1,11 +1,11 @@
 $(document).ready(async function() {
     await connection_handler.init();
 
-    if (connection_handler.previous_com !== '') {
-        $('#connect_port').prop('disabled', false);
-    } else {
-        $('#connect_port').prop('disabled', true);
-    }
+    // if (connection_handler.previous_com !== '') {
+    //     $('#connect_port').prop('disabled', false);
+    // } else {
+    //     $('#connect_port').prop('disabled', true);
+    // }
 
     $('#connect_port').click(function() {
         connection_handler.connect();
