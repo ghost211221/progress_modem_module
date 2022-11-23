@@ -1,12 +1,6 @@
 $(document).ready(async function() {
     await connection_handler.init();
 
-    // if (connection_handler.previous_com !== '') {
-    //     $('#connect_port').prop('disabled', false);
-    // } else {
-    //     $('#connect_port').prop('disabled', true);
-    // }
-
     $('#connect_port').click(function() {
         connection_handler.connect();
     })
@@ -46,9 +40,10 @@ let com_port = {
 }
 
 let connection_handler = {
+    com_ports: [],
     init: async function() {
         this.nest_comport_pars();
-        this.fill_com_port_table();
+        setInterval(this.fill_com_port_table, 2000);
         let res = await this.get_port_data();
         this.select_values_from_comport();
         if (res) {
@@ -107,20 +102,23 @@ let connection_handler = {
     },
 
     fill_com_port_table: function() {
-        $("#com_ports_table_body tr").remove();
         let table = document.getElementById("com_ports_table_body");
         eel.e_get_comports_list()().then((response) => {
-            for (let com of response) {
-                var row = table.insertRow(0
-                    );
-                var cell1 = row.insertCell(0);
+            if (this.com_ports !== response) {
+                $("#com_ports_table_body tr").remove();
+                for (let com of response) {
+                    var row = table.insertRow(0
+                        );
+                    var cell1 = row.insertCell(0);
 
-                var cell2 = row.insertCell(1);
-                cell1.innerHTML = com.name;
-                cell2.innerHTML = com.description;
+                    var cell2 = row.insertCell(1);
+                    cell1.innerHTML = com.name;
+                    cell2.innerHTML = com.description;
+                }
+
+                this.handle_com_select();
+                this.com_ports = response;
             }
-
-            this.handle_com_select();
         });
     },
 
