@@ -3,5 +3,7 @@
 from back.device.abstract import AbstractDevice
 
 class SaraU201(AbstractDevice):
-    def get_cmds(self):
-        pass
+
+    def __init__(self):
+        super().__init__()
+        self.dev_type = 'sara'

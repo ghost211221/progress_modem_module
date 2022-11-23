@@ -1,5 +1,10 @@
-$(document).ready(function() {
+$(document).ready(async function() {
     at_terminal_handler.render_log();
+    let res = await at_terminal_handler.get_cmds();
+    if (res) {
+        at_terminal_handler.render_groups();
+        at_terminal_handler.render_cmds();
+    }
 
     $('#send_cmd').click(function() {
         at_terminal_handler.send_cmd();
@@ -7,6 +12,7 @@ $(document).ready(function() {
 })
 
 let at_terminal_handler = {
+    cmds: [],
     send_cmd: function() {
         let val = $('#input_cmd').val();
         if (val !== '') {
@@ -32,5 +38,37 @@ let at_terminal_handler = {
         html += `<span class="log-blue">${echo}</span><br>`;
         html += `<span class="log-green">${ans}</span><br>`;
         $('#at_log').html(html);
+    },
+
+    render_groups: function() {
+        for (let group of this.cmds) {
+            $('#cmd_type_select').append(`<option id="cmd_group-${group.name}">${group.name}</option>`);
+        }
+    },
+
+    render_cmds: function() {
+        let group_selected = $('#cmd_type_select').val();
+        $('#at_cmd_list').empty();
+
+        for (let group of this.cmds) {
+            if (group_selected === group.name) {
+                let i = 0;
+                for (let item of group.items) {
+                    $('#at_cmd_list').append(`<li class="at-cmd list-group-item p-1" data-bs-toggle="popover" title="${item.text}"><a class="nav-link icons-link" href="#" data-toggle="popover" id="at_cmd-${i}">${item.name}</a></li>`)
+                    let selector = `#at_cmd-${i}`;
+                    $(selector).click(function() {
+                        $('#input_cmd').val(`${item.name}`);
+                    })
+                    i++;
+                }
+            }
+        }
+    },
+
+    get_cmds: async function() {
+        const response = await eel.e_get_cmds()();
+        this.cmds = response;
+
+        return true
     }
 }

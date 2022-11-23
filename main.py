@@ -3,6 +3,7 @@ import eel
 from back.context import Context
 from back.device.sara_u201 import SaraU201
 from views.comport import *
+from views.terminal import *
 
 if __name__ == '__main__':
     context = Context()

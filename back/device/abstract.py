@@ -1,11 +1,12 @@
 from abc import ABCMeta, abstractmethod
 import logging
+import yaml
 
 from serial import Serial, SerialException
 
 from back.device.consts import DATABITS_MAP, PARITY_MAP, STOPBITS_MAP
 from back.context import Context
-from back.exceptions import ComSetupError, ComConnectError, ComCommunicationError
+from back.exceptions import ComSetupError, ComConnectError, ComCommunicationError, UnknownDeviceError
 
 log = logging.getLogger(__name__)
 context = Context()
@@ -29,6 +30,7 @@ class AbstractDevice(metaclass=ABCMeta):
     cd = False
 
     cmd_groups = []
+    dev_type = None
 
     def __init__(self):
         self.port = Serial()
@@ -83,9 +85,18 @@ class AbstractDevice(metaclass=ABCMeta):
         except Exception as e:
             raise ComConnectError(f'Ошибка закрытия порта {self.comport}: {e}')
 
-    @abstractmethod
     def get_cmds(self):
-        pass
+        if not self.dev_type:
+            raise UnknownDeviceError('dev_type не указан')
+
+        if self.dev_type not in ('sara', 'mri'):
+            raise UnknownDeviceError(f'Неизвестный прибор: {self.dev_type}')
+
+        with open(f'cmds/{self.dev_type}/cmd.yml') as f:
+            cmds = yaml.safe_load(f)
+
+            return cmds
+
 
     def send(self, data):
         try:

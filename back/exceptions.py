@@ -6,3 +6,6 @@ class ComConnectError(Exception):
 
 class ComCommunicationError(Exception):
     pass
+
+class UnknownDeviceError(Exception):
+    pass

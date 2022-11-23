@@ -102,9 +102,10 @@ let connection_handler = {
     },
 
     fill_com_port_table: function() {
+        let that = this;
         let table = document.getElementById("com_ports_table_body");
         eel.e_get_comports_list()().then((response) => {
-            if (this.com_ports !== response) {
+            if (that.com_ports !== response) {
                 $("#com_ports_table_body tr").remove();
                 for (let com of response) {
                     var row = table.insertRow(0
@@ -116,8 +117,20 @@ let connection_handler = {
                     cell2.innerHTML = com.description;
                 }
 
-                this.handle_com_select();
-                this.com_ports = response;
+                // that.handle_com_select();
+                that.com_ports = response;
+                $('#com_ports_table_body tr').each(function(i) {
+                    $(this).click(function() {
+                        let firstCell = $(this).find('td').first();
+                        let lastCell = $(this).find('td').last();
+
+                        com_port.description = $(lastCell).text()
+                        com_port.port = $(firstCell).text()
+                        $('#port_name').val(com_port.port);
+                        $('#description').val(com_port.description);
+                        $('#connect_port').prop('disabled', false);
+                    });
+                })
             }
         });
     },
@@ -195,7 +208,7 @@ let connection_handler = {
         $('#home_panel-port').text(com_port.port)
         $('#home_panel-baudrate').text(com_port.baudrate)
         $('#home_panel-flow_control').text(com_port.flow_control)
-        $('#home_panel-data_bits').text(com_port.podata_bitsrt)
+        $('#home_panel-data_bits').text(com_port.data_bits)
         $('#home_panel-stop_bits').text(com_port.stop_bits)
         $('#home_panel-parity').text(com_port.parity)
         $('#home_panel-status').text(com_port.connected ? 'Подключено' : 'Не подключено')
