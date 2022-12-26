@@ -1,0 +1,16 @@
+- name: GSM:
+  type: 2G
+- name: GSM COMPACT:
+  type: 2G
+- name: UTRAN:
+  type: 3G
+- name: GSM/GPRS with EDGE availability:
+  type: 2G
+- name: UTRAN with HSDPA availability:
+  type: 3G
+- name: UTRAN with HSUPA availability:
+  type: 3G
+- name: UTRAN with HSDPA and HSUPA availability:
+  type: 3G
+- name: LTE:
+  type: 4G

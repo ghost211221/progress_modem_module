@@ -2,10 +2,12 @@ import eel
 
 from back.context import Context
 from back.exceptions import ComSetupError, ComConnectError, ComCommunicationError
-from back.utils import get_comports_list, comport_pars
+from back.utils import get_comports_list, comport_pars, get_cmd_callbacks
+from back.queues import TasksQueue
 
 
 context = Context()
+q = TasksQueue()
 
 @eel.expose
 def e_get_comports_list():
@@ -56,16 +58,14 @@ def e_close_connection():
 def e_communicate(cmd):
     msg = ''
     status = 'success'
+    callbacks = get_cmd_callbacks(cmd)
     try:
-        context.device.send(cmd)
-        ans = context.device.read()
-
-        context.cmd_log.append((cmd, ans['echo'], ans['ans']))
+        q.put((cmd, callbacks))
     except ComCommunicationError as e:
         status = 'fail'
         msg = f'Ошибка связи: {e}'
 
-    return {'status': status, 'msg': msg, 'ans': ans}
+    return {'status': status, 'msg': msg,}
 
 @eel.expose
 def e_get_comport_data():

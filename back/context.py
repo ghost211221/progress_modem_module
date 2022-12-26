@@ -17,6 +17,7 @@ class Context():
         self.selected_data_bits = None
         self.selected_stop_bits = None
         self.selected_parity = None
+        self.exit = False
 
         self.cmd_log = []  # list of tuples
 

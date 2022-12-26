@@ -253,8 +253,9 @@ let connection_handler = {
                     com_port.DTR = response.dtr;
                     com_port.RTS = response.rts;
                     this.render_com_data();
-                    $('#connect_port').attr('mode', 'disconnect')
-                    $('#connect_port').html('Отключиться')
+                    $('#connect_port').attr('mode', 'disconnect');
+                    $('#connect_port').html('Отключиться');
+                    $('#init_device').prop('disabled', false);
                 } else if (response.status === 'fail') {
                     alert(response.msg);
                 }
@@ -267,6 +268,7 @@ let connection_handler = {
                     this.render_com_data();
                     $('#connect_port').attr('mode', 'connect')
                     $('#connect_port').html('Подключиться')
+                    $('#init_device').prop('disabled', true);
                 } else if (response.status === 'fail') {
                     alert(response.msg);
                 }
