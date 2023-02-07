@@ -3,7 +3,6 @@ from queue import Empty
 
 import serial.tools.list_ports
 
-import back.callbacks as callbacks
 from back.context import Context
 from back.consts.cmds.mri.map_cmd_callback import CMDS
 from back.queues import AnsQueue
@@ -28,7 +27,7 @@ def get_cmd_callbacks(cmd):
     callbacks = []
     for item in CMDS:
         if item.get('cmd') in cmd:
-            callbacks.append(getattr(callbacks, item.get('callback'), None))
+            callbacks.append(item.get('callback'))
 
     return callbacks
 
@@ -41,3 +40,6 @@ def get_log_msgs():
             break
 
     return data
+
+def update_device_state():
+    pass

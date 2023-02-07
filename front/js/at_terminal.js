@@ -33,6 +33,14 @@ function process_answers(record) {
     $(`#{record.field}`).text(record.data);
 }
 
+eel.expose(update_field);
+function update_field(fields_objects) {
+    for (let field of fields_objects) {
+        $(`#${field.field}`).text(field.data);
+    }
+}
+
+
 let at_terminal_handler = {
     cmds: [],
     send_manual_cmd: function() {
