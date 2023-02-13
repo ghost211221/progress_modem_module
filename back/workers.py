@@ -24,10 +24,11 @@ def task_processing_worker():
                 for callback in callbacks:
                     if callback:
                         res = callback(cmd, ret)
-                        eel.update_field(res)
+                        if res:
+                            eel.update_field(res)
 
             aq.put(ret)
-            time.sleep(1)
+            time.sleep(0.1)
         except Empty:
             time.sleep(0.1)
 

@@ -30,13 +30,24 @@ function process_logs(records) {
 
 eel.expose(process_answers);
 function process_answers(record) {
-    $(`#{record.field}`).text(record.data);
+    if (record.hasOwnProperty('data')) {
+        $(`#${record.field}`).text(record.data);
+    }
+    if (record.hasOwnProperty('img')) {
+        $(`#${record.field}`).attr('src', `../img/${record.img}`);
+    }
 }
 
 eel.expose(update_field);
 function update_field(fields_objects) {
+    console.log(fields_objects);
     for (let field of fields_objects) {
-        $(`#${field.field}`).text(field.data);
+        if (field.hasOwnProperty('data')) {
+            $(`#${field.field}`).text(field.data);
+        }
+        if (field.hasOwnProperty('img')) {
+            $(`#${field.field}`).attr('src', `../img/${field.img}`);
+        }
     }
 }
 

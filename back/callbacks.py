@@ -67,3 +67,21 @@ def creg(cmd, response):
                 val = 'Неизвестно'
 
             return [{'field': 'sim-status', 'data': val}]
+
+@clear_ok
+@clear_premessage
+def csq(cmd, response):
+    """get firmware version"""
+    val = int(response['ans'].split(',')[0])
+    if val == 0:
+        return [{'field': 'signal_power', 'img': 'signals/signal_5.svg'}]
+    elif val == 1:
+        return [{'field': 'signal_power', 'img': 'signals/signal_4.svg'}]
+    elif 2 <= val <= 30:
+        return [{'field': 'signal_power', 'img': 'signals/signal_3.svg'}]
+    elif val == 31:
+        return [{'field': 'signal_power', 'img': 'signals/signal_2.svg'}]
+    elif 32 <= val <= 98:
+        return [{'field': 'signal_power', 'img': 'signals/signal_1.svg'}]
+    elif val == 99:
+        return [{'field': 'signal_power', 'img': 'signals/no_signal.svg'}]
