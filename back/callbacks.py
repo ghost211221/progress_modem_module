@@ -44,16 +44,34 @@ def ati(cmd, response):
         ]
 
 @clear_ok
+@clear_premessage
 def cops(cmd, response):
+    """Set command forces an attempt to select and register the GSM/UMTS network operator."""
     if 'COPS?' in cmd:
         if response['ans']:
-            return [{'field': 'operator', 'data': response['ans'].split(',')[-1]  or ''}]
+            data = response['ans'].split(',')[-1]  or ''
+            mode_dec = int(response['ans'].split(',')[0])
+            mode = ''
+            if mode_dec == 0:
+                mode = 'Автоматический'
+            elif mode_dec == 1:
+                mode = 'Ручной'
+            elif mode_dec == 2:
+                mode = 'Выход из сети'
+            elif mode_dec == 3:
+                mode = 'Установить формат'
+            return [
+                {'field': 'operator', 'data': data},
+                {'field': 'network-operator', 'data': data},
+                {'field': 'network-operator_select_mode', 'data': mode},
+            ]
 
 @clear_ok
 def creg(cmd, response):
     if 'CREG?' in cmd:
         if response['ans']:
-            ans = int(response['ans'].split(',')[1])
+            arr = response['ans'].split(',')
+            ans = int(arr[1])
             val = ''
             if ans == 0:
                 val = 'Не зарагистирована, поиск оператора'
@@ -66,7 +84,12 @@ def creg(cmd, response):
             elif ans == 4:
                 val = 'Неизвестно'
 
-            return [{'field': 'sim-status', 'data': val}]
+            return [
+                {'field': 'sim-status', 'data': val},
+                {'field': 'network-reg_status', 'data': val},
+                {'field': 'network-lac', 'data': arr[2]},
+                {'field': 'network-ci', 'data': arr[3]},
+            ]
 
 @clear_ok
 @clear_premessage

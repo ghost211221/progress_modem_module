@@ -11,7 +11,7 @@ def clear_ok(func):
 def clear_premessage(func):
     def wrapper(cmd, response):
         resp = response
-        resp['ans'] = re.sub(r'^\+[\r\n\w]+\:\s', '', resp['ans'])
+        resp['ans'] = re.sub(r'^[\+\r\n\w]+\:\s', '', resp['ans'].strip())
 
         return func(cmd, resp)
     return wrapper

@@ -256,6 +256,7 @@ let connection_handler = {
                     $('#connect_port').attr('mode', 'disconnect');
                     $('#connect_port').html('Отключиться');
                     $('#init_device').prop('disabled', false);
+                    $('#set_port_btn').prop('disabled', true);
                 } else if (response.status === 'fail') {
                     alert(response.msg);
                 }
@@ -269,6 +270,7 @@ let connection_handler = {
                     $('#connect_port').attr('mode', 'connect')
                     $('#connect_port').html('Подключиться')
                     $('#init_device').prop('disabled', true);
+                    $('#set_port_btn').prop('disabled', false);
                 } else if (response.status === 'fail') {
                     alert(response.msg);
                 }

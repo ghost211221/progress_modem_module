@@ -15,7 +15,6 @@ CMDS = [
     {'cmd': 'CIMI', 'callback': None},
     {'cmd': 'ZGETICCID', 'callback': None},
     {'cmd': 'CSQ', 'callback': csq},
-    # {'cmd': 'CLCK', 'callback': None},
-    # {'cmd': 'CPIN', 'callback': None},
-    # {'cmd': 'CCLK', 'callback': None},
+    {'cmd': 'CLCK', 'callback': None},
+    {'cmd': 'CPIN', 'callback': None},
 ]

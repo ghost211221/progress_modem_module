@@ -18,13 +18,17 @@ init = [
     'AT+CSQ',
     'AT+CLCK="SC",2',
     'AT+CPIN?',
-    'AT+CCLK?',
+    'AT+CCLK?'
+]
+
+refresh_network_info = [
+    'AT+COPS?',
+    'AT+CREG?',
+    'AT+CSQ',
 ]
 
 send_recieve_sms = [
     'AT+CSCA?',
     'AT+CNMI?',
-    'AT+CMGF=1',
-    'AT+CMGS="+70123456789"',
-
+    'AT+CMGF=1'
 ]
