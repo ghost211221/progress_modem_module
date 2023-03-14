@@ -7,7 +7,19 @@ from back.context import Context
 from back.device.mri import MRI
 from back.workers import task_processing_worker, log_processing_worker
 from views.comport import *
+from views.sms import *
 from views.terminal import *
+
+
+context = Context()
+
+def close_callback(route, websockets):
+    context.exit = True
+    if context.device and context.device.port:
+        context.device.port.close()
+
+    exit()
+
 
 if __name__ == '__main__':
     context = Context()
@@ -27,5 +39,6 @@ if __name__ == '__main__':
         jinja_templates='templates',
         mode='chrome',
         size=(1160, 975),
-        position=(0,0)
+        position=(0,0),
+        close_callback=close_callback
     )

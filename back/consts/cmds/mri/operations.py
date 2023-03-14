@@ -27,7 +27,7 @@ refresh_network_info = [
     'AT+CSQ',
 ]
 
-send_recieve_sms = [
+send_sms = [
     'AT+CSCA?',
     'AT+CNMI?',
     'AT+CMGF=1'

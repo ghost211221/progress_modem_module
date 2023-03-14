@@ -60,3 +60,24 @@
         </div>
     </div>
 </div>
+
+<!-- send escape sequence to terminal-->
+<div class="modal fade" id="escape_seq_modal" tabindex="-1" aria-labelledby="escape_seq_modal" aria-hidden="true">
+    <div class="modal-dialog modal-sm">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <div class="row">
+                    <h6>Выберите escape последовательность для отправки</h6>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Отмена</button>
+                <button type="button" class="btn btn-primary escape_seq_btn" mode="escape" data-bs-dismiss="modal">Escape</button>
+                <button type="button" class="btn btn-primary escape_seq_btn" mode="ctrl+z" data-bs-dismiss="modal"">Ctrl-Z</button>
+            </div>
+        </div>
+    </div>
+</div>

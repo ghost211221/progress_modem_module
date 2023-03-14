@@ -17,6 +17,11 @@ $(document).ready(async function() {
     $('#clear_log').click(function() {
         $('#at_log').empty();
     })
+
+    $('.escape_seq_btn').click(function() {
+        at_terminal_handler.handle_escape_seq(this);
+    })
+
 })
 
 eel.expose(process_logs);
@@ -54,6 +59,22 @@ function update_field(fields_objects) {
 
 let at_terminal_handler = {
     cmds: [],
+
+    handle_escape_seq: function(button) {
+        let text = $('#input_cmd').val();
+        let mode = $(button).attr('mode');
+        if (mode === 'escape') {
+            text += '\x1B';
+        } else if (mode === 'ctrl+z') {
+            text += '\x1A';
+        } else {
+            blurt('Не верный аттрибут', `Mode имеет недопустимое значение - /${mode}/`, 'error');
+            return
+        }
+
+        $('#input_cmd').val(text);
+    },
+
     send_manual_cmd: function() {
         let val = $('#input_cmd').val();
         if (val !== '') {
@@ -90,7 +111,7 @@ let at_terminal_handler = {
         eel.get_log_msgs()().then(response => {
             if (response.length > 0) {
                 for (let record of response) {
-                    at_terminal_handler .render_log_record(record.cmd, record.echo, record.ans);
+                    at_terminal_handler.render_log_record(record.cmd, record.echo, record.ans);
                 }
             }
         })
@@ -110,7 +131,7 @@ let at_terminal_handler = {
             if (group_selected === group.name) {
                 let i = 0;
                 for (let item of group.items) {
-                    $('#at_cmd_list').append(`<li class="at-cmd list-group-item p-1" data-bs-toggle="popover" title="${item.text}"><a class="nav-link icons-link" href="#" data-toggle="popover" id="at_cmd-${i}">${item.name}</a></li>`)
+                    $('#at_cmd_list').append(`<li class="at-cmd list-group-item p-1" data-bs-toggle="popover" title="${item.text}"><a class="nav-link icons-link p-0" href="#" data-toggle="popover" id="at_cmd-${i}">${item.name}</a></li>`)
                     let selector = `#at_cmd-${i}`;
                     $(selector).click(function() {
                         $('#input_cmd').val(`${item.name}`);

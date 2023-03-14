@@ -95,7 +95,11 @@ def creg(cmd, response):
 @clear_premessage
 def csq(cmd, response):
     """get firmware version"""
-    val = int(response['ans'].split(',')[0])
+    try:
+        val = int(response['ans'].split(',')[0])
+    except ValueError:
+        return
+
     if val == 0:
         return [{'field': 'signal_power', 'img': 'signals/signal_5.svg'}]
     elif val == 1:
