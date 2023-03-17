@@ -1,6 +1,8 @@
 from queue import Empty
 import time
 
+from datetime import datetime
+
 import eel
 
 from back.context import Context
@@ -19,6 +21,8 @@ def task_processing_worker():
             c.device.send(cmd)
             ret = c.device.read()
             ret['cmd'] = cmd
+            ret['datetime'] = str(datetime.now())
+            ret['hex'] = ' '.join([str.encode(a).hex() for a in ret.get('ans', '')])
 
             if callbacks:
                 for callback in callbacks:

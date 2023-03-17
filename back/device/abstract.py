@@ -97,7 +97,6 @@ class AbstractDevice(metaclass=ABCMeta):
 
             return cmds
 
-
     def send(self, data):
         try:
             self.port.write(f'{data}\r\n'.encode('utf-8'))

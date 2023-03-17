@@ -5,7 +5,7 @@ $(document).ready(async function() {
         at_terminal_handler.render_groups();
         at_terminal_handler.render_cmds();
     }
-0
+
     $('#send_cmd').click(function() {
         at_terminal_handler.send_manual_cmd();
     })
@@ -28,7 +28,7 @@ eel.expose(process_logs);
 function process_logs(records) {
     if (records.length > 0) {
         for (let record of records) {
-            at_terminal_handler .render_log_record(record.cmd, record.echo, record.ans);
+            at_terminal_handler .render_log_record(record.cmd, record.echo, record.ans, record.datetime, record.hex);
         }
     }
 }
@@ -97,10 +97,20 @@ let at_terminal_handler = {
         })
     },
 
-    render_log_record: function(cmd, echo, ans) {
+    render_log_record: function(cmd, echo, ans, timestamp, hex) {
         let html = $('#at_log').html();
         html += `<span>${cmd}</span><br>`;
         html += `<span class="log-blue">${echo}</span><br>`;
+
+        if ($('#print_timestamp').prop('checked')) {
+            html += `<span class="log-green">[ ${timestamp} ]</span>`
+        }
+
+        if ($('#print_hex').prop('checked')) {
+            html += `<span class="log-green"> ${hex} | </span>`
+        }
+
+
         html += `<span class="log-green">${ans}</span><br>`;
         $('#at_log').html(html);
         $('#at_log').scrollTop($('#at_log')[0].scrollHeight);
@@ -111,7 +121,7 @@ let at_terminal_handler = {
         eel.get_log_msgs()().then(response => {
             if (response.length > 0) {
                 for (let record of response) {
-                    at_terminal_handler.render_log_record(record.cmd, record.echo, record.ans);
+                    at_terminal_handler.render_log_record(record.cmd, record.echo, record.ans, record.datetime, record.hex);
                 }
             }
         })
