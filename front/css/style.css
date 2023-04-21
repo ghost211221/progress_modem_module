@@ -115,6 +115,10 @@
     color: green;
   }
 
+.selected {
+  background-color: #BBBBBB;
+}
+
   /* ============ desktop view ============ */
 @media all and (min-width: 992px) {
 	.dropdown-menu li{ position: relative; 	}

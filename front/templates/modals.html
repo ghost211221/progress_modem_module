@@ -81,3 +81,153 @@
         </div>
     </div>
 </div>
+
+<!-- edit cmds-->
+<div class="modal fade" id="edit_cmds_modal" tabindex="-1" aria-labelledby="edit_cmds_modal" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5>Изменение команд</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body bg-light">
+                <h6>Группа <span id="edit_cmds-group_name"></span></h6>
+                <div class="row">
+                    <div class="col-md-7 bg-white border">
+                        <ul class="list-group list-group-flush" id="edit_cmds-cmd_list" style="height: 100% !important;">
+                        </ul>
+                    </div>
+                    <div class="col-md-5">
+                        <div class="btn-group-vertical">
+                            <button class="btn btn-secondary m-1" id="edit_cmd-moveup">Передвинуть выше</button>
+                            <button class="btn btn-secondary m-1" id="edit_cmd-movedn">Передвинуть ниже</button>
+                            <button class="btn btn-secondary m-1" id="edit_cmd-edit">Редактировать</button>
+                            <button class="btn btn-secondary m-1" data-bs-toggle="modal" data-bs-target="#add_cmd_modal">Добавить</button>
+                            <button class="btn btn-secondary m-1" data-bs-toggle="modal" data-bs-target="#copy_to_cmd_modal">Копировать в...</button>
+                            <button class="btn btn-secondary m-1" data-bs-toggle="modal" data-bs-target="#move_to_cmd_modal">Переместить в...</button>
+                            <button class="btn btn-secondary m-1" id="edit_cmd-delete">Удалить</button>
+                            <button type="button" class="btn btn-secondary m-1" data-bs-dismiss="modal">Закрыть</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer bg-light">
+                <div style="width: 100% !important;"">
+                    <h6 class="">Описание команды</h6>
+                </div>
+                <div id="edit_cmd-cmd_description" style="width: 100% !important; height: 7vh;">
+
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<!-- edit cmd-->
+<div class="modal fade" id="edit_cmd_modal" tabindex="-1" aria-labelledby="edit_cmd_modal" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5>Изменение команды</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body bg-light">
+                <div class="row row-cols-2">
+                    <div class="col-2">
+                        <p>Команда</p>
+                        <p>Описание</p>
+                    </div>
+                    <div class="col-10">
+                        <input type="text" class="form-control" id="edit_cmd_cmd">
+                        <input type="text" class="form-control" id="edit_cmd_text">
+                    </div>
+                </div>
+
+            </div>
+            <div class="modal-footer bg-light">
+                <button type="button" class="btn btn-primary" id="edit_cmd_ok" data-bs-dismiss="modal">OK</button>
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Отмена</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- new cmd-->
+<div class="modal fade" id="add_cmd_modal" tabindex="-1" aria-labelledby="add_cmd_modal" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5>Добавить команду</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body bg-light">
+                <div class="row row-cols-2">
+                    <div class="col-2">
+                        <p>Команда</p>
+                        <p>Описание</p>
+                    </div>
+                    <div class="col-10">
+                        <input type="text" class="form-control" id="add_cmd_cmd">
+                        <input type="text" class="form-control" id="add_cmd_text">
+                    </div>
+                </div>
+
+            </div>
+            <div class="modal-footer bg-light">
+                <button type="button" class="btn btn-primary" id="add_cmd_ok" data-bs-dismiss="modal">OK</button>
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Отмена</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- copy cmd to-->
+<div class="modal fade" id="copy_to_cmd_modal" tabindex="-1" aria-labelledby="copy_to_cmd_modal" aria-hidden="true">
+    <div class="modal-dialog modal-sm">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5>Копировать в...</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body bg-light">
+                <div class="row">
+                        <select name="" id="copy_to_gorup_sel" class="form-select">
+                            <option value=""></option>
+                        </select>
+                </div>
+
+            </div>
+            <div class="modal-footer bg-light">
+                <button type="button" class="btn btn-primary" id="copy_to_gorup_ok" data-bs-dismiss="modal">OK</button>
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Отмена</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- move cmd to-->
+<div class="modal fade" id="move_to_cmd_modal" tabindex="-1" aria-labelledby="move_to_cmd_modal" aria-hidden="true">
+    <div class="modal-dialog modal-sm">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5>Переместить в...</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body bg-light">
+                <div class="row">
+                    <select name="" id="move_to_gorup_sel" class="form-select">
+                        <option value=""></option>
+                    </select>
+                </div>
+
+            </div>
+            <div class="modal-footer bg-light">
+                <button type="button" class="btn btn-primary" id="move_to_gorup_ok" data-bs-dismiss="modal">OK</button>
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Отмена</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+

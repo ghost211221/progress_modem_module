@@ -22,6 +22,115 @@ $(document).ready(async function() {
         at_terminal_handler.handle_escape_seq(this);
     })
 
+
+    $('#edit_cmds_modal').on('show.bs.modal', function (e) {
+        at_terminal_handler.render_edit_cmds_modal_content();
+    })
+
+    $('#edit_cmd-moveup').click(function() {
+        let arr = get_cmd_list(at_terminal_handler.cmds, at_terminal_handler.selected_cmd_type)
+        let current = $('.edit_cmds-cmd_li.selected');
+        let prev = $(current).prev();
+        let index_curr = arr.findIndex(x => x.name === $(current).find('a').text());
+        let index_prev = arr.findIndex(x => x.name === $(prev).find('a').text());
+        swapElements(arr, index_curr, index_prev);
+
+        at_terminal_handler.render_cmds();
+        at_terminal_handler.render_edit_cmds_modal_content();
+    })
+
+    $('#edit_cmd-movedn').click(function() {
+        let arr = get_cmd_list(at_terminal_handler.cmds, at_terminal_handler.selected_cmd_type);
+        let current = $('.edit_cmds-cmd_li.selected');
+        let next = $(current).next();
+        let index_curr = arr.findIndex(x => x.name === $(current).find('a').text());
+        let index_prev = arr.findIndex(x => x.name === $(next).find('a').text());
+        swapElements(arr, index_curr, index_prev);
+
+        at_terminal_handler.render_cmds();
+        at_terminal_handler.render_edit_cmds_modal_content();
+    })
+
+    $('#edit_cmd-edit').click(function() {
+        let selected = $('.edit_cmds-cmd_li.selected');
+        if (selected.length > 0) {
+            $('#edit_cmd_modal').modal('show');
+            $('#edit_cmd_cmd').val($(selected).find('a').text());
+            $('#edit_cmd_text').val($(selected).find('a').attr('cmd_text'));
+        }
+    })
+
+    $('#edit_cmd_ok').click(function() {
+        let arr = get_cmd_list(at_terminal_handler.cmds, at_terminal_handler.selected_cmd_type);
+
+        let name = $('#edit_cmd_cmd').val();
+        let descr = $('#edit_cmd_text').val();
+
+        let idx = arr.findIndex(x => x === at_terminal_handler.selected_cmd_for_edit);
+        arr[idx].name = name;
+        arr[idx].text = descr;
+
+        at_terminal_handler.render_cmds();
+        at_terminal_handler.render_edit_cmds_modal_content();
+
+        $('#edit_cmd_modal').modal('hide');
+    })
+
+    $('#add_cmd_ok').click(function() {
+        let arr = get_cmd_list(at_terminal_handler.cmds, at_terminal_handler.selected_cmd_type);
+
+        let name = $('#add_cmd_cmd').val();
+        let descr = $('#add_cmd_text').val();
+
+        arr.push({'name': name, 'text': descr});
+
+        at_terminal_handler.render_cmds();
+        at_terminal_handler.render_edit_cmds_modal_content();
+
+        $('#add_cmd_modal').modal('hide');
+    })
+
+
+    $('#edit_cmd-delete').click(function() {
+        let arrIdx = at_terminal_handler.cmds.findIndex(x => x.name === at_terminal_handler.selected_cmd_type);
+
+        at_terminal_handler.cmds[arrIdx].items = at_terminal_handler.cmds[arrIdx].items.filter(e => e !== at_terminal_handler.selected_cmd_for_edit)
+
+        at_terminal_handler.render_cmds();
+        at_terminal_handler.render_edit_cmds_modal_content();
+
+    })
+
+    $('#copy_to_gorup_ok').click(function() {
+        let selected = $('#copy_to_gorup_sel').val();
+
+        if (selected !== '') {
+            let arr = get_cmd_list(at_terminal_handler.cmds, selected);
+            arr.push(at_terminal_handler.selected_cmd_for_edit);
+
+            at_terminal_handler.render_cmds();
+            at_terminal_handler.render_edit_cmds_modal_content();
+        }
+
+        $('#copy_to_cmd_modal').modal('hide');
+    })
+
+    $('#move_to_gorup_ok').click(function() {
+        let selected = $('#move_to_gorup_sel').val();
+
+        if (selected !== '') {
+            let arr = get_cmd_list(at_terminal_handler.cmds, selected);
+            arr.push(at_terminal_handler.selected_cmd_for_edit);
+
+            let arrIdx = at_terminal_handler.cmds.findIndex(x => x.name === at_terminal_handler.selected_cmd_type);
+            at_terminal_handler.cmds[arrIdx].items = at_terminal_handler.cmds[arrIdx].items.filter(e => e !== at_terminal_handler.selected_cmd_for_edit);
+
+            at_terminal_handler.render_cmds();
+            at_terminal_handler.render_edit_cmds_modal_content();
+        }
+
+        $('#move_to_cmd_modal').modal('hide');
+    })
 })
 
 eel.expose(process_logs);
@@ -57,8 +166,26 @@ function update_field(fields_objects) {
 }
 
 
+const swapElements = (array, index1, index2) => {
+    let temp = array[index1];
+    array[index1] = array[index2];
+    array[index2] = temp;
+};
+
+function get_cmd_list(cmds_dicts_list, group_name) {
+    for (let group of cmds_dicts_list) {
+        if (group.name === group_name) {
+            return group.items
+        }
+    }
+}
+
+
 let at_terminal_handler = {
     cmds: [],
+    selected_cmd_type: 'Generic',
+    current_group: 'Generic',
+    selected_cmd_for_edit: null,     // cmd selected for various edits
 
     handle_escape_seq: function(button) {
         let text = $('#input_cmd').val();
@@ -130,15 +257,17 @@ let at_terminal_handler = {
     render_groups: function() {
         for (let group of this.cmds) {
             $('#cmd_type_select').append(`<option id="cmd_group-${group.name}">${group.name}</option>`);
+            $('#copy_to_gorup_sel').append(`<option id="copy_to_group-${group.name}">${group.name}</option>`);
+            $('#move_to_gorup_sel').append(`<option id="move_to_group-${group.name}">${group.name}</option>`);
         }
     },
 
     render_cmds: function() {
-        let group_selected = $('#cmd_type_select').val();
+        this.selected_cmd_type = $('#cmd_type_select').val();
         $('#at_cmd_list').empty();
 
         for (let group of this.cmds) {
-            if (group_selected === group.name) {
+            if (this.selected_cmd_type === group.name) {
                 let i = 0;
                 for (let item of group.items) {
                     $('#at_cmd_list').append(`<li class="at-cmd list-group-item p-1" data-bs-toggle="popover" title="${item.text}"><a class="nav-link icons-link p-0" href="#" data-toggle="popover" id="at_cmd-${i}">${item.name}</a></li>`)
@@ -157,5 +286,41 @@ let at_terminal_handler = {
         this.cmds = response;
 
         return true
+    },
+
+    render_edit_cmds_modal_content: function() {
+        $('#edit_cmds-cmd_list').empty();
+        let that = this;
+
+        for (let group of this.cmds) {
+            if (this.selected_cmd_type === group.name) {
+                let i = 0;
+                for (let item of group.items) {
+                    let selector = `edit_cmd-${i}`;
+                    $('#edit_cmds-cmd_list').append(`
+                        <li class="list-group-item edit_cmds-cmd_li p-1">
+                            <a class="nav-link icons-link p-0 edit_cmds-cmd_elem" href="#" def_text="${item.text}" def_name="${item.name}" cmd_text="${item.text}" id="${selector}">${item.name}</a>
+                        </li>`)
+
+                    $(`#${selector}`).click(function() {
+                        $('#edit_cmd-cmd_description').empty();
+                        $('#edit_cmd-cmd_description').append($(this).attr('cmd_text'));
+                        $('.edit_cmds-cmd_elem').parent().removeClass('selected');
+                        $(this).parent().addClass('selected');
+                        that.selected_cmd_for_edit = item;
+
+                    })
+
+                    if (this.selected_cmd_for_edit !== null && this.selected_cmd_for_edit === item) {
+                        let that_ = $(`#${selector}`)
+                        $('#edit_cmd-cmd_description').empty();
+                        $('#edit_cmd-cmd_description').append($(that_).attr('cmd_text'));
+                        $('.edit_cmds-cmd_elem').parent().removeClass('selected');
+                        $(that_).parent().addClass('selected');
+                    }
+                    i++;
+                }
+            }
+        }
     }
 }

@@ -44,6 +44,8 @@ class AbstractDevice(metaclass=ABCMeta):
         self.parity = parity
         self.description = description
 
+        self.cmds = []
+
         self.port.port = self.comport
         self.port.baudrate = self.baudrate
         self.port.bytesize  = DATABITS_MAP[self.data_bits]
@@ -93,9 +95,11 @@ class AbstractDevice(metaclass=ABCMeta):
             raise UnknownDeviceError(f'Неизвестный прибор: {self.dev_type}')
 
         with open(f'cmds/{self.dev_type}/cmd.yml') as f:
-            cmds = yaml.safe_load(f)
+            self.cmds = yaml.safe_load(f)
 
-            return cmds
+            return self.cmds
+
+
 
     def send(self, data):
         try:
