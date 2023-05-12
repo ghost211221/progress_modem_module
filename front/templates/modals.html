@@ -231,3 +231,113 @@
 </div>
 
 
+<!-- edit cmds groups -->
+<div class="modal fade" id="edit_cmds_groups_modal" tabindex="-1" aria-labelledby="edit_cmds_groups_modal" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5>Изменение групп команд</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body bg-light">
+                <div class="row">
+                    <div class="col-md-7 bg-white border">
+                        <ul class="list-group list-group-flush" id="edit_cmds_groups-groups_list" style="height: 100% !important;">
+                        </ul>
+                    </div>
+                    <div class="col-md-5">
+                        <div class="btn-group-vertical">
+                            <button class="btn btn-secondary m-1" id="edit_cmds_groups-moveup">Передвинуть выше</button>
+                            <button class="btn btn-secondary m-1" id="edit_cmds_groups-movedn">Передвинуть ниже</button>
+                            <button class="btn btn-secondary m-1" id="rename_group_btn">Переименовать</button>
+                            <button class="btn btn-secondary m-1" id="add_group_btn">Добавить</button>
+                            <button class="btn btn-secondary m-1" id="edit_cmds_groups-delete">Удалить</button>
+                            <input id="fileInput" type="file" style="display:none;" />
+                            <button class="btn btn-secondary m-1" id="edit_cmds_groups-save" >Сохранить</button>
+                            <button type="button" class="btn btn-secondary m-1" data-bs-dismiss="modal">Закрыть</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer bg-light">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Закрыть</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<!-- rename cmd -->
+<div class="modal fade" id="rename_group_modal" tabindex="-1" aria-labelledby="rename_group_modal" aria-hidden="true">
+    <div class="modal-dialog modal-sm">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5>Переименовать группу команд</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body bg-light">
+                <div class="row">
+                    <input type="text" class="form-control" id="rename_group_input">
+                </div>
+
+            </div>
+            <div class="modal-footer bg-light">
+                <button type="button" class="btn btn-primary" id="rename_group_ok">OK</button>
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Отмена</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- new group-->
+<div class="modal fade" id="add_group_modal" tabindex="-1" aria-labelledby="add_group_modal" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5>Добавить команду</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body bg-light">
+                <div class="row">
+                    <input type="text" class="form-control" id="add_group_input">
+                </div>
+
+            </div>
+            <div class="modal-footer bg-light">
+                <button type="button" class="btn btn-primary" id="add_group_ok" data-bs-dismiss="modal">OK</button>
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Отмена</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- save group-->
+<div class="modal fade" id="save_group_modal" tabindex="-1" aria-labelledby="save_group_modal" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5>Сохранить группу команду  в файл</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body bg-light">
+                <div class="row">
+                    <div class="col-4">
+                        <p>Название файла</p>
+                    </div>
+                    <div class="col-8">
+                        <input type="text" class="form-control" id="save_group_input">
+                        <div class="alert alert-danger" id="save_group_alert" role="alert" style="display: none">
+                            Необходимо указать имя файла
+                          </div>
+                    </div>
+                </div>
+
+            </div>
+            <div class="modal-footer bg-light">
+                <button type="button" class="btn btn-primary" id="save_group_ok">OK</button>
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Отмена</button>
+            </div>
+        </div>
+    </div>
+</div>
+

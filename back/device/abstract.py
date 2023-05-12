@@ -97,8 +97,22 @@ class AbstractDevice(metaclass=ABCMeta):
         with open(f'cmds/{self.dev_type}/cmd.yml') as f:
             self.cmds = yaml.safe_load(f)
 
-            return self.cmds
+            return self.cmds or []
 
+    def set_cmds(self, cmds):
+        if not cmds:
+            raise Exception('Empty cmds list')
+
+        if not self.dev_type:
+            raise UnknownDeviceError('dev_type не указан')
+
+        if self.dev_type not in ('sara', 'mri'):
+            raise UnknownDeviceError(f'Неизвестный прибор: {self.dev_type}')
+
+        self.cmds = cmds
+
+        with open(f'cmds/{self.dev_type}/cmd.yml', 'w') as f:
+            yaml.dump(self.cmds, f)
 
 
     def send(self, data):

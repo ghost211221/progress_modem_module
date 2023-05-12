@@ -1,4 +1,6 @@
 from queue import Empty
+import yaml
+import os
 
 import eel
 
@@ -42,3 +44,23 @@ def execute_operation(op):
                 return
 
             raise Exception(f'Method {op} is not implemented')
+
+@eel.expose
+def save_cmds(cmds):
+    c.device.set_cmds(cmds)
+
+@eel.expose
+def save_cmd_group(group_name, file_name):
+    if not file_name:
+        raise Exception('Не указано имя файла для сохранения')
+
+    if not group_name:
+        raise Exception('Не выбрано имя группы для сохранения')
+
+    for group in c.device.cmds:
+        if group.get('name', '') == group_name:
+            if not os.path.exists('dumped'):
+                os.mkdir('dumped')
+
+            with open(f'dumped/{file_name}.yml', 'w') as f:
+                yaml.dump(group, f)

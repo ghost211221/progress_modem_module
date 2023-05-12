@@ -27,6 +27,10 @@ $(document).ready(async function() {
         at_terminal_handler.render_edit_cmds_modal_content();
     })
 
+    $('#edit_cmds_groups_modal').on('show.bs.modal', function (e) {
+        groups_edit_handler.render_groups_for_edit();
+    })
+
     $('#edit_cmd-moveup').click(function() {
         let arr = get_cmd_list(at_terminal_handler.cmds, at_terminal_handler.selected_cmd_type)
         let current = $('.edit_cmds-cmd_li.selected');
@@ -35,6 +39,7 @@ $(document).ready(async function() {
         let index_prev = arr.findIndex(x => x.name === $(prev).find('a').text());
         swapElements(arr, index_curr, index_prev);
 
+        eel.save_cmds(at_terminal_handler.cmds)();
         at_terminal_handler.render_cmds();
         at_terminal_handler.render_edit_cmds_modal_content();
     })
@@ -47,6 +52,7 @@ $(document).ready(async function() {
         let index_prev = arr.findIndex(x => x.name === $(next).find('a').text());
         swapElements(arr, index_curr, index_prev);
 
+        eel.save_cmds(at_terminal_handler.cmds)();
         at_terminal_handler.render_cmds();
         at_terminal_handler.render_edit_cmds_modal_content();
     })
@@ -70,6 +76,7 @@ $(document).ready(async function() {
         arr[idx].name = name;
         arr[idx].text = descr;
 
+        eel.save_cmds(at_terminal_handler.cmds)();
         at_terminal_handler.render_cmds();
         at_terminal_handler.render_edit_cmds_modal_content();
 
@@ -84,6 +91,7 @@ $(document).ready(async function() {
 
         arr.push({'name': name, 'text': descr});
 
+        eel.save_cmds(at_terminal_handler.cmds)();
         at_terminal_handler.render_cmds();
         at_terminal_handler.render_edit_cmds_modal_content();
 
@@ -96,6 +104,7 @@ $(document).ready(async function() {
 
         at_terminal_handler.cmds[arrIdx].items = at_terminal_handler.cmds[arrIdx].items.filter(e => e !== at_terminal_handler.selected_cmd_for_edit)
 
+        eel.save_cmds(at_terminal_handler.cmds)();
         at_terminal_handler.render_cmds();
         at_terminal_handler.render_edit_cmds_modal_content();
 
@@ -108,6 +117,7 @@ $(document).ready(async function() {
             let arr = get_cmd_list(at_terminal_handler.cmds, selected);
             arr.push(at_terminal_handler.selected_cmd_for_edit);
 
+            eel.save_cmds(at_terminal_handler.cmds)();
             at_terminal_handler.render_cmds();
             at_terminal_handler.render_edit_cmds_modal_content();
         }
@@ -125,12 +135,115 @@ $(document).ready(async function() {
             let arrIdx = at_terminal_handler.cmds.findIndex(x => x.name === at_terminal_handler.selected_cmd_type);
             at_terminal_handler.cmds[arrIdx].items = at_terminal_handler.cmds[arrIdx].items.filter(e => e !== at_terminal_handler.selected_cmd_for_edit);
 
+            eel.save_cmds(at_terminal_handler.cmds)();
             at_terminal_handler.render_cmds();
             at_terminal_handler.render_edit_cmds_modal_content();
         }
 
         $('#move_to_cmd_modal').modal('hide');
     })
+
+
+    $('#edit_cmds_groups-moveup').click(function() {
+        let current = $('.edit_cmds_groups-group_li.selected');
+        let prev = $(current).prev();
+        let index_curr = at_terminal_handler.cmds.findIndex(x => x.name === $(current).find('a').text());
+        let index_prev = at_terminal_handler.cmds.findIndex(x => x.name === $(prev).find('a').text());
+        swapElements(at_terminal_handler.cmds, index_curr, index_prev);
+
+        eel.save_cmds(at_terminal_handler.cmds)();
+        at_terminal_handler.render_groups();
+        at_terminal_handler.render_cmds();
+        groups_edit_handler.render_groups_for_edit();
+    })
+
+    $('#edit_cmds_groups-movedn').click(function() {
+        let current = $('.edit_cmds_groups-group_li.selected');
+        let next = $(current).next();
+        let index_curr = at_terminal_handler.cmds.findIndex(x => x.name === $(current).find('a').text());
+        let index_prev = at_terminal_handler.cmds.findIndex(x => x.name === $(next).find('a').text());
+        swapElements(at_terminal_handler.cmds, index_curr, index_prev);
+
+        eel.save_cmds(at_terminal_handler.cmds)();
+        at_terminal_handler.render_groups();
+        at_terminal_handler.render_cmds();
+        groups_edit_handler.render_groups_for_edit();
+    })
+
+    $('#rename_group_btn').click(function() {
+        let selected = $('.edit_cmds_groups-group_li.selected');
+        if (selected.length > 0) {
+            $('#rename_group_modal').modal('show');
+            $('#rename_group_input').val($(selected).find('a').text());
+        }
+    })
+
+    $('#rename_group_ok').click(function() {
+        for (let group of at_terminal_handler.cmds) {
+            if (group.name === groups_edit_handler.selected_group_for_edit) {
+                group.name = $('#rename_group_input').val();
+
+                eel.save_cmds(at_terminal_handler.cmds)();
+                at_terminal_handler.render_groups();
+                at_terminal_handler.render_cmds();
+                groups_edit_handler.render_groups_for_edit();
+                $('#rename_group_modal').modal('hide');
+            }
+        }
+    })
+
+    $('#add_group_btn').click(function() {
+        $('#add_group_modal').modal('show');
+    })
+
+    $('#add_group_ok').click(function() {
+        let group_name = $('#add_group_input').val();
+        if (group_name.length === 0) {
+            return
+        }
+
+        at_terminal_handler.cmds.push({'name': group_name, 'items': []})
+        eel.save_cmds(at_terminal_handler.cmds)();
+
+        at_terminal_handler.render_groups();
+        at_terminal_handler.render_cmds();
+        groups_edit_handler.render_groups_for_edit();
+    })
+
+    $('#edit_cmds_groups-delete').click(function() {
+        let selected = $('.edit_cmds_groups-group_li.selected').find('a').text();
+        if (selected === undefined) {
+            return
+        }
+        at_terminal_handler.cmds = at_terminal_handler.cmds.filter(e => e.name !== selected)
+
+        eel.save_cmds(at_terminal_handler.cmds)();
+
+        at_terminal_handler.render_groups();
+        at_terminal_handler.render_cmds();
+        groups_edit_handler.render_groups_for_edit();
+    })
+
+    $('#edit_cmds_groups-save').click(function() {
+        if (groups_edit_handler.selected_cmd_for_edit !== '') {
+            $('#save_group_modal').modal('show');
+        }
+    })
+
+    $('#save_group_ok').click(function() {
+        if ($('#save_group_input').val() === '' ) {
+            $('#save_group_alert').show();
+            return
+        }
+
+        eel.save_cmd_group(groups_edit_handler.selected_group_for_edit, $('#save_group_input').val())();
+        $('#save_group_modal').modal('hide');
+    })
+
+    $('add_group_input').change(function() {
+        $('#save_group_alert').hide();
+    })
+
 })
 
 eel.expose(process_logs);
@@ -255,8 +368,12 @@ let at_terminal_handler = {
     },
 
     render_groups: function() {
+        $('#cmd_type_select').empty();
+        $('#copy_to_gorup_sel').empty();
+        $('#move_to_gorup_sel').empty();
         for (let group of this.cmds) {
-            $('#cmd_type_select').append(`<option id="cmd_group-${group.name}">${group.name}</option>`);
+            let selected = this.selected_cmd_type !== null && group.name === this.selected_cmd_type ? 'selected' : '';
+            $('#cmd_type_select').append(`<option id="cmd_group-${group.name}" ${selected}>${group.name}</option>`);
             $('#copy_to_gorup_sel').append(`<option id="copy_to_group-${group.name}">${group.name}</option>`);
             $('#move_to_gorup_sel').append(`<option id="move_to_group-${group.name}">${group.name}</option>`);
         }
@@ -320,6 +437,35 @@ let at_terminal_handler = {
                     }
                     i++;
                 }
+            }
+        }
+    }
+}
+
+let groups_edit_handler = {
+    selected_group_for_edit: null,
+    render_groups_for_edit: function() {
+        $('#edit_cmds_groups-groups_list').empty();
+        let that = this;
+
+        for (let group of at_terminal_handler.cmds) {
+            let selector = `edit_cmds_groups-${at_terminal_handler.cmds.indexOf(group)}`;
+            $('#edit_cmds_groups-groups_list').append(`
+                <li class="list-group-item edit_cmds_groups-group_li p-1">
+                    <a class="nav-link icons-link p-0 edit_cmds_groups-group_elem" href="#" def_name="${group.name}" id="${selector}">${group.name}</a>
+                </li>`)
+
+            $(`#${selector}`).click(function() {
+                $('.edit_cmds_groups-group_elem').parent().removeClass('selected');
+                $(this).parent().addClass('selected');
+                that.selected_group_for_edit = group.name;
+
+            })
+
+            if (this.selected_group_for_edit !== null && this.selected_group_for_edit === group.name) {
+                let that_ = $(`#${selector}`)
+                $('.edit_cmds-group_elem').parent().removeClass('selected');
+                $(that_).parent().addClass('selected');
             }
         }
     }
