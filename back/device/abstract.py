@@ -33,7 +33,8 @@ class AbstractDevice(metaclass=ABCMeta):
     dev_type = None
 
     def __init__(self):
-        self.port = Serial()
+        self.port = None
+        pass
 
     def setup_device(self, comport, description, baudrate, flow_control, data_bits, stop_bits, parity):
         self.comport = comport
@@ -46,6 +47,22 @@ class AbstractDevice(metaclass=ABCMeta):
 
         self.cmds = []
 
+    def get_mode(self):
+        return {
+            'cd': self.port.cd if self.connected else False,
+            'ri': self.port.ri if self.connected else False,
+            'dsr': self.port.dsr if self.connected else False,
+            'cts': self.port.cts if self.connected else False,
+            'dtr': self.port.dtr if self.connected else False,
+            'rts': self.port.rts if self.connected else False,
+        }
+
+    def connect(self):
+        if self.port:
+            self.port.close()
+            self.port = None
+
+        self.port = Serial()
         self.port.port = self.comport
         self.port.baudrate = self.baudrate
         self.port.bytesize  = DATABITS_MAP[self.data_bits]
@@ -62,20 +79,14 @@ class AbstractDevice(metaclass=ABCMeta):
             self.port.setRTS(False)
             self.port.setDTR(False)
 
-    def get_mode(self):
-        return {
-            'cd': self.port.cd if self.connected else False,
-            'ri': self.port.ri if self.connected else False,
-            'dsr': self.port.dsr if self.connected else False,
-            'cts': self.port.cts if self.connected else False,
-            'dtr': self.port.dtr if self.connected else False,
-            'rts': self.port.rts if self.connected else False,
-        }
-
-    def connect(self):
-        self.port.close()
 
         try:
+            self.port.close()
+            self.port.close()
+            self.port.close()
+            self.port.close()
+            self.port.close()
+            self.port.close()
             self.port.open()
             self.connected = True
             print('connected!')
@@ -85,6 +96,7 @@ class AbstractDevice(metaclass=ABCMeta):
     def disconnect(self):
         try:
             self.port.close()
+            self.port = None
             self.connected = False
         except Exception as e:
             raise ComConnectError(f'Ошибка закрытия порта {self.comport}: {e}')

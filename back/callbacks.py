@@ -64,14 +64,14 @@ def ati(cmd, response):
             {'field': 'firmware_version', 'data': firmware_version or ''},
         ]
 
-@clear_ok
+# @clear_ok
 @clear_premessage
 def cops(cmd, response):
     """Set command forces an attempt to select and register the GSM/UMTS network operator."""
     # (2,"25001","25001","25001",2),(1,"25001","25001","25001",0),(1,"25099","25099","25099",2),(1,"25020","25020","25020",2),(1,"25002","25002","25002",2),(1,"25002","25002","25002",0),(1,"25099","25099","25099",0),,(0-3),(0-2)
     if 'COPS?' in cmd:
         if response['ans']:
-            op_code = response['ans'].split(',')[-1]  or ''
+            op_code = response['ans'].replace('OK', '').split(',')[-1]  or ''
             mode_dec = int(response['ans'].split(',')[0])
             mode = ''
             if mode_dec == 0:
@@ -95,9 +95,9 @@ def cops(cmd, response):
     if 'COPS=?':
         # get list of operators
         operators = []
-        line = '(2,"25001","25001","25001",2),(1,"25001","25001","25001",0),(1,"25099","25099","25099",2),(1,"25020","25020","25020",2),(1,"25002","25002","25002",2),(1,"25002","25002","25002",0),(1,"25099","25099","25099",0),,(0-3),(0-2)'
-        for i, op_str in enumerate(re.findall(r'\(([\w\d",]+)\)', line)):
-        # for i, op_str in enumerate(re.findall(r'\(([\w\d",]+)\)', response.get('ans', ''))):
+        # line = '(2,"25001","25001","25001",2),(1,"25001","25001","25001",0),(1,"25099","25099","25099",2),(1,"25020","25020","25020",2),(1,"25002","25002","25002",2),(1,"25002","25002","25002",0),(1,"25099","25099","25099",0),,(0-3),(0-2)'
+        # for i, op_str in enumerate(re.findall(r'\(([\w\d",]+)\)', line)):
+        for i, op_str in enumerate(re.findall(r'\(([\w\d",]+)\)', response.get('ans', '').replace('OK', ''))):
             op_data = op_str.split(',')
 
             status_code = int(op_data[0])

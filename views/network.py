@@ -70,6 +70,6 @@ def register_operator(operator_code):
     if not operator_code:
         return
 
-    cmd = f'AT+COPS="{phone_number}"\r'
-    callbacks = get_cmd_callbacks('AT+CMGS')
+    cmd = f'AT+COPS=1,2"{operator_code}"'
+    callbacks = get_cmd_callbacks('AT+COPS')
     q.put((cmd, callbacks))
