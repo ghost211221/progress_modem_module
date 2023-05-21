@@ -1,7 +1,7 @@
 <div class="panel panel-default main-panel" id="panel-network" style="display: none">
     <div class="panel-heading">
         <h3>Сетевая информация</h3>
-        <button class="btn btn-sm btn-light">Обновить информацию</button>
+        <button class="btn btn-sm btn-secondary" id="network-refresh_info">Обновить информацию</button>
     </div>
     <div class="panel-body">
         <div class="container-xl">
@@ -52,22 +52,22 @@
                     <div class="row">
                         <div class="column">
                             <span style="margin-right: 34px"><b>Список сетевых операторов</b></span>
-                            <button class="btn btn-sm btn-light">Получить список</button>
+                            <button class="btn btn-sm btn-secondary" id="network-get_operators_btn">Получить список</button>
                         </div>
                     </div>
                 </div>
-                <div class="col col-7">
+                <!-- <div class="col col-7">
                     <div class="row">
                         <div class="column">
-                            <span style="margin-right: 356px"><b>Профили PSD</b></span>
-                            <button class="btn btn-sm btn-light">Обновить</button>
+                            <span style="margin-right: 356px"><b>Инициализация профиля пакетной передачи данных</b></span>
+                            <button class="btn btn-sm btn-secondary">Обновить</button>
                         </div>
                     </div>
-                </div>
+                </div> -->
             </div>
             <div class="row row-cols-2">
                 <div class="col col-5">
-                    <table class="table table-bordered">
+                    <table class="table table-bordered table-hover" id="network-operators_table">
                         <thead>
                           <tr>
                             <th scope="col">#</th>
@@ -77,11 +77,11 @@
                             <th scope="col">AcT</th>
                           </tr>
                         </thead>
-                        <tbody style="display: block; height: 300px;">
+                        <tbody style="height: 300px; overflow-y: auto;">
                         </tbody>
                     </table>
                 </div>
-                <div class="col col-7">
+                <!-- <div class="col col-7">
                     <table class="table table-bordered">
                         <thead>
                           <tr>
@@ -96,26 +96,26 @@
                         <tbody style="display: block; height: 300px;">
                         </tbody>
                     </table>
-                </div>
+                </div> -->
             </div>
             <div class="row row-cols-2">
                 <div class="col col-5">
                     <div class="row">
                         <div class="column">
-                            <button class="btn btn-sm btn-light">Выбор оператора</button>
-                            <button class="btn btn-sm btn-light">Авто режим</button>
-                            <button class="btn btn-sm btn-light">Отключение</button>
+                            <button class="btn btn-sm btn-secondary" id="network-select_operator">Выбор оператора</button>
+                            <button class="btn btn-sm btn-secondary">Авто режим</button>
+                            <button class="btn btn-sm btn-secondary">Отключение</button>
                         </div>
                     </div>
                 </div>
-                <div class="col col-7">
+                <!-- <div class="col col-7">
                     <div class="row">
                         <div class="column">
-                            <button class="btn btn-sm btn-light">Редактировать</button>
-                            <button class="btn btn-sm btn-light">Активация/Деактивация</button>
+                            <button class="btn btn-sm btn-secondary">Редактировать</button>
+                            <button class="btn btn-sm btn-secondary">Активация/Деактивация</button>
                         </div>
                     </div>
-                </div>
+                </div> -->
             </div>
         </div>
     </div>

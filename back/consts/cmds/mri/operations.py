@@ -18,13 +18,22 @@ init = [
     'AT+CSQ',
     'AT+CLCK="SC",2',
     'AT+CPIN?',
-    'AT+CCLK?'
+    'AT+CCLK?',
+    'AT+CICCID',
+    'AT+CIMI',
+    'AT+EGMR=0,5'
 ]
 
 refresh_network_info = [
     'AT+COPS?',
     'AT+CREG?',
     'AT+CSQ',
+    'AT+CICCID',
+    'AT+CIMI',
+]
+
+get_operators_list = [
+    'AT+COPS=?'
 ]
 
 send_sms = [

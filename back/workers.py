@@ -38,16 +38,21 @@ def task_processing_worker():
 
 def log_processing_worker():
     while not c.exit:
-        data = get_log_msgs()
-        if data:
-            eel.process_logs(data)
+        try:
+            data = get_log_msgs()
+            if data:
+                eel.process_logs(data)
+        except Empty:
+            pass
 
         time.sleep(0.1);
 
 def answers_processing_worker():
     while not c.exit:
-        data = aq.get(timeout=1)
-        if data:
-            eel.process_answers(data)
-
-        time.sleep(0.1);
+        try:
+            data = aq.get(timeout=1)
+            if data:
+                eel.process_answers(data)
+            time.sleep(0.1);
+        except Empty:
+            time.sleep(0.1);

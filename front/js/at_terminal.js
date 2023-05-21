@@ -6,12 +6,24 @@ $(document).ready(async function() {
         at_terminal_handler.render_cmds();
     }
 
+    $('#cmd_type_select').change(function() {
+        at_terminal_handler.render_cmds();
+    })
+
     $('#send_cmd').click(function() {
         at_terminal_handler.send_manual_cmd();
     })
 
     $('#init_device').click(function() {
         eel.execute_operation('init')();
+    })
+
+    $('#network-get_operators_btn').click(function() {
+        eel.execute_operation('get_operators_list')();
+    })
+
+    $('#network-refresh_info').click(function() {
+        eel.execute_operation('refresh_network_info')();
     })
 
     $('#clear_log').click(function() {
@@ -240,11 +252,26 @@ $(document).ready(async function() {
         $('#save_group_modal').modal('hide');
     })
 
-    $('add_group_input').change(function() {
+    $('#add_group_input').change(function() {
         $('#save_group_alert').hide();
     })
 
+
+    $('#network-operators_table').on('click', 'tbody tr', function(event) {
+        $(this).addClass('selected').siblings().removeClass('selected');
+    });
+
+    $('#network-select_operator').click(function() {
+        network_handler.select_operator()
+    })
+
 })
+
+$(document).on('keypress',function(e) {
+    if (e.which == 13 && $('#panel_heading').text() === 'Терминал ввода АТ-команд') {
+        at_terminal_handler.send_manual_cmd();
+    }
+});
 
 eel.expose(process_logs);
 function process_logs(records) {
@@ -275,6 +302,25 @@ function update_field(fields_objects) {
         if (field.hasOwnProperty('img')) {
             $(`#${field.field}`).attr('src', `../img/${field.img}`);
         }
+        if (field.hasOwnProperty('table_data')) {
+            render_table(field.field, field.table_data);
+        }
+    }
+}
+
+function render_table(table_name, data_list) {
+    let selector = `#${table_name} tbody`;
+    $(selector).empty();
+    for (let data of data_list) {
+        let tr = $('<tr>');
+        for (let key in data){
+            let td = $('<td>');
+            $(td).attr('key', key)
+            $(td).attr('data', data[key])
+            $(td).append(data[key]);
+            $(tr).append(td);
+        }
+        $(selector).append(tr)
     }
 }
 
@@ -468,5 +514,15 @@ let groups_edit_handler = {
                 $(that_).parent().addClass('selected');
             }
         }
+    }
+}
+
+let network_handler = {
+    select_operator: function() {
+        $('#network-operators_table .selected td').each(function() {
+            if ($(this).attr('key') === 'operator_code') {
+                eel.select_operator($(this).attr('data'))();
+            }
+        })
     }
 }

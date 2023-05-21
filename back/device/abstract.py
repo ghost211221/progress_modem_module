@@ -73,6 +73,8 @@ class AbstractDevice(metaclass=ABCMeta):
         }
 
     def connect(self):
+        self.port.close()
+
         try:
             self.port.open()
             self.connected = True

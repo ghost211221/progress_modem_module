@@ -257,6 +257,10 @@ let connection_handler = {
                     $('#connect_port').html('Отключиться');
                     $('#init_device').prop('disabled', false);
                     $('#set_port_btn').prop('disabled', true);
+
+                    $('.modem-info').removeClass('disabled');
+                    $('.modem-info').addClass('enabled');
+
                 } else if (response.status === 'fail') {
                     alert(response.msg);
                 }
@@ -271,6 +275,9 @@ let connection_handler = {
                     $('#connect_port').html('Подключиться')
                     $('#init_device').prop('disabled', true);
                     $('#set_port_btn').prop('disabled', false);
+
+                    $('.modem-info').removeClass('enabled');
+                    $('.modem-info').addClass('disabled');
                 } else if (response.status === 'fail') {
                     alert(response.msg);
                 }

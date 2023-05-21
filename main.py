@@ -5,7 +5,7 @@ import eel
 from back.context import Context
 # from back.device.sara_u201 import SaraU201
 from back.device.mri import MRI
-from back.workers import task_processing_worker, log_processing_worker
+from back.workers import task_processing_worker, log_processing_worker, answers_processing_worker
 from views.comport import *
 from views.sms import *
 from views.terminal import *
@@ -30,6 +30,9 @@ if __name__ == '__main__':
 
     tasks_thread = Thread(target=task_processing_worker)
     tasks_thread.start()
+
+    log_thread = Thread(target=log_processing_worker)
+    log_thread.start()
 
     log_thread = Thread(target=log_processing_worker)
     log_thread.start()
