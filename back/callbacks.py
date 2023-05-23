@@ -117,7 +117,7 @@ def cops(cmd, response):
             operators.append(op_dict)
 
         return [
-            {'field': 'network-operators_table', 'table_data': operators}
+            {'field': 'network-operators_table', 'table_data': operators, 'close_spinner': True}
         ]
 
 

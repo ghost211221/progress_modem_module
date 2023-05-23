@@ -20,6 +20,8 @@ $(document).ready(async function() {
 
     $('#network-get_operators_btn').click(function() {
         eel.execute_operation('get_operators_list')();
+        $('#spinner_header').text('Поиск операторов')
+        $('#spinner_modal').modal('show');
     })
 
     $('#network-refresh_info').click(function() {
@@ -304,6 +306,10 @@ function update_field(fields_objects) {
         }
         if (field.hasOwnProperty('table_data')) {
             render_table(field.field, field.table_data);
+        }
+
+        if (field.hasOwnProperty('close_spinner')) {
+            $('#spinner_modal').modal('hide');
         }
     }
 }
