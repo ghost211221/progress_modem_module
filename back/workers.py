@@ -23,7 +23,7 @@ def task_processing_worker():
             ret['cmd'] = cmd
             ret['datetime'] = str(datetime.now())
             ret['hex'] = ' '.join([str.encode(a).hex() for a in ret.get('ans', '')])
-
+            eel.process_logs([ret,])
             if callbacks:
                 for callback in callbacks:
                     if callback:
@@ -31,7 +31,7 @@ def task_processing_worker():
                         if res:
                             eel.update_field(res)
 
-            aq.put(ret)
+            # aq.put(ret)
             time.sleep(0.1)
         except Empty:
             time.sleep(0.1)

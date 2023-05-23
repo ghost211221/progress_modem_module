@@ -31,11 +31,11 @@ if __name__ == '__main__':
     tasks_thread = Thread(target=task_processing_worker)
     tasks_thread.start()
 
-    log_thread = Thread(target=log_processing_worker)
-    log_thread.start()
+    # log_thread = Thread(target=log_processing_worker)
+    # log_thread.start()
 
-    log_thread = Thread(target=log_processing_worker)
-    log_thread.start()
+    # log_thread = Thread(target=log_processing_worker)
+    # log_thread.start()
 
     eel.start(
         'templates/main.html',

@@ -398,6 +398,7 @@ let at_terminal_handler = {
 
 
         html += `<span class="log-green">${ans}</span><br>`;
+        html += '<br>'
         $('#at_log').html(html);
         $('#at_log').scrollTop($('#at_log')[0].scrollHeight);
     },
