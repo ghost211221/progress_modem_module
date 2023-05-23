@@ -1,6 +1,7 @@
 from abc import ABCMeta, abstractmethod
 import logging
 import yaml
+import time
 
 from serial import Serial, SerialException
 
@@ -33,6 +34,7 @@ class AbstractDevice(metaclass=ABCMeta):
     dev_type = None
 
     def __init__(self):
+        self.long_read_timeout = 120
         self.port = None
         pass
 
@@ -136,9 +138,23 @@ class AbstractDevice(metaclass=ABCMeta):
             raise ComCommunicationError(f'Ошибка записи в порт {self.comport}: {e}')
 
     def read(self):
+        i = 0
         try:
-            echo = self.port.readline().decode('utf-8')
-            ans = ''.join([val.decode('utf-8') for val in self.port.readlines()])
+            echo = ''
+            while not echo and i < self.long_read_timeout:
+                echo = self.port.readline().decode('utf-8')
+                if not echo:
+                    i += 1
+                    time.sleep(0.1)
+
+            ans = []
+            i = 0
+            while not ans and i < self.long_read_timeout:
+                ans = ''.join([val.decode('utf-8') for val in self.port.readlines()])
+                if not echo:
+                    i += 1
+                    time.sleep(0.1)
+
             return {'echo': echo, 'ans': ans}
         except SerialException as e:
             raise ComCommunicationError(f'Ошибка чтения порта {self.comport}: {e}')
