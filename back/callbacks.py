@@ -72,7 +72,7 @@ def cops(cmd, response):
     if 'COPS?' in cmd:
         if response['ans']:
             op_code = response['ans'].replace('OK', '').split(',')[-1]  or ''
-            mode_dec = int(response['ans'].split(',')[0])
+            mode_dec = int(response['ans'].replace('OK', '').split(',')[0])
             mode = ''
             if mode_dec == 0:
                 mode = 'Автоматический'
@@ -92,7 +92,7 @@ def cops(cmd, response):
                 {'field': 'network-operator_select_mode', 'data': mode},
             ]
 
-    if 'COPS=?':
+    if 'COPS=?' in cmd:
         # get list of operators
         operators = []
         # line = '(2,"25001","25001","25001",2),(1,"25001","25001","25001",0),(1,"25099","25099","25099",2),(1,"25020","25020","25020",2),(1,"25002","25002","25002",2),(1,"25002","25002","25002",0),(1,"25099","25099","25099",0),,(0-3),(0-2)'
@@ -142,8 +142,8 @@ def creg(cmd, response):
             return [
                 {'field': 'sim-status', 'data': val},
                 {'field': 'network-reg_status', 'data': val},
-                {'field': 'network-lac', 'data': arr[2]},
-                {'field': 'network-ci', 'data': arr[3]},
+                {'field': 'network-lac', 'data': arr[2] if len(arr) == 3 else ''},
+                {'field': 'network-ci', 'data': arr[3] if len(arr) == 4 else ''},
             ]
 
 @clear_ok

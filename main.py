@@ -9,6 +9,7 @@ from back.workers import task_processing_worker, log_processing_worker, answers_
 from views.comport import *
 from views.sms import *
 from views.terminal import *
+from views.network import *
 
 
 context = Context()

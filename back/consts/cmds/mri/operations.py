@@ -41,3 +41,29 @@ send_sms = [
     'AT+CNMI?',
     'AT+CMGF=1'
 ]
+
+auto_set_operator = [
+    'AT+COPS?',
+    'AT+CSQ',
+    'AT+COPS=0',
+    'AT+CGREG?',
+    'AT+CEREG?',
+]
+
+deregister_operator = [
+    'AT+COPS=2',
+    'AT+COPS?',
+    'AT+CSQ',
+    'AT+CEREG?',
+    'AT+CGREG?',
+    'AT+CREG?',
+]
+
+select_operator = [
+    'AT+COPS=3,2',
+    'AT+COPS?',
+    'AT+CSQ',
+    'AT+CEREG?',
+    'AT+CGREG?',
+    'AT+CREG?',
+]

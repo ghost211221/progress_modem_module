@@ -267,6 +267,14 @@ $(document).ready(async function() {
         network_handler.select_operator()
     })
 
+    $('#network-deselect_operator').click(function() {
+        network_handler.deselect_operator()
+    })
+
+    $('#network-autoselect_operator').click(function() {
+        network_handler.autoselect_operator()
+    })
+
 })
 
 $(document).on('keypress',function(e) {
@@ -531,5 +539,11 @@ let network_handler = {
                 eel.select_operator($(this).attr('data'))();
             }
         })
+    },
+    deselect_operator: function() {
+        eel.deselect_operator()();
+    }
+    autoselect_operator: function() {
+        eel.autoselect_operator()();
     }
 }
