@@ -36,14 +36,14 @@
     box-sizing: border-box;
     min-height: 75%;
     /* background-color: #BBBBBB; */
-    background-color: #FFFFFF;
+    background-color: rgba(255, 255, 255, 0.95);
     margin: 10px;
     padding: 10px;
     background-image: url(../img/dev_info/logo1.svg);
     background-repeat: no-repeat;
     background-attachment: fixed;
     background-size: cover;
-    background-blend-mode: lighten;
+    background-blend-mode: overlay;
   }
   .header {
     min-height: 10%;
