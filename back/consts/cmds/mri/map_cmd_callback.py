@@ -20,4 +20,6 @@ CMDS = [
     {'cmd': 'CICCID', 'callback': ciccid},
     {'cmd': 'CIMI', 'callback': imsi},
     {'cmd': 'EGMR', 'callback': egmr},
+    {'cmd': 'CPBR', 'callback': cpbr},
+    {'cmd': 'CPBW', 'callback': None},
 ]

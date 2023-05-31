@@ -328,7 +328,7 @@
                         <input type="text" class="form-control" id="save_group_input">
                         <div class="alert alert-danger" id="save_group_alert" role="alert" style="display: none">
                             Необходимо указать имя файла
-                          </div>
+                        </div>
                     </div>
                 </div>
 
@@ -354,6 +354,82 @@
 
                     </div>
                 </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<!-- phonebook edit phone modal-->
+<div class="modal fade" id="phonebook-edit_phone_modal" tabindex="-1" aria-labelledby="phonebook-edit_phone_modal" aria-hidden="true">
+    <div class="modal-dialog modal-sm">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5>Изменение контакта</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body bg-light">
+                <div class="row">
+                    <div class="col-4">
+                        <p>Имя контакта</p>
+                    </div>
+                    <div class="col-8">
+                        <input type="text" class="form-control" id="phonebook-new_phone_name">
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-4">
+                        <p>Телефон</p>
+                    </div>
+                    <div class="col-8">
+                        <input type="text" class="form-control" id="phonebook-new_phone_number">
+                    </div>
+                </div>
+
+            </div>
+            <div class="modal-footer bg-light">
+                <button type="button" class="btn btn-primary" id="save_contact_ok">OK</button>
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Отмена</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+<!-- phonebook add phone modal-->
+<div class="modal fade" id="phonebook-add_phone_modal" tabindex="-1" aria-labelledby="phonebook-add_phone_modal" aria-hidden="true">
+    <div class="modal-dialog modal-sm">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5>Новый контакт</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body bg-light">
+                <div class="row">
+                    <div class="col-4">
+                        <p>Имя контакта</p>
+                    </div>
+                    <div class="col-8">
+                        <input type="text" class="form-control" id="phonebook-add_phone_name">
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-4">
+                        <p>Телефон</p>
+                    </div>
+                    <div class="col-8">
+                        <input type="text" class="form-control" id="phonebook-add_phone_number">
+                        <div class="alert alert-danger" id="phonebook-add_phone_record_alert" role="alert" style="display: none">
+                            Необходимо указать номер телефона
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+            <div class="modal-footer bg-light">
+                <button type="button" class="btn btn-primary" id="add_contact_ok">OK</button>
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Отмена</button>
             </div>
         </div>
     </div>

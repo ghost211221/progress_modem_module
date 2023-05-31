@@ -179,3 +179,67 @@ def csq(cmd, response):
         return [{'field': 'signal_power', 'img': 'signals/signal_1.svg'}]
     elif val == 99:
         return [{'field': 'signal_power', 'img': 'signals/no_signal.svg'}]
+
+@clear_ok
+@clear_premessage
+def cpbr(cmd, response):
+    """get phone book or calls"""
+    if 'CPBR=1,200' in cmd:
+        phones = []
+        lines = response['ans'].split('\r\n\r\n+CPBR: ')
+        for line in lines:
+            arr = line.split(', ')
+
+            idx = int(arr[0])
+            phone_number = arr[1].replace('"', '')
+            phone_type = int(arr[2])
+            phone_name = arr[3].replace('"', '')
+            phones.append(dict(
+                i=idx,
+                phone_number=phone_number,
+                phone_name=phone_name,
+            ))
+
+        return [
+            {
+                'field': 'phonebook-contact_table',
+                'table_data': phones,
+                'table_row_style': {
+                    'width': '100%',
+                    'display': 'inline-table',
+                    'table-layout': 'fixed'
+                }
+            }
+
+        ]
+
+    if 'CPBR=1,20' in cmd:
+        phones = []
+        lines = response['ans'].split('\r\n\r\n+CPBR: ')
+        for line in lines:
+            if not line:
+                continue
+            arr = line.split(', ')
+
+            idx = int(arr[0])
+            phone_number = arr[1].replace('"', '')
+            phone_type = int(arr[2])
+            phone_name = arr[3].replace('"', '')
+            phones.append(dict(
+                i=idx,
+                phone_number=phone_number,
+                phone_name=phone_name,
+            ))
+
+        return [
+            {
+                'field': 'phonebook-last_calls',
+                'table_data': phones,
+                'table_row_style': {
+                    'width': '100%',
+                    'display': 'inline-table',
+                    'table-layout': 'fixed'
+                }
+
+            }
+        ]

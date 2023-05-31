@@ -264,7 +264,8 @@ $(document).ready(async function() {
     });
 
     $('#network-select_operator').click(function() {
-        network_handler.select_operator()
+        network_handler.select_operator();
+        $('#network-operators_table tbody tr.selected').removeClass('selected');
     })
 
     $('#network-deselect_operator').click(function() {
@@ -272,9 +273,108 @@ $(document).ready(async function() {
     })
 
     $('#network-autoselect_operator').click(function() {
-        network_handler.autoselect_operator()
+        network_handler.autoselect_operator();
+        $('#network-operators_table tbody tr.selected').removeClass('selected');
     })
 
+    $('#phonebook-get_contacts').click(async function() {
+        phonebook_controller.phone_numbers = await eel.get_phones_list()();
+    })
+
+    $('#phonebook-get_calls').click(function() {
+        eel.get_calls_list()();
+    })
+
+    $('#phonebook-contact_table').on('click', 'tbody tr', function(event) {
+        $(this).addClass('selected').siblings().removeClass('selected');
+    });
+
+    $('#phonebook-edit_phone_record').click(function() {
+        let phone_number = '';
+        let phone_name = '';
+        $('#phonebook-contact_table .selected td').each(function() {
+            if ($(this).attr('key') === 'phone_number') {
+                phone_number = $(this).attr('data');
+            }
+            if ($(this).attr('key') === 'phone_name') {
+                phone_name = $(this).attr('data');
+            }
+        })
+        $('#phonebook-new_phone_name').val(phone_name);
+        $('#phonebook-new_phone_name').attr('default_val', phone_name);
+        $('#phonebook-new_phone_number').val(phone_number);
+        $('#phonebook-new_phone_number').attr('default_val', phone_number);
+
+        $('#phonebook-edit_phone_modal').modal('show')
+    })
+
+    $('#save_contact_ok').click(function() {
+        phonebook_controller.edit_phone_record();
+        $('#phonebook-edit_phone_modal').modal('hide')
+    })
+
+    $('#phonebook-add_phone_record').click(function() {
+        $('#phonebook-add_phone_modal').modal('show');
+    })
+
+    $('#add_contact_ok').click(function() {
+        let phone_name = $('#phonebook-add_phone_name').val();
+        let phone_number = $('#phonebook-add_phone_number').val();
+        if (phone_number === '') {
+            $('#phonebook-add_phone_record_alert').show();
+        } else {
+            eel.add_phone_record(phone_number, phone_name)();
+            $('#phonebook-add_phone_modal').modal('hide');
+        }
+    })
+
+    $('#phonebook-add_phone_number').change(function() {
+        if ($('#phonebook-add_phone_number').val() !== '') {
+            $('#phonebook-add_phone_record_alert').hide();
+        }
+    })
+
+    $('#phonebook-remove_phone_record').click(function() {
+        $('#phonebook-contact_table .selected td').each(function() {
+            if ($(this).attr('key') === 'i') {
+                pos = $(this).attr('data');
+                eel.delete_phone_record(pos)();
+            }
+        })
+    })
+
+
+    $('#phonebook-contact_sms').click(function() {
+        $('#phonebook-contact_table tbody tr.selected td').each(function() {
+            if ($(this).attr('key') === 'phone_number') {
+                let tel_num = $(this).attr('data');
+                $('#sms_phone_number').val(tel_num);
+
+                let panels = $('.main-panel');
+                panels.each(function() {
+                    $(this).hide();
+                })
+                $('#panel-sms').show();
+                $('#panel_heading').text('СМС');
+            }
+        })
+    })
+
+    $('#phonebook-call_sms').click(function() {
+        $('#phonebook-last_calls tbody tr.selected td').each(function() {
+            if ($(this).attr('key') === 'phone_number') {
+                let tel_num = $(this).attr('data');
+                $('#sms_phone_number').val(tel_num);
+
+                let panels = $('.main-panel');
+                panels.each(function() {
+                    $(this).hide();
+                })
+                $('#panel-sms').show();
+                $('#panel_heading').text('СМС');
+            }
+        })
+    })
 })
 
 $(document).on('keypress',function(e) {
@@ -313,7 +413,7 @@ function update_field(fields_objects) {
             $(`#${field.field}`).attr('src', `../img/${field.img}`);
         }
         if (field.hasOwnProperty('table_data')) {
-            render_table(field.field, field.table_data);
+            render_table(field.field, field.table_data, field.hasOwnProperty('table_row_style') ? field.table_row_style : null);
         }
 
         if (field.hasOwnProperty('close_spinner')) {
@@ -322,11 +422,14 @@ function update_field(fields_objects) {
     }
 }
 
-function render_table(table_name, data_list) {
+function render_table(table_name, data_list, css=null) {
     let selector = `#${table_name} tbody`;
     $(selector).empty();
     for (let data of data_list) {
         let tr = $('<tr>');
+        if (css !== null) {
+            $(tr).css(css);
+        }
         for (let key in data){
             let td = $('<td>');
             $(td).attr('key', key)
@@ -542,8 +645,40 @@ let network_handler = {
     },
     deselect_operator: function() {
         eel.deselect_operator()();
-    }
+    },
     autoselect_operator: function() {
         eel.autoselect_operator()();
+    }
+}
+
+let phonebook_controller = {
+    edit_phone_record: function() {
+        let old_phone_number = $('#phonebook-new_phone_number').attr('default_val');
+        let old_phone_name = $('#phonebook-new_phone_name').attr('default_val');
+        let phone_number = $('#phonebook-new_phone_number').val();
+        let phone_name = $('#phonebook-new_phone_name').val();
+        // $('#phonebook-contact_table tr').each(function() {
+        //     let found = false;
+        //     let that = this;
+        //     $(that).find('td').each(function() {
+        //         if ($(this).attr('key') === 'phone_number' && $(this).attr('data') === old_phone_number) {
+        //             found = true;
+        //         }
+        //     })
+
+        //     if (found) {
+        //         $(that).find('td').each(function() {
+        //             if ($(this).attr('key') === 'phone_number') {
+        //                 $(this).text(phone_number)
+        //                 $(this).attr('data', phone_number)
+        //             }
+        //             if ($(this).attr('key') === 'phone_name') {
+        //                 $(this).text(phone_name)
+        //                 $(this).attr('data', phone_name)
+        //             }
+        //         })
+        //     }
+        // })
+        eel.update_phone_record(phone_number, phone_name)();
     }
 }

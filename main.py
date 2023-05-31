@@ -10,6 +10,7 @@ from views.comport import *
 from views.sms import *
 from views.terminal import *
 from views.network import *
+from views.phonebook import *
 
 
 context = Context()
@@ -31,12 +32,6 @@ if __name__ == '__main__':
 
     tasks_thread = Thread(target=task_processing_worker)
     tasks_thread.start()
-
-    # log_thread = Thread(target=log_processing_worker)
-    # log_thread.start()
-
-    # log_thread = Thread(target=log_processing_worker)
-    # log_thread.start()
 
     eel.start(
         'templates/main.html',

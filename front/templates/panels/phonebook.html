@@ -5,47 +5,57 @@
                 <div class="col">
                     <div class="d-flex justify-content-between">
                         <h4>Телефонная книга SIM</h4>
-                        <button class="btn btn-sm btn-secondary">Получить контакты</button>
+                        <button class="btn btn-sm btn-secondary" id="phonebook-get_contacts">Получить контакты</button>
                     </div>
                     <div class="row p-2">
-                        <table class="table-bordered" style="background-color: aliceblue;">
-                            <thead class="table-light">
+                        <table class="table table-bordered table-hover" id="phonebook-contact_table" style="background-color: aliceblue;height: 40em !important;overflow: auto; width: 100%;">
+                            <thead class="table-light" style="display: inline-table;
+                            table-layout: fixed;
+                            width: 100%;">
                                 <th>#</th>
                                 <th>Номер</th>
                                 <th>Имя</th>
                             </thead>
-                            <tbody style="height: 640px; overflow-y: auto;">
+                            <tbody style="height: 66% !important;
+                            overflow-y: scroll;
+                            text-align: center;
+                            position: absolute;
+                            width: 48% !important;">
 
                             </tbody>
                         </table>
                     </div>
                     <div class="d-flex justify-content-start btn-group" role="group">
-                        <button class="btn btn-sm btn-secondary me-2">Добавить</button>
-                        <button class="btn btn-sm btn-secondary me-2">Редактировать</button>
-                        <button class="btn btn-sm btn-secondary me-2">Удалить</button>
-                        <button class="btn btn-sm btn-secondary me-2">SMS</button>
+                        <button class="btn btn-sm btn-secondary me-2" id="phonebook-add_phone_record">Добавить</button>
+                        <button class="btn btn-sm btn-secondary me-2" id="phonebook-edit_phone_record">Редактировать</button>
+                        <button class="btn btn-sm btn-secondary me-2" id="phonebook-remove_phone_record">Удалить</button>
+                        <button class="btn btn-sm btn-secondary me-2" id="phonebook-contact_sms">SMS</button>
                     </div>
                 </div>
 
                 <div class="col">
                     <div class="d-flex justify-content-between">
                         <h4>Последние совершенные вызовы</h4>
-                        <button class="btn btn-sm btn-secondary">Получить вызовы</button>
+                        <button class="btn btn-sm btn-secondary" id="phonebook-get_calls">Получить вызовы</button>
                     </div>
                     <div class="row p-2">
-                        <table class="table-bordered" style="background-color: aliceblue;">
+                        <table class="table table-bordered table-hover" id="phonebook-last_calls" style="background-color: aliceblue;height: 40em !important;overflow: auto; width: 100%;">
                             <thead class="table-light">
                                 <th>#</th>
                                 <th>Номер</th>
                                 <th>Имя</th>
                             </thead>
-                            <tbody style="height: 640px; overflow-y: auto;">
+                            <tbody style="height: 66% !important;
+                            overflow-y: scroll;
+                            text-align: center;
+                            position: absolute;
+                            width: 48% !important;">
 
                             </tbody>
                         </table>
                     </div>
                     <div class="d-flex justify-content-start">
-                        <button class="btn btn-sm btn-secondary col-2">SMS</button>
+                        <button class="btn btn-sm btn-secondary col-2" id="phonebook-call_sms">SMS</button>
                     </div>
                 </div>
             </div>

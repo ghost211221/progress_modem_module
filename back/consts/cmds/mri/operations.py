@@ -67,3 +67,15 @@ select_operator = [
     'AT+CGREG?',
     'AT+CREG?',
 ]
+
+get_phones_list = [
+    'AT+CPBS="SM"',
+    'AT+CPBR=?',
+    'AT+CPBR=1,200',
+]
+
+get_calls_list = [
+    'AT+CPBS="LD"',
+    'AT+CPBR=?',
+    'T+CPBR=1,20',
+]
