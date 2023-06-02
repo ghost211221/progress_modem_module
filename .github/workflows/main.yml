@@ -1,0 +1,18 @@
+on:
+  push:
+    branches:
+    - master
+jobs:
+  compile:
+    name: compiling process
+    runs-on: windows-2019
+    
+    steps:    
+    - name: install requirements
+      run: pip install -r requirements.txt
+      
+    - name: compile dist
+      run: compile.bat
+      
+    - name: make dist.zip
+      run: powershell "Compress-Archive dist dist.zip"
