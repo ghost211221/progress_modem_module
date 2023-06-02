@@ -142,15 +142,21 @@ class AbstractDevice(metaclass=ABCMeta):
         try:
             echo = ''
             while not echo and i < self.long_read_timeout:
-                echo = self.port.readline().decode('utf-8')
+                try:
+                    echo = self.port.readline().decode('utf-8')
+                except UnicodeDecodeError:
+                    echo = ''
                 if not echo:
                     i += 1
                     time.sleep(0.1)
 
-            ans = []
+            ans = ''
             i = 0
             while not ans and i < self.long_read_timeout:
-                ans = ''.join([val.decode('utf-8') for val in self.port.readlines()])
+                try:
+                    ans = ''.join([val.decode('utf-8') for val in self.port.readlines()])
+                except UnicodeDecodeError:
+                    ans = ''
                 if not echo:
                     i += 1
                     time.sleep(0.1)

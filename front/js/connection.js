@@ -20,6 +20,11 @@ $(document).ready(async function() {
         }
         connection_handler.render_com_data();
     })
+
+    $('#com_ports_table').on('click', 'tbody tr', function(event) {
+        $(this).addClass('selected').siblings().removeClass('selected');
+    });
+
 })
 
 let com_port = {
