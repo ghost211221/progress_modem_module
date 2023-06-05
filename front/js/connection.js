@@ -23,6 +23,12 @@ $(document).ready(async function() {
 
     $('#com_ports_table').on('click', 'tbody tr', function(event) {
         $(this).addClass('selected').siblings().removeClass('selected');
+        $(this).find('td').each(function() {
+            let is_com = $(this).attr('com');
+            if (typeof is_com !== 'undefined' && is_com !== false) {
+                connection_handler.selected_port = $(this).text()
+            }
+        })
     });
 
 })
@@ -45,6 +51,7 @@ let com_port = {
 }
 
 let connection_handler = {
+    selected_port: '',
     com_ports: [],
     init: async function() {
         this.nest_comport_pars();
@@ -116,10 +123,15 @@ let connection_handler = {
                     var row = table.insertRow(0
                         );
                     var cell1 = row.insertCell(0);
+                    $(cell1).attr('com', true);
+
 
                     var cell2 = row.insertCell(1);
                     cell1.innerHTML = com.name;
                     cell2.innerHTML = com.description;
+                    if (com.name === connection_handler.selected_port) {
+                        $(row).addClass('selected').siblings().removeClass('selected');
+                    }
                 }
 
                 // that.handle_com_select();

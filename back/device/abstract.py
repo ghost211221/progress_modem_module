@@ -154,7 +154,7 @@ class AbstractDevice(metaclass=ABCMeta):
             i = 0
             while not ans and i < self.long_read_timeout:
                 try:
-                    ans = ''.join([val.decode('utf-8') for val in self.port.readlines()])
+                    ans = '<br>'.join([val.decode('utf-8') for val in self.port.readlines()])
                 except UnicodeDecodeError:
                     ans = ''
                 if not echo:
