@@ -556,6 +556,10 @@ let at_terminal_handler = {
                     $(selector).click(function() {
                         $('#input_cmd').val(`${item.name}`);
                     })
+                    $(selector).on( "dblclick", function() {
+                        $('#input_cmd').val(`${item.name}`);
+                        $('#send_cmd').trigger('click');
+                    })
                     i++;
                 }
             }
@@ -657,28 +661,7 @@ let phonebook_controller = {
         let old_phone_name = $('#phonebook-new_phone_name').attr('default_val');
         let phone_number = $('#phonebook-new_phone_number').val();
         let phone_name = $('#phonebook-new_phone_name').val();
-        // $('#phonebook-contact_table tr').each(function() {
-        //     let found = false;
-        //     let that = this;
-        //     $(that).find('td').each(function() {
-        //         if ($(this).attr('key') === 'phone_number' && $(this).attr('data') === old_phone_number) {
-        //             found = true;
-        //         }
-        //     })
 
-        //     if (found) {
-        //         $(that).find('td').each(function() {
-        //             if ($(this).attr('key') === 'phone_number') {
-        //                 $(this).text(phone_number)
-        //                 $(this).attr('data', phone_number)
-        //             }
-        //             if ($(this).attr('key') === 'phone_name') {
-        //                 $(this).text(phone_name)
-        //                 $(this).attr('data', phone_name)
-        //             }
-        //         })
-        //     }
-        // })
         eel.update_phone_record(phone_number, phone_name)();
     }
 }

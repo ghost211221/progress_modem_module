@@ -56,6 +56,9 @@ def e_close_connection():
 
 @eel.expose
 def e_communicate(cmd):
+    if not context.device.connected:
+        return
+
     msg = ''
     status = 'success'
     callbacks = get_cmd_callbacks(cmd)
