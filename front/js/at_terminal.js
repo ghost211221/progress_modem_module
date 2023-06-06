@@ -409,6 +409,10 @@ function update_field(fields_objects) {
         if (field.hasOwnProperty('data')) {
             $(`#${field.field}`).text(field.data);
         }
+        if (field.hasOwnProperty('add_data')) {
+            let text = $(`#${field.field}`).text() + ' ' + field.add_data
+            $(`#${field.field}`).text(text);
+        }
         if (field.hasOwnProperty('img')) {
             $(`#${field.field}`).attr('src', `../img/${field.img}`);
         }

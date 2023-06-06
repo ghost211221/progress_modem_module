@@ -21,7 +21,8 @@ init = [
     'AT+CCLK?',
     'AT+CICCID',
     'AT+CIMI',
-    'AT+EGMR=0,5'
+    'AT+EGMR=0,5',
+    'AT+ERAT?'
 ]
 
 refresh_network_info = [

@@ -22,4 +22,5 @@ CMDS = [
     {'cmd': 'EGMR', 'callback': egmr},
     {'cmd': 'CPBR', 'callback': cpbr},
     {'cmd': 'CPBW', 'callback': None},
+    {'cmd': 'ERAT', 'callback': erat},
 ]

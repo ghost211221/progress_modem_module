@@ -1,6 +1,6 @@
 import re
 
-from back.consts.cops import ACT, STAT
+from back.consts.cops import ACT, STAT, RAT
 from back.consts.operators import MAP_CODE_OPERTOR
 from back.context import Context
 from back.decorators import clear_ok, clear_premessage, clear_br
@@ -130,6 +130,7 @@ def cops(cmd, response):
 
 @clear_ok
 @clear_br
+@clear_premessage
 def creg(cmd, response):
     if 'CREG?' in cmd:
         if response['cl_ans']:
@@ -150,8 +151,8 @@ def creg(cmd, response):
             return [
                 {'field': 'sim-status', 'data': val},
                 {'field': 'network-reg_status', 'data': val},
-                {'field': 'network-lac', 'data': arr[2] if len(arr) == 3 else ''},
-                {'field': 'network-ci', 'data': arr[3] if len(arr) == 4 else ''},
+                {'field': 'network-lac', 'data': arr[2].replace('"', '') if len(arr) >= 3 else ''},
+                {'field': 'network-ci', 'data': arr[3].replace('"', '') if len(arr) >= 4 else ''},
             ]
 
 @clear_ok
@@ -178,18 +179,25 @@ def csq(cmd, response):
     except ValueError:
         return
 
+    img_dict = {}
+
     if val == 0:
-        return [{'field': 'signal_power', 'img': 'signals/signal_5.svg'}]
+        img_dict = {'field': 'signal_power', 'img': 'signals/signal_5.svg'}
     elif val == 1:
-        return [{'field': 'signal_power', 'img': 'signals/signal_4.svg'}]
+        img_dict = {'field': 'signal_power', 'img': 'signals/signal_4.svg'}
     elif 2 <= val <= 30:
-        return [{'field': 'signal_power', 'img': 'signals/signal_3.svg'}]
+        img_dict = {'field': 'signal_power', 'img': 'signals/signal_3.svg'}
     elif val == 31:
-        return [{'field': 'signal_power', 'img': 'signals/signal_2.svg'}]
+        img_dict = {'field': 'signal_power', 'img': 'signals/signal_2.svg'}
     elif 32 <= val <= 98:
-        return [{'field': 'signal_power', 'img': 'signals/signal_1.svg'}]
+        img_dict = {'field': 'signal_power', 'img': 'signals/signal_1.svg'}
     elif val == 99:
-        return [{'field': 'signal_power', 'img': 'signals/no_signal.svg'}]
+        img_dict = {'field': 'signal_power', 'img': 'signals/no_signal.svg'}
+
+    return [
+        img_dict,
+        {'field': 'network-rssi', 'data': val}
+    ]
 
 @clear_ok
 @clear_premessage
@@ -255,3 +263,22 @@ def cpbr(cmd, response):
 
             }
         ]
+
+
+@clear_ok
+@clear_premessage
+@clear_br
+def erat(cmd, response):
+    """To get RAT mode status and GRRS/EDGE status or set RAT mode of MS"""
+    if 'ERAT?' in cmd:
+        arr = re.findall(r'\d', response['cl_ans'])
+
+        act = int(arr[0])
+        gprs_status = arr[1].replace('"', '')
+        rat_mode = int(arr[2])
+        prefer_rat = arr[3].replace('"', '')
+    return [
+        {'field': 'network-rat', 'data': RAT.get(rat_mode)},
+        {'field': 'operator', 'add_data': RAT.get(rat_mode)},
+    ]
+

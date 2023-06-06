@@ -13,6 +13,8 @@ from views.network import *
 from views.phonebook import *
 
 
+VERSION = '0.2.1'
+
 context = Context()
 
 def close_callback(route, websockets):

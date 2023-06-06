@@ -83,7 +83,7 @@
 <!-- Navigation icons panel -->
 <nav class="navbar navbar-expand-lg navbar-light background-white" style="height: 40px">
     <div class="collapse navbar-collapse" id="navbarSupportedContent" style="justify-content: space-between; padding-right: 10px;">
-      <ul class="navbar-nav mr-auto col-sm-3 col-md-10">
+      <ul class="navbar-nav mr-auto col-sm-3 col-md-5">
         <li class="nav-item active">
           <a class="nav-link icons-link panel-switcher" href="#" data-bs-toggle="popover" title="Соединение" data-bs-content="Соединение" id="panel_switch__connection">
             <img src="../img/icons8-home.svg" alt="" class="icon network" data-toggle="popover">
@@ -120,10 +120,12 @@
           </a>
         </li>
       </ul>
-      <span class="navbar-text">
-        <span style="font-size: 20px;margin-right: 5px" id="operator"></span>
-        <img src="../img/signals/no_signal.svg" alt="" class="icon signal" id="signal_power">
-      </span>
+      <!-- <span class="navbar-text"> -->
+      <div class="row">
+        <div class="col col-md-9"><span style="font-size: 20px;margin-right: 5px; display: block; width: 250px; text-align: right;" id="operator"></span></div>
+        <div class="col"><img src="../img/signals/no_signal.svg" alt="" class="icon signal" id="signal_power"></div>
+      </div>
+      <!-- </span> -->
     </div>
 </nav>
 <h1 id="panel_heading" class="text-white" style="padding-left: 10px">Соединение</h1>
