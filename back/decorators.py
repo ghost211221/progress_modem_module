@@ -15,3 +15,11 @@ def clear_premessage(func):
 
         return func(cmd, resp)
     return wrapper
+
+def clear_br(func):
+    def wrapper(cmd, response):
+        resp = response
+        resp['cl_ans'] = re.sub(r'<br>', '', resp['ans'].strip())
+
+        return func(cmd, resp)
+    return wrapper

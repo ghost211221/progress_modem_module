@@ -3,58 +3,64 @@ import re
 from back.consts.cops import ACT, STAT
 from back.consts.operators import MAP_CODE_OPERTOR
 from back.context import Context
-from back.decorators import clear_ok, clear_premessage
+from back.decorators import clear_ok, clear_premessage, clear_br
 
 c = Context()
 
 @clear_ok
+@clear_br
 def cgmi(cmd, response):
     """get manufacturer id"""
-    return [{'field': 'manufacturer_id', 'data': response['ans'] or ''}]
+    return [{'field': 'manufacturer_id', 'data': response['cl_ans'] or ''}]
 
 @clear_ok
+@clear_br
 def cgmm(cmd, response):
     """get device decimal number"""
-    return [{'field': 'decimal_number', 'data': response['ans']  or ''}]
+    return [{'field': 'decimal_number', 'data': response['cl_ans']  or ''}]
 
 @clear_ok
 @clear_premessage
+@clear_br
 def cgmr(cmd, response):
     """get firmware version"""
     pass
-    # return [{'field': 'firmware_version', 'data': response['ans']  or ''}]
+    # return [{'field': 'firmware_version', 'data': response['cl_ans']  or ''}]
 
 @clear_ok
+@clear_br
 def cgsn(cmd, response):
     """imei"""
     return [
-            {'field': 'imei', 'data': response['ans']  or ''},
-            {'field': 'codes-imei', 'data': response['ans']  or ''},
+            {'field': 'imei', 'data': response['cl_ans']  or ''},
+            {'field': 'codes-imei', 'data': response['cl_ans']  or ''},
         ]
 
 @clear_ok
 @clear_premessage
+@clear_br
 def egmr(cmd, response):
     """imei"""
     if 'EGMR=0,5' in cmd:
         # read serial nu,ber
         return [
-                {'field': 'codes-sn', 'data': response['ans'].replace('"', '')  or ''},
+                {'field': 'codes-sn', 'data': response['cl_ans'].replace('"', '')  or ''},
             ]
 
 @clear_ok
+@clear_br
 def ati(cmd, response):
     """device info"""
     try:
-        model = re.search(r'(?<=Model\:)([\w\d]+)', response['ans'] ).group(0)
+        model = re.search(r'(?<=Model\:)([\w\d]+)', response['cl_ans'] ).group(0)
     except Exception:
         model = ''
     try:
-        revision = re.search(r'(?<=Revision\:)([\w\d]+)', response['ans'] ).group(0)
+        revision = re.search(r'(?<=Revision\:)([\w\d]+)', response['cl_ans'] ).group(0)
     except Exception:
         revision = ''
     try:
-        firmware_version = re.search(r'(?<=Revision\:)([\w\d\.]+)', response['ans'] ).group(0)
+        firmware_version = re.search(r'(?<=Revision\:)([\w\d\.]+)', response['cl_ans'] ).group(0)
     except Exception:
         revision = ''
 
@@ -66,13 +72,14 @@ def ati(cmd, response):
 
 # @clear_ok
 @clear_premessage
+@clear_br
 def cops(cmd, response):
     """Set command forces an attempt to select and register the GSM/UMTS network operator."""
     # (2,"25001","25001","25001",2),(1,"25001","25001","25001",0),(1,"25099","25099","25099",2),(1,"25020","25020","25020",2),(1,"25002","25002","25002",2),(1,"25002","25002","25002",0),(1,"25099","25099","25099",0),,(0-3),(0-2)
     if 'COPS?' in cmd:
-        if response['ans']:
-            op_code = response['ans'].replace('OK', '').split(',')[-1]  or ''
-            mode_dec = int(response['ans'].replace('OK', '').split(',')[0])
+        if response['cl_ans']:
+            op_code = response['cl_ans'].replace('OK', '').split(',')[-1]  or ''
+            mode_dec = int(response['cl_ans'].replace('OK', '').split(',')[0])
             mode = ''
             if mode_dec == 0:
                 mode = 'Автоматический'
@@ -122,10 +129,11 @@ def cops(cmd, response):
 
 
 @clear_ok
+@clear_br
 def creg(cmd, response):
     if 'CREG?' in cmd:
-        if response['ans']:
-            arr = response['ans'].split(',')
+        if response['cl_ans']:
+            arr = response['cl_ans'].split(',')
             ans = int(arr[1])
             val = ''
             if ans == 0:
@@ -148,22 +156,25 @@ def creg(cmd, response):
 
 @clear_ok
 @clear_premessage
+@clear_br
 def ciccid(cmd, response):
     if 'CICCID' in cmd:
-        return [{'field': 'sim-iccd', 'data': response['ans']  or ''}]
+        return [{'field': 'sim-iccd', 'data': response['cl_ans']  or ''}]
 
 @clear_ok
 @clear_premessage
+@clear_br
 def imsi(cmd, response):
     if 'CIMI' in cmd:
-        return [{'field': 'sim-imsi', 'data': response['ans']  or ''}]
+        return [{'field': 'sim-imsi', 'data': response['cl_ans']  or ''}]
 
 @clear_ok
 @clear_premessage
+@clear_br
 def csq(cmd, response):
     """get firmware version"""
     try:
-        val = int(response['ans'].split(',')[0])
+        val = int(response['cl_ans'].split(',')[0])
     except ValueError:
         return
 
@@ -182,11 +193,12 @@ def csq(cmd, response):
 
 @clear_ok
 @clear_premessage
+@clear_br
 def cpbr(cmd, response):
     """get phone book or calls"""
     if 'CPBR=1,200' in cmd:
         phones = []
-        lines = response['ans'].split('\r\n\r\n+CPBR: ')
+        lines = response['cl_ans'].split('\r\n\r\n+CPBR: ')
         for line in lines:
             arr = line.split(', ')
 
@@ -215,7 +227,7 @@ def cpbr(cmd, response):
 
     if 'CPBR=1,20' in cmd:
         phones = []
-        lines = response['ans'].split('\r\n\r\n+CPBR: ')
+        lines = response['cl_ans'].split('\r\n\r\n+CPBR: ')
         for line in lines:
             if not line:
                 continue
