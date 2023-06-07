@@ -238,6 +238,10 @@ $(document).ready(async function() {
         groups_edit_handler.render_groups_for_edit();
     })
 
+    $('#terminal-save_cmds').click(function() {
+        $('#save_group_ok').attr('from_gui', true);
+        $('#save_group_modal').modal('show');
+    })
     $('#edit_cmds_groups-save').click(function() {
         if (groups_edit_handler.selected_cmd_for_edit !== '') {
             $('#save_group_modal').modal('show');
@@ -245,13 +249,19 @@ $(document).ready(async function() {
     })
 
     $('#save_group_ok').click(function() {
-        if ($('#save_group_input').val() === '' ) {
-            $('#save_group_alert').show();
-            return
-        }
+        if ($('#save_group_ok').attr('from_gui')) {
+            eel.save_cmd_group($('#cmd_type_select').val(), $('#save_group_input').val())();
+            $('#save_group_ok').removeAttr('from_gui')
+            $('#save_group_modal').modal('hide');
+        } else {
+            if ($('#save_group_input').val() === '' ) {
+                $('#save_group_alert').show();
+                return
+            }
 
-        eel.save_cmd_group(groups_edit_handler.selected_group_for_edit, $('#save_group_input').val())();
-        $('#save_group_modal').modal('hide');
+            eel.save_cmd_group(groups_edit_handler.selected_group_for_edit, $('#save_group_input').val())();
+            $('#save_group_modal').modal('hide');
+        }
     })
 
     $('#add_group_input').change(function() {
