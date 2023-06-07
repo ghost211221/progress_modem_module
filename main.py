@@ -11,6 +11,7 @@ from views.sms import *
 from views.terminal import *
 from views.network import *
 from views.phonebook import *
+from views.version import *
 
 
 VERSION = '0.2.1'
