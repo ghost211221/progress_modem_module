@@ -5,3 +5,5 @@ rename dist\main.exe module_pn6280_control.exe
 
 xcopy cmds  /E dist\cmds\
 xcopy data dist\data\
+
+7z a dist.zip dist
