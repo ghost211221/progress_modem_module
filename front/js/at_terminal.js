@@ -388,10 +388,22 @@ $(document).ready(async function() {
 
     $('#terminal-import_cmds').click(async function() {
         await eel.import_cmds()();
+
+        let res = await at_terminal_handler.get_cmds();
+        if (res) {
+            at_terminal_handler.render_groups();
+            at_terminal_handler.render_cmds();
+        }
     })
 
     $('#terminal-load_cmds').click(async function() {
         await eel.load_cmds()();
+
+        let res = await at_terminal_handler.get_cmds();
+        if (res) {
+            at_terminal_handler.render_groups();
+            at_terminal_handler.render_cmds();
+        }
     })
 
     // $('#terminal-input-load_cmds').on("change", async function() {

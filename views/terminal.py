@@ -18,9 +18,18 @@ aq = AnsQueue()
 q = TasksQueue()
 
 def get_file_path():
-    tkinter.Tk().withdraw()
+    root = tkinter.Tk()
+    root.attributes("-topmost", True)
+    root.withdraw()
     filename = fd.askopenfilename()
     return filename
+
+def get_dir_path():
+    root = tkinter.Tk()
+    root.attributes("-topmost", True)
+    root.withdraw()
+    directory_path = fd.askdirectory()
+    return directory_path
 
 @eel.expose
 def e_get_cmds():
@@ -39,28 +48,41 @@ def get_log_msgs():
 
 @eel.expose
 def import_cmds():
-    get_file_path()
-    # if not file_path:
-    #     return
-
-    # try:
-    #     with open(file_path) as f:
-    #         cmds = yaml.safe_load(f)
-
-    #         c.device.set_cmds(cmds)
-    # except Exception:
-    #     return
-
-@eel.expose
-def load_cmds(file_path):
+    file_path = get_file_path()
     if not file_path:
         return
 
     try:
-        with open(f'cmds/{self.dev_type}/cmd.yml') as f:
+        with open(file_path) as f:
             cmds = yaml.safe_load(f)
 
             c.device.set_cmds(cmds)
+    except Exception:
+        return
+
+@eel.expose
+def load_cmds():
+    file_path = get_file_path()
+    if not file_path:
+        return
+
+    try:
+        with open(file_path) as f:
+            cmds = yaml.safe_load(f)
+        old_cms = c.device.cmds
+        for cmd_group in cmds:
+            if not list(filter(lambda g: g['name'] == cmd_group['name'], old_cms)):
+                old_cms.append(cmd_group)
+                continue
+            
+            for g in old_cms:
+                if g['name'] == cmd_group['name']:
+                    for cmd in cmd_group['items']:
+                        if not list(filter(lambda g: g['name'] == cmd['name'], g['items'])):
+                            g['items'].append(cmd)
+
+        c.device.set_cmds(old_cms)
+
     except Exception:
         return
 
