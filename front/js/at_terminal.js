@@ -385,6 +385,38 @@ $(document).ready(async function() {
             }
         })
     })
+
+    $('#terminal-import_cmds').click(async function() {
+        await eel.import_cmds()();
+    })
+
+    $('#terminal-load_cmds').click(async function() {
+        await eel.load_cmds()();
+    })
+
+    // $('#terminal-input-load_cmds').on("change", async function() {
+    //     // let filepath = $(this).val();
+    //     let fr = new FileReader()
+    //     await eel.load_cmds($(this)[0].files[0])();
+
+    //     let res = await at_terminal_handler.get_cmds();
+    //     if (res) {
+    //         at_terminal_handler.render_groups();
+    //         at_terminal_handler.render_cmds();
+    //     }
+    // })
+
+    // $('#terminal-input-import_cmds').on("change", async function() {
+    //     let fr = new FileReader()
+    //     await eel.import_cmds($(this)[0].files[0])();
+
+    //     let res = await at_terminal_handler.get_cmds();
+    //     if (res) {
+    //         at_terminal_handler.render_groups();
+    //         at_terminal_handler.render_cmds();
+    //     }
+    // })
+
 })
 
 $(document).on('keypress',function(e) {

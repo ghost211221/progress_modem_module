@@ -2,6 +2,9 @@ from queue import Empty
 import yaml
 import os
 
+import tkinter
+from tkinter import filedialog as fd
+
 import eel
 
 from back.consts.cmds.mri import operations
@@ -13,6 +16,11 @@ from back.utils import get_cmd_callbacks
 c = Context()
 aq = AnsQueue()
 q = TasksQueue()
+
+def get_file_path():
+    tkinter.Tk().withdraw()
+    filename = fd.askopenfilename()
+    return filename
 
 @eel.expose
 def e_get_cmds():
@@ -28,6 +36,33 @@ def get_log_msgs():
             break
 
     return data
+
+@eel.expose
+def import_cmds():
+    get_file_path()
+    # if not file_path:
+    #     return
+
+    # try:
+    #     with open(file_path) as f:
+    #         cmds = yaml.safe_load(f)
+
+    #         c.device.set_cmds(cmds)
+    # except Exception:
+    #     return
+
+@eel.expose
+def load_cmds(file_path):
+    if not file_path:
+        return
+
+    try:
+        with open(f'cmds/{self.dev_type}/cmd.yml') as f:
+            cmds = yaml.safe_load(f)
+
+            c.device.set_cmds(cmds)
+    except Exception:
+        return
 
 @eel.expose
 def execute_operation(op):
