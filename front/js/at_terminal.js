@@ -406,28 +406,22 @@ $(document).ready(async function() {
         }
     })
 
-    // $('#terminal-input-load_cmds').on("change", async function() {
-    //     // let filepath = $(this).val();
-    //     let fr = new FileReader()
-    //     await eel.load_cmds($(this)[0].files[0])();
+    $('#terminal-scripts-select_folder').click(async function() {
+        await eel.select_scripts_folder()();
+        await eel.get_scripts_list()().then(response => {
+            for (script_name of response.data) {                
+                $('#at_script_select').append(`<option value="${script_name}">${script_name}</option>`);
+            }
+        })
+    })
 
-    //     let res = await at_terminal_handler.get_cmds();
-    //     if (res) {
-    //         at_terminal_handler.render_groups();
-    //         at_terminal_handler.render_cmds();
-    //     }
-    // })
-
-    // $('#terminal-input-import_cmds').on("change", async function() {
-    //     let fr = new FileReader()
-    //     await eel.import_cmds($(this)[0].files[0])();
-
-    //     let res = await at_terminal_handler.get_cmds();
-    //     if (res) {
-    //         at_terminal_handler.render_groups();
-    //         at_terminal_handler.render_cmds();
-    //     }
-    // })
+    $('#terminal-scripts-refresh_list').click(async function() {
+        await eel.get_scripts_list()().then(response => {
+            for (script_name of response.data) {                
+                $('#at_script_select').append(`<option value="${script_name}">${script_name}</option>`);
+            }
+        })
+    })
 
 })
 

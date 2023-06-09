@@ -21,6 +21,8 @@ class Context():
 
         self.cmd_log = []  # list of tuples
 
+        self.scripts_folder = None
+
     def get_device(self, device_name):
         for device in self.devices:
             if device['dev_name'] == device_name:

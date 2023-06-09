@@ -130,3 +130,5 @@ dmypy.json
 
 /driver/
 dist.zip
+
+at_scripts/

@@ -47,6 +47,17 @@ def get_log_msgs():
     return data
 
 @eel.expose
+def select_scripts_folder():
+    c.scripts_folder = get_dir_path()
+
+@eel.expose
+def get_scripts_list():
+    if not c.scripts_folder:
+        return {'data': []}
+    
+    return {'data': os.listdir(c.scripts_folder)}
+
+@eel.expose
 def import_cmds():
     file_path = get_file_path()
     if not file_path:
