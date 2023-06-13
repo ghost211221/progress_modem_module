@@ -423,6 +423,25 @@ $(document).ready(async function() {
         })
     })
 
+    $('#at_script_select').change(function() {
+        eel.set_script_file($(this).val())();
+    })
+
+    $('#terminal-run_stop_script').click(async function() {
+        let mode = $(this).attr('mode');
+        if ($(this).attr('mode') == 'run') {
+            $(this).attr('mode', 'stop');
+            $(this).text('Стоп');
+            let timeout = $('#script_timeout').val();
+            let iterations = $('#script_loop_cnt').val();
+        } else if ($(this).attr('mode') == 'stop') {
+            $(this).attr('mode', 'run')
+            $(this).text('Запустить')
+        }
+
+        await eel.set_script_run_mode(mode)();
+    })
+
 })
 
 $(document).on('keypress',function(e) {
@@ -430,6 +449,11 @@ $(document).on('keypress',function(e) {
         at_terminal_handler.send_manual_cmd();
     }
 });
+
+eel.expose(set_iteration)
+function set_iteration(iteration) {
+    $('#script_iteration').val(iteration);
+}
 
 eel.expose(process_logs);
 function process_logs(records) {

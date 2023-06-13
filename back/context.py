@@ -22,6 +22,10 @@ class Context():
         self.cmd_log = []  # list of tuples
 
         self.scripts_folder = None
+        self.run_script = False
+        self.script_file = None
+        self.script_port_timeout = None
+        self.script_iterations = 0
 
     def get_device(self, device_name):
         for device in self.devices:

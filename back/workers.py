@@ -1,5 +1,6 @@
 from queue import Empty
 import time
+import os
 
 from datetime import datetime
 
@@ -7,7 +8,7 @@ import eel
 
 from back.context import Context
 from back.queues import TasksQueue, AnsQueue
-from back.utils import get_log_msgs
+from back.utils import get_log_msgs, get_cmd_callbacks
 
 
 c = Context()
@@ -56,3 +57,29 @@ def answers_processing_worker():
             time.sleep(0.1);
         except Empty:
             time.sleep(0.1);
+
+def script_running_worker():
+    while not c.exit:
+        if c.run_script:
+            if not c.script_file:
+                continue
+
+            try:
+                with open(os.path.join(c.scripts_folder, c.script_file)) as f:
+                    cmds = f.readlines()
+
+                c.device.set_timeout(c.script_port_timeout)
+                iteration = 0
+                while c.run_script and (c.script_iterations == 0 or iteration < c.script_iterations):
+                    eel.set_iteration(iteration)
+                    for cmd in cmds:
+                        callbacks = get_cmd_callbacks(cmd)
+                        q.put((cmd, callbacks))
+
+                    iteration += 1
+
+                c.device.set_timeout()
+            except Exception as e:
+                print(e)
+
+    

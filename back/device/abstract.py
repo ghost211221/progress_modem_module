@@ -49,6 +49,12 @@ class AbstractDevice(metaclass=ABCMeta):
 
         self.cmds = []
 
+    def set_timeout(self, timeout=None):
+        if not self.port:
+            raise ComSetupError(f'Порт не был открыт и настроен')
+        
+        self.port = timeout or self.timeout
+
     def get_mode(self):
         return {
             'cd': self.port.cd if self.connected else False,

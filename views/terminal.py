@@ -58,6 +58,36 @@ def get_scripts_list():
     return {'data': os.listdir(c.scripts_folder)}
 
 @eel.expose
+def set_script_timeout(timeout):
+    c.script_port_timeout = timeout
+
+@eel.expose
+def set_script_iterations(iterations):
+    c.script_iterations = iterations
+
+@eel.expose
+def set_script_file(file_name):
+    c.script_file = file_name
+
+@eel.expose
+def set_script_run_mode(mode):
+    if mode not in ('run', 'stop'):
+        eel.process_logs([{
+            'cmd': '',
+            'echo': '',
+            'datetime': '',
+            'hex': '',
+            'ans': f'Не верный режим работы скрипта: {mode}'
+        }])
+        return
+    
+    if mode == 'run':
+        c.run_script = True
+    
+    elif mode == 'stop':
+        c.run_script = False
+
+@eel.expose
 def import_cmds():
     file_path = get_file_path()
     if not file_path:
