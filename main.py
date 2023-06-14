@@ -5,7 +5,7 @@ import eel
 from back.context import Context
 # from back.device.sara_u201 import SaraU201
 from back.device.mri import MRI
-from back.workers import task_processing_worker, log_processing_worker, answers_processing_worker
+from back.workers import task_processing_worker, script_running_worker
 from views.comport import *
 from views.sms import *
 from views.terminal import *
@@ -35,6 +35,9 @@ if __name__ == '__main__':
 
     tasks_thread = Thread(target=task_processing_worker)
     tasks_thread.start()
+
+    script_thread = Thread(target=script_running_worker)
+    script_thread.start()
 
     eel.start(
         'templates/main.html',

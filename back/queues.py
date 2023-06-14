@@ -21,6 +21,10 @@ class TasksQueue():
     def get(self, timeout=1):
         return self.__queue.get(timeout=timeout)
 
+    def clear(self):
+        with self.__queue.mutex:
+            self.__queue.queue.clear()
+
 class AnsQueue():
     """Deivce answers queue
     """

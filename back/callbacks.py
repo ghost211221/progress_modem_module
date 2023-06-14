@@ -1,11 +1,23 @@
 import re
 
+import eel
+
 from back.consts.cops import ACT, STAT, RAT
 from back.consts.operators import MAP_CODE_OPERTOR
 from back.context import Context
 from back.decorators import clear_ok, clear_premessage, clear_br
+from back.queues import TasksQueue
+
 
 c = Context()
+q = TasksQueue()
+
+
+def stop_script_execution(*args):
+    q.clear()
+    c.run_script = False
+    c.device.set_timeout()
+    eel.reinit_start_btn()
 
 @clear_ok
 @clear_br
@@ -281,4 +293,3 @@ def erat(cmd, response):
         {'field': 'network-rat', 'data': RAT.get(rat_mode)},
         {'field': 'operator', 'add_data': RAT.get(rat_mode)},
     ]
-

@@ -409,15 +409,17 @@ $(document).ready(async function() {
     $('#terminal-scripts-select_folder').click(async function() {
         await eel.select_scripts_folder()();
         await eel.get_scripts_list()().then(response => {
-            for (script_name of response.data) {                
+            for (script_name of response.data) {
                 $('#at_script_select').append(`<option value="${script_name}">${script_name}</option>`);
             }
         })
+
+        $('#at_script_select').change()
     })
 
     $('#terminal-scripts-refresh_list').click(async function() {
         await eel.get_scripts_list()().then(response => {
-            for (script_name of response.data) {                
+            for (script_name of response.data) {
                 $('#at_script_select').append(`<option value="${script_name}">${script_name}</option>`);
             }
         })
@@ -425,6 +427,10 @@ $(document).ready(async function() {
 
     $('#at_script_select').change(function() {
         eel.set_script_file($(this).val())();
+    })
+
+    $('#script_loop_cnt').change(function() {
+        eel.set_script_iterations($(this).val())();
     })
 
     $('#terminal-run_stop_script').click(async function() {
@@ -453,6 +459,12 @@ $(document).on('keypress',function(e) {
 eel.expose(set_iteration)
 function set_iteration(iteration) {
     $('#script_iteration').val(iteration);
+}
+
+eel.expose(reinit_start_btn)
+function reinit_start_btn() {
+    $('#terminal-run_stop_script').attr('mode', 'run')
+    $('#terminal-run_stop_script').text('Запустить')
 }
 
 eel.expose(process_logs);

@@ -6,6 +6,7 @@ from datetime import datetime
 
 import eel
 
+from back.callbacks import stop_script_execution
 from back.context import Context
 from back.queues import TasksQueue, AnsQueue
 from back.utils import get_log_msgs, get_cmd_callbacks
@@ -19,12 +20,13 @@ def task_processing_worker():
     while not c.exit:
         try:
             cmd, callbacks = q.get(timeout=1)
-            c.device.send(cmd)
-            ret = c.device.read()
-            ret['cmd'] = cmd
-            ret['datetime'] = str(datetime.now())
-            ret['hex'] = ' '.join([str.encode(a).hex() for a in ret.get('ans', '')])
-            eel.process_logs([ret,])
+            if cmd:
+                c.device.send(cmd)
+                ret = c.device.read()
+                ret['cmd'] = cmd
+                ret['datetime'] = str(datetime.now())
+                ret['hex'] = ' '.join([str.encode(a).hex() for a in ret.get('ans', '')])
+                eel.process_logs([ret,])
             if callbacks:
                 for callback in callbacks:
                     if callback:
@@ -78,8 +80,8 @@ def script_running_worker():
 
                     iteration += 1
 
-                c.device.set_timeout()
+                # add stop script callback for end of script
+                q.put((None, [stop_script_execution]))
             except Exception as e:
                 print(e)
 
-    

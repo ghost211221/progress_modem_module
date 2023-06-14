@@ -54,7 +54,7 @@ def select_scripts_folder():
 def get_scripts_list():
     if not c.scripts_folder:
         return {'data': []}
-    
+
     return {'data': os.listdir(c.scripts_folder)}
 
 @eel.expose
@@ -63,7 +63,7 @@ def set_script_timeout(timeout):
 
 @eel.expose
 def set_script_iterations(iterations):
-    c.script_iterations = iterations
+    c.script_iterations = int(iterations)
 
 @eel.expose
 def set_script_file(file_name):
@@ -80,12 +80,13 @@ def set_script_run_mode(mode):
             'ans': f'Не верный режим работы скрипта: {mode}'
         }])
         return
-    
+
     if mode == 'run':
         c.run_script = True
-    
+
     elif mode == 'stop':
         c.run_script = False
+        q.clear()
 
 @eel.expose
 def import_cmds():
@@ -115,7 +116,7 @@ def load_cmds():
             if not list(filter(lambda g: g['name'] == cmd_group['name'], old_cms)):
                 old_cms.append(cmd_group)
                 continue
-            
+
             for g in old_cms:
                 if g['name'] == cmd_group['name']:
                     for cmd in cmd_group['items']:
