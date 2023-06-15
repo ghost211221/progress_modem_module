@@ -10,6 +10,17 @@ $(document).ready(async function() {
         }
     })
 
+    $('#sms-set_sms_number').click(async function() {
+        let tel_num = $('#sms-sms_number').val();
+        if (tel_num === '') {
+            return
+        }
+        await eel.set_sms_number(tel_num)();
+    })
+
+    $('#sms-get_sms_list').click(function() {
+        eel.get_sms_list()();
+    })
 
 })
 

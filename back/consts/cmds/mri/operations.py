@@ -80,3 +80,8 @@ get_calls_list = [
     'AT+CPBR=?',
     'T+CPBR=1,20',
 ]
+
+get_messages_list = [
+    'AT+CMGF=1',
+    'AT+CMGL="ALL"',
+]

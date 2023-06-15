@@ -293,3 +293,41 @@ def erat(cmd, response):
         {'field': 'network-rat', 'data': RAT.get(rat_mode)},
         {'field': 'operator', 'add_data': RAT.get(rat_mode)},
     ]
+
+@clear_ok
+@clear_premessage
+@clear_br
+def cmgl(cmd, response):
+    """get messages"""
+
+    if 'CMGL="ALL"' in cmd:
+        messages = []
+        lines = response['cl_ans'].split('\r\n\r\n+CMGL: ')
+        for line in lines:
+            if not line:
+                continue
+            arr = line.split(',')
+
+            idx = int(arr[0])
+            phone_number = arr[2].replace('"', '')
+            msg_date = arr[3]
+            msg_status = arr[1].replace('"', '')
+            messages.append(dict(
+                i=idx,
+                number=phone_number,
+                date=msg_date,
+                status=msg_status,
+            ))
+
+        return [
+            {
+                'field': 'sms-sms_table',
+                'table_data': messages,
+                'table_row_style': {
+                    'width': '100%',
+                    'display': 'inline-table',
+                    'table-layout': 'fixed'
+                }
+
+            }
+        ]

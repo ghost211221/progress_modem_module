@@ -7,6 +7,8 @@ from back.context import Context
 from back.queues import AnsQueue, TasksQueue
 from back.utils import get_cmd_callbacks
 
+from views.terminal import execute_operation
+
 
 c = Context()
 aq = AnsQueue()
@@ -33,3 +35,17 @@ def send_sms(phone_number, text):
                 return
 
             raise Exception(f'Method {op_t} is not implemented')
+
+@eel.expose
+def set_sms_number(tel_num):
+    cmd = f'AT+CSCA="{tel_num}"'
+    callbacks = get_cmd_callbacks('AT+CMGS')
+    q.put((cmd, callbacks))
+
+    cmd = f'AT+CSCA?'
+    callbacks = get_cmd_callbacks('AT+CSCA')
+    q.put((cmd, callbacks))
+
+@eel.expose
+def get_sms_list():
+    execute_operation('get_messages_list')
