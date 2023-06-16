@@ -47,5 +47,11 @@ def set_sms_number(tel_num):
     q.put((cmd, callbacks))
 
 @eel.expose
+def get_sms_text(sms_num):
+    cmd = f'AT+CMGR={sms_num}'
+    callbacks = get_cmd_callbacks('AT+CMGR')
+    q.put((cmd, callbacks))
+
+@eel.expose
 def get_sms_list():
     execute_operation('get_messages_list')

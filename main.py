@@ -43,7 +43,7 @@ if __name__ == '__main__':
         'templates/main.html',
         jinja_templates='templates',
         mode='chrome',
-        size=(1160, 975),
+        size=(1150, 975),
         position=(0,0),
         close_callback=close_callback
     )

@@ -35,9 +35,9 @@ def task_processing_worker():
                             eel.update_field(res)
 
             # aq.put(ret)
-            time.sleep(0.1)
+            time.sleep(0.05)
         except Empty:
-            time.sleep(0.1)
+            time.sleep(0.05)
 
 def log_processing_worker():
     while not c.exit:

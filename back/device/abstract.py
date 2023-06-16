@@ -154,7 +154,7 @@ class AbstractDevice(metaclass=ABCMeta):
                     echo = ''
                 if not echo:
                     i += 1
-                    time.sleep(0.1)
+                    time.sleep(0.01)
 
             ans = ''
             i = 0
@@ -165,7 +165,7 @@ class AbstractDevice(metaclass=ABCMeta):
                     ans = ''
                 if not echo:
                     i += 1
-                    time.sleep(0.1)
+                    time.sleep(0.01)
 
             return {'echo': echo, 'ans': ans}
         except SerialException as e:

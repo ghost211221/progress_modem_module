@@ -1,6 +1,6 @@
 $(document).ready(async function() {
-    $('#send_sms').click(function() {
-        $('#clear_sms_text').val('');
+    $('#clear_sms_text').click(function() {
+        $('#sms_text').val('');
     })
 
     $('#send_sms').click(function() {
@@ -20,6 +20,23 @@ $(document).ready(async function() {
 
     $('#sms-get_sms_list').click(function() {
         eel.get_sms_list()();
+    })
+
+    $('#sms-sms_table').on('click', 'tbody tr', function(event) {
+        $(this).addClass('selected').siblings().removeClass('selected');
+        $(this).find('td').each(function() {
+            if ($(this).attr('key') === 'i') {
+                eel.get_sms_text($(this).attr('data'))();
+            }
+        })
+    });
+
+    $('#sms-answer_sms').click(function() {
+        $('#sms-sms_table').find('td').each(function() {
+            if ($(this).attr('key') === 'number') {
+                $('#sms_phone_number').val($(this).attr('data'));
+            }
+        })
     })
 
 })

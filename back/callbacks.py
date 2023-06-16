@@ -310,7 +310,7 @@ def cmgl(cmd, response):
 
             idx = int(arr[0])
             phone_number = arr[2].replace('"', '')
-            msg_date = arr[3]
+            msg_date = arr[4].split('\r\n')[0].replace('"', '')
             msg_status = arr[1].replace('"', '')
             messages.append(dict(
                 i=idx,
@@ -323,11 +323,21 @@ def cmgl(cmd, response):
             {
                 'field': 'sms-sms_table',
                 'table_data': messages,
-                'table_row_style': {
-                    'width': '100%',
-                    'display': 'inline-table',
-                    'table-layout': 'fixed'
-                }
-
+                # 'table_row_style': {
+                #     'width': '100%',
+                #     'display': 'inline-table',
+                #     'table-layout': 'fixed'
+                # }
             }
+        ]
+
+@clear_ok
+@clear_premessage
+@clear_br
+def cmgr(cmd, response):
+    """get messages"""
+
+    if re.findall(r'CMGR=\d', cmd):
+        return [
+            {'field': 'sms2_text', 'data': response['cl_ans'].split('\r\n')[1]},
         ]
