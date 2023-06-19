@@ -15,7 +15,7 @@ from views.phonebook import *
 from views.version import *
 
 
-VERSION = '0.2.1'
+VERSION = '0.3.1'
 
 context = Context()
 
