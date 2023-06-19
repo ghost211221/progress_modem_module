@@ -32,11 +32,28 @@ $(document).ready(async function() {
     });
 
     $('#sms-answer_sms').click(function() {
-        $('#sms-sms_table').find('td').each(function() {
-            if ($(this).attr('key') === 'number') {
+        $('#sms-sms_table .selected td').each(function() {
+            if ($(this).attr('key') === 'i') {
                 $('#sms_phone_number').val($(this).attr('data'));
             }
         })
+    })
+
+    $('#sms-delete_selected_sms').click(function() {
+        $('#sms-sms_table .selected td').each(function() {
+            if ($(this).attr('key') === 'i') {
+                eel.delete_sms($(this).attr('data'))();
+            }
+        })
+    })
+
+    $('#sms-delete_all_sms').click(function() {
+        eel.delete_all_sms()();
+    })
+
+
+    $('#sms-disable_sms_alert').click(function() {
+        eel.disable_sms_alert()();
     })
 
 })

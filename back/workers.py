@@ -18,26 +18,38 @@ aq = AnsQueue()
 
 def task_processing_worker():
     while not c.exit:
+        if not c.device.connected:
+            time.sleep(0.05)
+            continue
+
+        cmd, callbacks = None, None
         try:
             cmd, callbacks = q.get(timeout=1)
-            if cmd:
-                c.device.send(cmd)
-                ret = c.device.read()
-                ret['cmd'] = cmd
-                ret['datetime'] = str(datetime.now())
-                ret['hex'] = ' '.join([str.encode(a).hex() for a in ret.get('ans', '')])
-                eel.process_logs([ret,])
-            if callbacks:
-                for callback in callbacks:
-                    if callback:
-                        res = callback(cmd, ret)
-                        if res:
-                            eel.update_field(res)
-
-            # aq.put(ret)
-            time.sleep(0.05)
         except Empty:
-            time.sleep(0.05)
+            pass
+
+        if cmd:
+            c.device.send(cmd)
+
+        ret = c.device.read()
+        if not ret.get('ans'):
+            time.sleep(0.01)
+            continue
+
+        if cmd:
+            ret['cmd'] = cmd
+        ret['datetime'] = str(datetime.now())
+        ret['hex'] = ' '.join([str.encode(a).hex() for a in ret.get('ans', '')])
+        eel.process_logs([ret,])
+
+        if callbacks:
+            for callback in callbacks:
+                if callback:
+                    res = callback(cmd, ret)
+                    if res:
+                        eel.update_field(res)
+
+        time.sleep(0.01)
 
 def log_processing_worker():
     while not c.exit:
@@ -84,4 +96,6 @@ def script_running_worker():
                 q.put((None, [stop_script_execution]))
             except Exception as e:
                 print(e)
+        else:
+            time.sleep(1)
 

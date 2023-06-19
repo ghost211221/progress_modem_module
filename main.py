@@ -1,4 +1,5 @@
 from threading import Thread
+import time
 from sys import exit
 import eel
 
@@ -20,6 +21,7 @@ context = Context()
 
 def close_callback(route, websockets):
     context.exit = True
+    time.sleep(0.2)
     if context.device and context.device.port:
         context.device.port.close()
 

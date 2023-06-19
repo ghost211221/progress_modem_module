@@ -590,8 +590,12 @@ let at_terminal_handler = {
 
     render_log_record: function(cmd, echo, ans, timestamp, hex) {
         let html = $('#at_log').html();
-        html += `<span>${cmd}</span><br>`;
+        if (cmd !== undefined && cmd !== '') {
+            html += `<span>${cmd}</span><br>`;
+        }
+        if (echo !== undefined && echo !== '') {
         html += `<span class="log-blue">${echo}</span><br>`;
+    }
 
         if ($('#print_timestamp').prop('checked')) {
             html += `<span class="log-green">[ ${timestamp} ]</span>`

@@ -85,3 +85,14 @@ get_messages_list = [
     'AT+CMGF=1',
     'AT+CMGL="ALL"',
 ]
+
+delete_all_sms = [
+    'AT+CMGD=0,4',
+    'AT+CMGF=1',
+    'AT+CMGL="ALL"',
+]
+
+disable_sms_alert = [
+    'AT+CNMI=1,0',
+    'AT+CNMI?',
+]

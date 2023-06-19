@@ -27,4 +27,5 @@ CMDS = [
     {'cmd': 'CMGF', 'callback': None},
     {'cmd': 'CMGL', 'callback': cmgl},
     {'cmd': 'CMGR', 'callback': cmgr},
+    {'cmd': 'CMGD', 'callback': None},
 ]

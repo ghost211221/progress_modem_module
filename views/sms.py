@@ -53,5 +53,21 @@ def get_sms_text(sms_num):
     q.put((cmd, callbacks))
 
 @eel.expose
+def delete_sms(sms_num):
+    cmd = f'AT+CMGD={sms_num}'
+    callbacks = get_cmd_callbacks('AT+CMGD')
+    q.put((cmd, callbacks))
+
+    execute_operation('get_messages_list')
+
+@eel.expose
+def delete_all_sms():
+    execute_operation('delete_all_sms')
+
+@eel.expose
+def disable_sms_alert():
+    execute_operation('disable_sms_alert')
+
+@eel.expose
 def get_sms_list():
     execute_operation('get_messages_list')
