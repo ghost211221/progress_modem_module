@@ -8,6 +8,7 @@ from back.context import Context
 from back.device.mri import MRI
 from back.workers import task_processing_worker, script_running_worker
 from views.comport import *
+from views.main_ops import *
 from views.sms import *
 from views.terminal import *
 from views.network import *

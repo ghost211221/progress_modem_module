@@ -54,6 +54,15 @@
         </div>
     </div>
 
+    <script>
+        $(document).ready(function() {
+            $('#exit_btn').click(function() {
+                eel.close_app()();
+                window.close();
+            })
+        })
+    </script>
+
     <!-- Modals -->
     {% include 'modals.html'%}
 </body>
