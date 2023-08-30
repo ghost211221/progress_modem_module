@@ -60,6 +60,14 @@
                 eel.close_app()();
                 window.close();
             })
+
+            $('#enable_hex_mode_menu').click(function() {
+                $('#print_hex').attr("checked", !$('#print_hex').attr("checked")).trigger('click');
+            })
+
+            $('#enable_timestamp_menu').click(function() {
+                $('#print_timestamp').attr("checked", !$('#print_timestamp').attr("checked")).trigger('click');
+            })
         })
     </script>
 

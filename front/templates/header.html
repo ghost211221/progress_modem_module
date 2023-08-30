@@ -23,8 +23,8 @@
               Отображение
             </a>
             <ul class="dropdown-menu panel-menu" aria-labelledby="navbarDropdownMenuLink">
-              <li><a class="dropdown-item" href="#">Hex режим терминала</a></li>
-              <li><a class="dropdown-item" href="#">Timestamp терминала</a></li>
+              <li><a class="dropdown-item" href="#" id="enable_hex_mode_menu">Hex режим терминала</a></li>
+              <li><a class="dropdown-item" href="#" id="enable_timestamp_menu">Timestamp терминала</a></li>
               <!-- <li><hr class="dropdown-divider"></li>
               <li><a class="dropdown-item" href="#">Timestamp лога</a></li> -->
             </ul>
@@ -34,44 +34,20 @@
               Навигация
             </a>
             <ul class="dropdown-menu panel-menu" aria-labelledby="navbarDropdownMenuLink">
-              <li><a class="dropdown-item" href="#">Соединение</a></li>
-              <li><a class="dropdown-item" href="#">Сетевая информация</a></li>
-              <li><a class="dropdown-item" href="#">Терминал ввода АТ-команд</a></li>
-              <li><a class="dropdown-item" href="#">Телефонная книга</a></li>
-              <li><a class="dropdown-item" href="#">СМС</a></li>
-              <!-- <li><a class="dropdown-item" href="#">Позиционирование</a></li> -->
-              <li><a class="dropdown-item" href="#">FOTA</a></li>
+              <li><a class="dropdown-item" href="#" onclick="$('#panel_switch__connection').click()">Соединение</a></li>
+              <li><a class="dropdown-item" href="#" onclick="$('#panel_switch__network').click()">Сетевая информация</a></li>
+              <li><a class="dropdown-item" href="#" onclick="$('#panel_switch__at_terminal').click()">Терминал ввода АТ-команд</a></li>
+              <li><a class="dropdown-item" href="#" onclick="$('#panel_switch__phone_book').click()">Телефонная книга</a></li>
+              <li><a class="dropdown-item" href="#" onclick="$('#panel_switch__sms').click()">СМС</a></li>
+              <li><a class="dropdown-item" href="#" onclick="$('#panel_switch__fota').click()">FOTA</a></li>
             </ul>
           </li>
-          <!-- <li class="nav-item dropdown">
-            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-              Настройки
-            </a>
-            <ul class="dropdown-menu panel-menu" aria-labelledby="navbarDropdownMenuLink">
-              <li class="nav-item dropdown">
-                <a class="dropdown-item dropdown-toggle" href="#" data-bs-toggle="dropdown">Определение модема</a>
-                <ul class="submenu dropdown-menu">
-                  <li><a class="dropdown-item" href="#">GSMA Model ATI7</a></li>
-                </ul>
 
-              </li>
-              <li><a class="dropdown-item" href="#">Отключить ECHO модема</a></li>
-              <li><hr class="dropdown-divider"></li>
-              <li><a class="dropdown-item" href="#">Символ терминатора строки</a>
-                <ul class="dropdown-menu dropdown-submenu">
-                  <li>
-                    <a class="dropdown-item" href="#">Submenu item 1</a>
-                  </li>
-                </ul>
-              </li>
-            </ul>
-          </li> -->
           <li class="nav-item dropdown">
             <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" role="button" data-bs-toggle="dropdown" aria-expanded="false">
               Help
             </a>
             <ul class="dropdown-menu panel-menu" aria-labelledby="navbarDropdownMenuLink">
-              <li><a class="dropdown-item" href="#">Центр помощи</a></li>
               <li><a class="dropdown-item" href="#">О программе</a></li>
             </ul>
           </li>
